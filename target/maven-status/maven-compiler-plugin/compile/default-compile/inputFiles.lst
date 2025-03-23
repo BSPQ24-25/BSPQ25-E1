@@ -1,2 +1,10 @@
-/Users/iboncas/Downloads/healthcare-portal/src/main/java/com/hospital/healthcare_portal/HealthcarePortalApplication.java
-/Users/iboncas/Downloads/healthcare-portal/src/main/java/com/hospital/healthcare_portal/controller/HomeController.java
+/Users/iboncas/Desktop/BSPQ25-E1/src/main/java/com/hospital/portal/HealthcarePortalApplication.java
+/Users/iboncas/Desktop/BSPQ25-E1/src/main/java/com/hospital/portal/controller/HomeController.java
+/Users/iboncas/Desktop/BSPQ25-E1/src/main/java/com/hospital/portal/model/Admin.java
+/Users/iboncas/Desktop/BSPQ25-E1/src/main/java/com/hospital/portal/model/Doctor.java
+/Users/iboncas/Desktop/BSPQ25-E1/src/main/java/com/hospital/portal/model/Patient.java
+/Users/iboncas/Desktop/BSPQ25-E1/src/main/java/com/hospital/portal/model/Specialty.java
+/Users/iboncas/Desktop/BSPQ25-E1/src/main/java/com/hospital/portal/model/User.java
+/Users/iboncas/Desktop/BSPQ25-E1/src/main/java/com/hospital/portal/repository/AdminRepository.java
+/Users/iboncas/Desktop/BSPQ25-E1/src/main/java/com/hospital/portal/repository/DoctorRepository.java
+/Users/iboncas/Desktop/BSPQ25-E1/src/main/java/com/hospital/portal/repository/PatientRepository.java
