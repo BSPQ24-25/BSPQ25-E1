@@ -5,6 +5,7 @@ com/hospital/portal/model/User.class
 com/hospital/portal/model/Admin.class
 com/hospital/portal/repository/AdminRepository.class
 com/hospital/portal/model/Patient.class
+com/hospital/portal/controller/TemplateController.class
 com/hospital/portal/controller/HomeController.class
 com/hospital/portal/model/Doctor.class
 com/hospital/portal/HealthcarePortalApplication.class
