@@ -1,4 +1,4 @@
-package com.hospital.healthcare_portal;
+package com.hospital.portal;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
