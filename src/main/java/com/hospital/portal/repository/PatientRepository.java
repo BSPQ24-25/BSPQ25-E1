@@ -4,4 +4,6 @@ import com.hospital.portal.model.Patient;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface PatientRepository extends JpaRepository<Patient, String> {
+    boolean existsById(String id); // Cambiar "dni" por "id"
 }
+
