@@ -9,24 +9,29 @@ import com.hospital.portal.service.LoginService;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/auth")
+@RequestMapping("/login")
 public class LoginController {
 
     @Autowired
     private LoginService loginService;
 
-    @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody Map<String, String> credentials) {
-        String dni = credentials.get("id");
-        String password = credentials.get("password");
-
-        String role = loginService.login(dni, password);
-
-        if ("INVALID_CREDENTIALS".equals(role)) {
-            return ResponseEntity.status(401).body("Invalid credentials");
+    @PostMapping
+    public ResponseEntity<?> login(
+        @RequestParam("dni") String dni, 
+        @RequestParam("password") String password) {
+            
+        if (dni == null || password == null) {
+            return ResponseEntity.badRequest().body("DNI and password are required.");
         }
 
-        return ResponseEntity.ok(Map.of("role", role));
+        try {
+            String role = loginService.login(dni, password);
+            if ("INVALID_CREDENTIALS".equals(role)) {
+                return ResponseEntity.status(401).body("Invalid credentials");
+            }
+            return ResponseEntity.ok(Map.of("role", role));
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body("Login failed: " + e.getMessage());
+        }
     }
-
 }

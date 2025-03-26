@@ -3,26 +3,35 @@ import java.time.LocalDate;
 
 import jakarta.persistence.Id;
 import jakarta.persistence.MappedSuperclass;
+import jakarta.persistence.Column;
+
 
 @MappedSuperclass
 public abstract class User {
     @Id
-    private String id; //DNI
-    
+    @Column(nullable = false)
+    public String dni; 
+    @Column(nullable = false)
     private String name;
+    @Column(nullable = false)
     private String surname;
+    @Column(nullable = false)
     private LocalDate birthDate;
+    @Column(nullable = false)
     private String gender;
+    @Column(nullable = false)
     private String phone;
+    @Column(nullable = false)
     private String mail;
+    @Column(nullable = false)
     private String password;
 
     // Default constructor
     public User() {}
 
     // Constructor with parameters
-    public User(String id, String name, String surname, LocalDate birthDate, String gender, String phone, String mail, String password) {
-        this.id = id;
+    public User(String dni, String name, String surname, LocalDate birthDate, String gender, String phone, String mail, String password) {
+        this.dni = dni;
         this.name = name;
         this.surname = surname;
         this.birthDate = birthDate;
@@ -33,12 +42,12 @@ public abstract class User {
     }
 
     // Getters and Setters
-    public String getId() {
-        return id;
+    public String getDni() {
+        return dni;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setDni(String dni) {
+        this.dni = dni;
     }
 
     public String getName() {
@@ -81,11 +90,11 @@ public abstract class User {
         this.phone = phone;
     }
 
-    public String getMail() {
+    public String getEmail() {
         return mail;
     }
 
-    public void setMail(String mail) {
+    public void setEmail(String mail) {
         this.mail = mail;
     }
 
@@ -100,7 +109,7 @@ public abstract class User {
     // toString method
     @Override
     public String toString() {
-        return "id='" + id + '\'' +
+        return "dni='" + dni + '\'' +
                ", name='" + name + '\'' +
                ", surname='" + surname + '\'' +
                ", birthDate=" + birthDate +

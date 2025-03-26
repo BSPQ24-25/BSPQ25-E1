@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <title>User Registration</title>
-  <link href="../static/css/styles.css" rel="stylesheet">
+  <link href="/css/styles.css" rel="stylesheet">
 </head>
 
 <body>
@@ -54,27 +54,26 @@
 
   <script>
     document.getElementById('submitButton').addEventListener('click', function () {
-      const form = document.getElementById('registrationForm');
-      const formData = new FormData(form);
-      const jsonData = Object.fromEntries(formData);
+    const form = document.getElementById('registrationForm');
+    const formData = new FormData(form);
 
-      fetch('/auth/register', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json' // Explicitly set the content type
-        },
-        body: JSON.stringify(jsonData) // Convert form data to JSON format
-      })
-        .then(response => {
-          if (!response.ok) {
-            throw new Error('HTTP status ' + response.status);
-          }
-          return response.json();
-        })
-        .then(data => console.log('Success:', data))
-        .catch(error => console.error('Error:', error));
-    });
+    // Convert formData to a JSON object
+    const jsonData = Object.fromEntries(formData);
+    
+    // Convert birthDate to proper format
+    jsonData.birthDate = new Date(jsonData.birthDate).toISOString().split('T')[0]; 
 
+    fetch('/register', {
+      method: 'POST',
+      headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+      },
+      body: new URLSearchParams(formData).toString()
+  })
+    .then(response => response.text()) // Expecting text response
+    .then(data => alert('Response: ' + data)) // Show response in alert
+    .catch(error => console.error('Error:', error));
+  });
   </script>
 </body>
 

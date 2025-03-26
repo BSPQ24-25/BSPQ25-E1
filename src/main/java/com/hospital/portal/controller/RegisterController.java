@@ -1,0 +1,36 @@
+package com.hospital.portal.controller;
+
+import com.hospital.portal.service.RegisterService;
+import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import java.time.LocalDate;
+import com.hospital.portal.model.Patient;
+
+@RestController
+@RequestMapping("/register")
+public class RegisterController {
+    @Autowired
+    private RegisterService registerService;
+
+    @PostMapping
+    public ResponseEntity<?> registerPatient(
+            @RequestParam("dni") String dni,
+            @RequestParam("name") String name,
+            @RequestParam("surname") String surname,
+            @RequestParam("phone") String phone,
+            @RequestParam("email") String email,
+            @RequestParam("birthDate") String birthDateString,
+            @RequestParam("gender") String gender,
+            @RequestParam("password") String password) {
+        try {
+            LocalDate birthDate = LocalDate.parse(birthDateString);
+            return ResponseEntity.ok(registerService.registerPatient(
+                    dni, name, surname, phone, email, birthDate, gender, password
+            ));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Register failed: " + e.getMessage());
+        }
+    }
+}
