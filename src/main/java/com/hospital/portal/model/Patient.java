@@ -8,7 +8,7 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "patients")
 public class Patient extends User {
-    private String patientId;
+    private String patientId; //numero aleatorio
 
     // Default constructor
     public Patient() {}
@@ -28,6 +28,7 @@ public class Patient extends User {
         this.patientId = patientId;
     }
 
+
     // toString method
     @Override
     public String toString() {
@@ -43,4 +44,5 @@ public class Patient extends User {
                 ", patientId='" + patientId + '\'' +
                 '}';
     }
+
 }

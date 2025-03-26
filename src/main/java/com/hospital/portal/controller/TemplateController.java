@@ -9,7 +9,7 @@ public class TemplateController {
         return "index";
     }
 
-    @GetMapping("/registration")
+    @GetMapping("/register")
     public String showRegistrationForm() {
         return "registrationForm";
     }

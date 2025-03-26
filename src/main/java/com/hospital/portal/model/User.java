@@ -7,7 +7,7 @@ import jakarta.persistence.MappedSuperclass;
 @MappedSuperclass
 public abstract class User {
     @Id
-    private String id;
+    private String id; //DNI
     
     private String name;
     private String surname;
