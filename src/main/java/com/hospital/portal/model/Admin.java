@@ -4,19 +4,20 @@ import java.time.LocalDate;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
+import jakarta.persistence.Column;
 
 @Entity
 @Table(name = "admins")
 public class Admin extends User {
-    
+    @Column(nullable = false)
     private String workerId;
 
     // Default constructor
     public Admin() {}
 
     // Constructor with parameters
-    public Admin(String id, String name, String surname, LocalDate birthDate, String gender, String phone, String mail, String password, String workerId) {
-        super(id, name, surname, birthDate, gender, phone, mail, password);  // Call to the parent constructor
+    public Admin(String dni, String name, String surname, LocalDate birthDate, String gender, String phone, String mail, String password, String workerId) {
+        super(dni, name, surname, birthDate, gender, phone, mail, password);  // Call to the parent constructor
         this.workerId = workerId;
     }
 

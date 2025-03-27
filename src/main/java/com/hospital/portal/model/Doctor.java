@@ -6,11 +6,12 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.persistence.Column;
 
 @Entity
 @Table(name = "doctors")
 public class Doctor extends User {
-    
+    @Column(nullable = false)
     private String doctorId;
 
     @ManyToOne
@@ -21,8 +22,8 @@ public class Doctor extends User {
     public Doctor() {}
 
     // Constructor with parameters
-    public Doctor(String id, String name, String surname, LocalDate birthDate, String gender, String phone, String mail, String password, String doctorId, Specialty specialty) {
-        super(id, name, surname, birthDate, gender, phone, mail, password);  // Call to the parent constructor
+    public Doctor(String dni, String name, String surname, LocalDate birthDate, String gender, String phone, String mail, String password, String doctorId, Specialty specialty) {
+        super(dni, name, surname, birthDate, gender, phone, mail, password);  // Call to the parent constructor
         this.doctorId = doctorId;
         this.specialty = specialty;
     }

@@ -1,0 +1,37 @@
+package com.hospital.portal.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import com.hospital.portal.service.LoginService;
+
+import java.util.Map;
+
+@RestController
+@RequestMapping("/login")
+public class LoginController {
+
+    @Autowired
+    private LoginService loginService;
+
+    @PostMapping
+    public ResponseEntity<?> login(
+        @RequestParam("dni") String dni, 
+        @RequestParam("password") String password) {
+            
+        if (dni == null || password == null) {
+            return ResponseEntity.badRequest().body("DNI and password are required.");
+        }
+
+        try {
+            String role = loginService.login(dni, password);
+            if ("INVALID_CREDENTIALS".equals(role)) {
+                return ResponseEntity.status(401).body("Invalid credentials");
+            }
+            return ResponseEntity.ok(Map.of("role", role));
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body("Login failed: " + e.getMessage());
+        }
+    }
+}
