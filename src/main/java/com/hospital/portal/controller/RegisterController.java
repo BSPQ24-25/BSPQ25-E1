@@ -11,8 +11,13 @@ import com.hospital.portal.model.Patient;
 @RestController
 @RequestMapping("/register")
 public class RegisterController {
+     
     @Autowired
-    private RegisterService registerService;
+    private final RegisterService registerService;
+
+    public RegisterController(RegisterService registerService) {
+        this.registerService = registerService;
+    }
 
     @PostMapping
     public ResponseEntity<?> registerPatient(
