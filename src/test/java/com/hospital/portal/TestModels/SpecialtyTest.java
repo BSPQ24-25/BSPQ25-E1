@@ -1,4 +1,4 @@
-package com.hospital.portal;
+package com.hospital.portal.TestModels;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
