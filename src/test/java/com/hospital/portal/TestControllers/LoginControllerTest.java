@@ -1,16 +1,18 @@
 package com.hospital.portal.TestControllers;
+import java.util.Map;
 
-import com.hospital.portal.controller.LoginController;
-import com.hospital.portal.service.LoginService;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 import org.springframework.http.ResponseEntity;
 
-import java.util.Map;
-
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
+import com.hospital.portal.controller.LoginController;
+import com.hospital.portal.service.LoginService;
 
 class LoginControllerTest {
 
@@ -19,29 +21,31 @@ class LoginControllerTest {
 
     @BeforeEach
     void setUp() {
-        loginService = mock(LoginService.class);  // Creamos un mock del servicio
-        loginController = new LoginController(loginService);  // Usamos el constructor con el servicio mockeado
+        loginService = mock(LoginService.class);  // Create mock
+        loginController = new LoginController(loginService);  // Use constructor
     }
 
     @Test
-    @DisplayName("Should return role when credentials are valid")
+    @DisplayName("Should return role, dni, and name when credentials are valid")
     void testLogin_Success() {
-        when(loginService.login("12345678A", "password123")).thenReturn("ADMIN");
+        Map<String, Object> userInfo = Map.of("role", "ADMIN", "dni", "12345678A", "name", "John Doe");
+        when(loginService.login("12345678A", "password123")).thenReturn(userInfo);
 
         ResponseEntity<?> response = loginController.login("12345678A", "password123");
 
-        assertEquals(200, response.getStatusCode().value());  // Verificamos código 200
-        assertEquals(Map.of("role", "ADMIN"), response.getBody());  // Verificamos respuesta esperada
+        assertEquals(200, response.getStatusCode().value());  // Verify code 200
+        assertEquals(userInfo, response.getBody());  // Verify it is what we expect
     }
 
     @Test
     @DisplayName("Should return 401 when credentials are invalid")
     void testLogin_InvalidCredentials() {
-        when(loginService.login("12345678A", "wrongpassword")).thenReturn("INVALID_CREDENTIALS");
+        Map<String, Object> invalidUser = Map.of("role", "INVALID_CREDENTIALS");
+        when(loginService.login("12345678A", "wrongpassword")).thenReturn(invalidUser);
 
         ResponseEntity<?> response = loginController.login("12345678A", "wrongpassword");
 
-        assertEquals(401, response.getStatusCode().value());  // Código 401 para credenciales incorrectas
+        assertEquals(401, response.getStatusCode().value());  // Code 401 for incorrect credential 
         assertEquals("Invalid credentials", response.getBody());
     }
 
@@ -65,7 +69,7 @@ class LoginControllerTest {
 
         ResponseEntity<?> response = loginController.login("12345678A", "password123");
 
-        assertEquals(500, response.getStatusCode().value());  // Código 500 para errores internos
+        assertEquals(500, response.getStatusCode().value());  // Code 500 for other errors
         assertTrue(response.getBody().toString().contains("Login failed: Database error"));
     }
 }

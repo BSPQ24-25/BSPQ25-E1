@@ -1,4 +1,5 @@
 package com.hospital.portal.TestServices;
+import java.util.Map;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -22,8 +23,6 @@ import com.hospital.portal.service.LoginService;
 @ExtendWith(MockitoExtension.class)
 class LoginServiceTest {
 
-    // Create the mocks for the test
-
     @Mock
     private AdminRepository adminRepository;
 
@@ -36,65 +35,67 @@ class LoginServiceTest {
     @InjectMocks
     private LoginService loginService;
 
-    // We initialize all of them
-
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
     }
-
-    // Test to confirm that if it is an admin, it will return the ADMIN string
 
     @Test
     void testLoginAsAdmin_Success() {
         String dni = "12345678X";
         String password = "adminpass";
         Admin admin = new Admin();
+        admin.setDni(dni);
+        admin.setName("Admin Name");
         admin.setPassword(password);
 
         when(adminRepository.findById(dni)).thenReturn(Optional.of(admin));
 
-        String result = loginService.login(dni, password);
+        Map<String, Object> result = loginService.login(dni, password);
 
-        assertEquals("ADMIN", result);
+        assertEquals("ADMIN", result.get("role"));
+        assertEquals(dni, result.get("dni"));
+        assertEquals("Admin Name", result.get("name"));
     }
-
-     // Test to confirm that if it is an doctor, it will return the DOCTOR string
 
     @Test
     void testLoginAsDoctor_Success() {
         String dni = "87654321X";
         String password = "doctorpass";
         Doctor doctor = new Doctor();
+        doctor.setDni(dni);
+        doctor.setName("Doctor Name");
         doctor.setPassword(password);
 
         when(adminRepository.findById(dni)).thenReturn(Optional.empty());
         when(doctorRepository.findById(dni)).thenReturn(Optional.of(doctor));
 
-        String result = loginService.login(dni, password);
+        Map<String, Object> result = loginService.login(dni, password);
 
-        assertEquals("DOCTOR", result);
+        assertEquals("DOCTOR", result.get("role"));
+        assertEquals(dni, result.get("dni"));
+        assertEquals("Doctor Name", result.get("name"));
     }
-
-     // Test to confirm that if it is an patient, it will return the PATIENT string
 
     @Test
     void testLoginAsPatient_Success() {
         String dni = "11223344X";
         String password = "patientpass";
         Patient patient = new Patient();
+        patient.setDni(dni);
+        patient.setName("Patient Name");
         patient.setPassword(password);
 
         when(adminRepository.findById(dni)).thenReturn(Optional.empty());
         when(doctorRepository.findById(dni)).thenReturn(Optional.empty());
         when(patientRepository.findById(dni)).thenReturn(Optional.of(patient));
 
-        String result = loginService.login(dni, password);
+        Map<String, Object> result = loginService.login(dni, password);
 
-        assertEquals("PATIENT", result);
+        assertEquals("PATIENT", result.get("role"));
+        assertEquals(dni, result.get("dni"));
+        assertEquals("Patient Name", result.get("name"));
     }
-
-     // Test to confirm that if it is invalid, it will return the INVALID_CREDENTIALS string
 
     @Test
     void testLogin_InvalidCredentials() {
@@ -105,24 +106,24 @@ class LoginServiceTest {
         when(doctorRepository.findById(dni)).thenReturn(Optional.empty());
         when(patientRepository.findById(dni)).thenReturn(Optional.empty());
 
-        String result = loginService.login(dni, password);
+        Map<String, Object> result = loginService.login(dni, password);
 
-        assertEquals("INVALID_CREDENTIALS", result);
+        assertEquals("INVALID_CREDENTIALS", result.get("role"));
     }
-
-     // Test to confirm that if it is wrong password, it will return the INVALID_CREDENTIALS string
 
     @Test
     void testLogin_WrongPassword() {
         String dni = "99999999X";
         String password = "correctpass";
         Admin admin = new Admin();
+        admin.setDni(dni);
+        admin.setName("Admin Name");
         admin.setPassword("differentpass");
 
         when(adminRepository.findById(dni)).thenReturn(Optional.of(admin));
 
-        String result = loginService.login(dni, password);
+        Map<String, Object> result = loginService.login(dni, password);
 
-        assertEquals("INVALID_CREDENTIALS", result);
+        assertEquals("INVALID_CREDENTIALS", result.get("role"));
     }
 }
