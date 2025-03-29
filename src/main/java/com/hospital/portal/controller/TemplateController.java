@@ -18,4 +18,9 @@ public class TemplateController {
     public String showLoginForm() {
         return "loginForm";
     }
+
+    @GetMapping("/homepage")
+    public String showInicio() {
+        return "homepage";
+    }
 }

@@ -8,6 +8,8 @@ import com.hospital.portal.repository.DoctorRepository;
 import com.hospital.portal.repository.PatientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import java.util.Map;
+import java.util.HashMap;
 import java.util.Optional;
 
 @Service
@@ -22,22 +24,36 @@ public class LoginService {
     @Autowired
     private PatientRepository patientRepository;
 
-    public String login(String dni, String password) {
+    public Map<String, Object> login(String dni, String password) {
+
         Optional<Admin> admin = adminRepository.findById(dni);
         if (admin.isPresent() && password.equals(admin.get().getPassword())) {
-            return "ADMIN";
+            return getUserInfo(admin.get().getDni(), admin.get().getName(),"ADMIN");
+
         }
 
         Optional<Doctor> doctor = doctorRepository.findById(dni);
         if (doctor.isPresent() && password.equals(doctor.get().getPassword())) {
-            return "DOCTOR";
+            //return "DOCTOR";
+            return getUserInfo(doctor.get().getDni(), doctor.get().getName(),"DOCTOR");
+
         }
 
         Optional<Patient> patient = patientRepository.findById(dni);
         if (patient.isPresent() && password.equals(patient.get().getPassword())) {
-            return "PATIENT";
+            //return "PATIENT";
+            return getUserInfo(patient.get().getDni(), patient.get().getName(),"PATIENT");
+
         }
 
-        return "INVALID_CREDENTIALS";
+        return Map.of("role", "INVALID_CREDENTIALS");//"INVALID_CREDENTIALS";
+    }
+
+    private Map<String, Object> getUserInfo(String dni, String name, String role) {
+        Map<String, Object> userInfo = new HashMap<>();
+        userInfo.put("dni", dni);
+        userInfo.put("name", name);
+        userInfo.put("role", role);
+        return userInfo;
     }
 }

@@ -6,7 +6,7 @@
   <link href="/css/styles.css" rel="stylesheet">
 </head>
 <body>
-  <form action="/login" method="post">
+  <form id="loginForm">
     <h1>Login</h1>
     <div>
       <label for="dni">Username:</label>
@@ -20,5 +20,29 @@
       <button type="submit">Login</button>
     </div>
   </form>
+
+  <script>
+    document.getElementById("loginForm").addEventListener("submit", async function(event) {
+        event.preventDefault();
+
+        const dni = document.getElementById("dni").value;
+        const password = document.getElementById("password").value;
+
+        const response = await fetch("/login", {
+            method: "POST",
+            headers: { "Content-Type": "application/x-www-form-urlencoded" },
+            body: new URLSearchParams({ dni, password })
+        });
+
+        if (response.ok) {
+            const data = await response.json(); //get user values: name, dni, role
+            localStorage.setItem("userInfo", JSON.stringify(data)); 
+            window.location.href = "/homepage"; //new window
+        } else {
+            alert("INVALID CREDENTIALS");
+        }
+    });
+  </script>
+
 </body>
 </html>
