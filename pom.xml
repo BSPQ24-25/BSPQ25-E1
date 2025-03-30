@@ -101,7 +101,6 @@
             <version>42.7.5</version>
         </dependency>
 
-        <!-- Añade estas dependencias en la sección <dependencies> -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security</artifactId>
@@ -146,8 +145,7 @@
 						
                     </execution>
                     <!-- Configure rules -->
-                    <!-- Comentar la verificación de cobertura de código -->
-                    <!--
+                    
                     <execution>
                         <id>check</id>
                         <goals>
@@ -161,14 +159,13 @@
                                         <limit>
                                             <counter>LINE</counter>
                                             <value>COVEREDRATIO</value>
-                                            <minimum>0.99</minimum>
+                                            <minimum>0.6</minimum>
                                         </limit>
                                     </limits>
                                 </rule>
                             </rules>
                         </configuration>
                     </execution>
--->
                 </executions>
             </plugin>
 
