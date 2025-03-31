@@ -1,4 +1,4 @@
-com\hospital\healthcare_portal\DoctorTest.class
-com\hospital\healthcare_portal\PatientTest.class
-com\hospital\healthcare_portal\AdminTest.class
-com\hospital\healthcare_portal\SpecialtyTest.class
+com/hospital/healthcare_portal/AdminTest.class
+com/hospital/healthcare_portal/PatientTest.class
+com/hospital/healthcare_portal/SpecialtyTest.class
+com/hospital/healthcare_portal/DoctorTest.class

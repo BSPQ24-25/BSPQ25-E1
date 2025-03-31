@@ -1,0 +1,11 @@
+/home/Isaac/Documents/BSPQ25/BSPQ25-E1/src/main/java/com/hospital/portal/HealthcarePortalApplication.java
+/home/Isaac/Documents/BSPQ25/BSPQ25-E1/src/main/java/com/hospital/portal/controller/HomeController.java
+/home/Isaac/Documents/BSPQ25/BSPQ25-E1/src/main/java/com/hospital/portal/controller/TemplateController.java
+/home/Isaac/Documents/BSPQ25/BSPQ25-E1/src/main/java/com/hospital/portal/model/Admin.java
+/home/Isaac/Documents/BSPQ25/BSPQ25-E1/src/main/java/com/hospital/portal/model/Doctor.java
+/home/Isaac/Documents/BSPQ25/BSPQ25-E1/src/main/java/com/hospital/portal/model/Patient.java
+/home/Isaac/Documents/BSPQ25/BSPQ25-E1/src/main/java/com/hospital/portal/model/Specialty.java
+/home/Isaac/Documents/BSPQ25/BSPQ25-E1/src/main/java/com/hospital/portal/model/User.java
+/home/Isaac/Documents/BSPQ25/BSPQ25-E1/src/main/java/com/hospital/portal/repository/AdminRepository.java
+/home/Isaac/Documents/BSPQ25/BSPQ25-E1/src/main/java/com/hospital/portal/repository/DoctorRepository.java
+/home/Isaac/Documents/BSPQ25/BSPQ25-E1/src/main/java/com/hospital/portal/repository/PatientRepository.java
