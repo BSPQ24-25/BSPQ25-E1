@@ -29,9 +29,9 @@ public class RegisterService {
         return String.format("P%04d", currentNumber + 1);
     }
 
-    public String registerPatient(String dni, String name, String surname, String phone, String email, LocalDate birthDate, String gender, String password) {
-        if (patientRepository.existsById(dni)) {
-            return "DNI already registered";
+    public String registerPatient(String dni, String name, String surname, String phone, String mail, LocalDate birthDate, String gender, String password) {
+        if (patientRepository.existsById(dni) || patientRepository.existsByMail(mail)) {
+            return "DNI or email are already registered!";
         }
         
         Patient newPatient = new Patient();
@@ -39,7 +39,7 @@ public class RegisterService {
         newPatient.setName(name);
         newPatient.setSurname(surname);
         newPatient.setPhone(phone);
-        newPatient.setEmail(email);
+        newPatient.setEmail(mail);
         newPatient.setBirthDate(birthDate);
         newPatient.setGender(gender);
         newPatient.setPassword(password);
