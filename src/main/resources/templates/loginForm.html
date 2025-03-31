@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <title>Login</title>
   <link href="/css/styles.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
   <form id="loginForm">
@@ -35,14 +36,18 @@
         });
 
         if (response.ok) {
-            const data = await response.json(); //get user values: name, dni, role
+            const data = await response.json();
             localStorage.setItem("userInfo", JSON.stringify(data)); 
-            window.location.href = "/homepage"; //new window
+            window.location.href = "/homepage";
         } else {
-            alert("INVALID CREDENTIALS");
+            Swal.fire({
+                icon: 'error',
+                title: 'Login Failed',
+                text: 'Invalid Credentials. Please try again.',
+                confirmButtonColor: '#ff4d4d'
+            });
         }
     });
   </script>
-
 </body>
 </html>

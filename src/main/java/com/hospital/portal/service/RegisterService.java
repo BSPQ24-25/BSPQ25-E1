@@ -32,7 +32,7 @@ public class RegisterService {
     }
 
     public String registerPatient(String dni, String name, String surname, String phone, String mail, LocalDate birthDate, String gender, String password) {
-        if (patientRepository.existsById(dni) || patientRepository.existsByMail(mail)) {
+        if (patientRepository.existsByDni(dni) || patientRepository.existsByMail(mail)) {
             return "DNI or email are already registered!";
         }
         

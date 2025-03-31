@@ -5,6 +5,7 @@
   <meta charset="UTF-8">
   <title>User Registration</title>
   <link href="/css/styles.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body>
@@ -54,34 +55,72 @@
 
   <script>
     document.getElementById('submitButton').addEventListener('click', function () {
-      const form = document.getElementById('registrationForm');
-      const formData = new FormData(form);
-  
-      // Convert birthDate to proper format
-      const jsonData = Object.fromEntries(formData);
-      jsonData.birthDate = new Date(jsonData.birthDate).toISOString().split('T')[0];
-  
-      fetch('/register', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded'
-        },
-        body: new URLSearchParams(formData).toString()
-      })
-      .then(response => {
-        if (response.ok) {
-          alert('Registration successful! Redirecting to login...');
-          window.location.href = '/login'; // Redirect to login page
-        } else {
-          return response.text().then(text => { throw new Error(text); });
-        }
-      })
-      .catch(error => {
-        console.error('Error:', error);
-        alert('Registration failed: ' + error.message);
-      });
+        const form = document.getElementById('registrationForm');
+        const formData = new FormData(form);
+        
+        // Convert birthDate to proper format
+        const jsonData = Object.fromEntries(formData);
+        jsonData.birthDate = new Date(jsonData.birthDate).toISOString().split('T')[0];
+        
+        fetch('/register', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            body: new URLSearchParams(formData).toString()
+        })
+        .then(response => {
+            // We'll always parse the response text first
+            return response.text().then(text => {
+                if (response.ok) {
+                    // Success case
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Registration Successful',
+                        text: 'You will be redirected to login page.',
+                        confirmButtonColor: '#4CAF50'
+                    }).then(() => {
+                        window.location.href = '/login'; // Redirect to login page
+                    });
+                } else {
+                    // Here we handle both server errors and validation errors
+                    let errorMessage = text;
+                    
+                    // Check if the error contains our custom message about duplicate DNI/email
+                    if (text.includes("DNI or email are already registered")) {
+                        errorMessage = "DNI or email are already registered!";
+                    }
+                    
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Registration Failed',
+                        text: errorMessage,
+                        confirmButtonColor: '#ff4d4d'
+                    }).then(() => {
+                        // Reset the form after the user closes the error alert
+                        form.reset();
+                        // Reset the gender dropdown to show the placeholder
+                        document.getElementById('gender').selectedIndex = 0;
+                    });
+                }
+            });
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            Swal.fire({
+                icon: 'error',
+                title: 'Registration Failed',
+                text: 'An unexpected error occurred. Please try again later.',
+                confirmButtonColor: '#ff4d4d'
+            }).then(() => {
+                // Reset the form after the user closes the error alert
+                form.reset();
+                // Reset the gender dropdown to show the placeholder
+                document.getElementById('gender').selectedIndex = 0;
+            });
+        });
     });
-  </script>  
+    </script>
 </body>
 
 </html>
