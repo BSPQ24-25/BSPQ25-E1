@@ -1,0 +1,17 @@
+com/hospital/portal/repository/AdminRepository.class
+com/hospital/portal/controller/TemplateController.class
+com/hospital/portal/config/SecurityConfig.class
+com/hospital/portal/HealthcarePortalApplication.class
+com/hospital/portal/model/User.class
+com/hospital/portal/model/Admin.class
+com/hospital/portal/service/RoleService.class
+com/hospital/portal/service/PasswordService.class
+com/hospital/portal/repository/PatientRepository.class
+com/hospital/portal/controller/LoginController.class
+com/hospital/portal/model/Doctor.class
+com/hospital/portal/controller/RegisterController.class
+com/hospital/portal/service/RegisterService.class
+com/hospital/portal/model/Specialty.class
+com/hospital/portal/repository/DoctorRepository.class
+com/hospital/portal/model/Patient.class
+com/hospital/portal/service/LoginService.class

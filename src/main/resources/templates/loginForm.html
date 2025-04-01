@@ -1,24 +1,20 @@
+
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Login</title>
-  <link href="/css/styles.css" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<html lang="es">
 </head>
 <body>
   <form id="loginForm">
     <h1>Login</h1>
-    <div>
+    <div class="input-group">
       <label for="dni">DNI:</label>
-      <input type="text" id="dni" name="dni" required>
+      <input type="text" id="dni" name="dni" placeholder="Enter your DNI" required>
     </div>
-    <div>
+    <div class="input-group">
       <label for="password">Password:</label>
-      <input type="password" id="password" name="password" required>
+      <input type="password" id="password" name="password" placeholder="Enter your password" required>
     </div>
     <div>
-      <button type="submit">Login</button>
+      <button type="submit" class="btn primary">Login</button>
     </div>
   </form>
 
