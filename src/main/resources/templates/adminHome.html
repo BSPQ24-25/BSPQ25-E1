@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Doctor HomePage</title>
+  <link href="/css/styles.css" rel="stylesheet">
+</head>
+<body>
+    <div>
+        <h1>Welcome, Admin <span id="name"></span></h1>
+        <div>
+            <p><strong>DNI:</strong> <span id="dni"></span></p>
+            <p><strong>Role:</strong> <span id="role"></span></p>
+            <!--<p><strong>Session token:</strong> <span id="token"></span></p>-->
+        </div>
+    </div>
+
+
+    <script>
+        const userInfo = JSON.parse(localStorage.getItem("userInfo"));
+
+        if (userInfo) { //to get the values of the specific user
+            document.getElementById("name").textContent = userInfo.name;
+            document.getElementById("dni").textContent = userInfo.dni;
+            document.getElementById("role").textContent = userInfo.role;
+            document.getElementById("token").textContent = userInfo.token;
+        }
+
+    </script>
+</body>
+</html>
