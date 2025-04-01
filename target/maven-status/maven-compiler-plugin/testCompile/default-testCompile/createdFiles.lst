@@ -1,4 +1,10 @@
-com/hospital/healthcare_portal/AdminTest.class
-com/hospital/healthcare_portal/PatientTest.class
-com/hospital/healthcare_portal/SpecialtyTest.class
-com/hospital/healthcare_portal/DoctorTest.class
+com/hospital/portal/TestServices/RoleServiceTest.class
+com/hospital/portal/TestServices/LoginServiceTest.class
+com/hospital/portal/TestControllers/LoginControllerTest.class
+com/hospital/portal/TestModels/DoctorTest.class
+com/hospital/portal/TestModels/PatientTest.class
+com/hospital/portal/TestServices/RegisterServiceTest.class
+com/hospital/portal/TestModels/AdminTest.class
+com/hospital/portal/TestModels/SpecialtyTest.class
+com/hospital/portal/TestControllers/RegisterControllerTest.class
+com/hospital/portal/TestServices/PasswordServiceTest.class

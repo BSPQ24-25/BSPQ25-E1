@@ -4,12 +4,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class TemplateController {
-    @GetMapping("/index")
+    @GetMapping("/")
     public String showIndex() {
         return "index";
     }
 
-    @GetMapping("/registration")
+    @GetMapping("/register")
     public String showRegistrationForm() {
         return "registrationForm";
     }
@@ -17,5 +17,10 @@ public class TemplateController {
     @GetMapping("/login")
     public String showLoginForm() {
         return "loginForm";
+    }
+
+    @GetMapping("/homepage")
+    public String showInicio() {
+        return "homepage";
     }
 }

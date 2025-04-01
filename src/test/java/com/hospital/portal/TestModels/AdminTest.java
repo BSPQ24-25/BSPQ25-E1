@@ -1,15 +1,20 @@
-package com.hospital.healthcare_portal;
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
+package com.hospital.portal.TestModels;
+import java.time.LocalDate;
+import java.util.Optional;
 
-import org.junit.jupiter.api.*;
-import org.mockito.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import com.hospital.portal.model.Admin;
 import com.hospital.portal.repository.AdminRepository;
-
-import java.time.LocalDate;
-import java.util.Optional;
 
 class AdminTest {
 

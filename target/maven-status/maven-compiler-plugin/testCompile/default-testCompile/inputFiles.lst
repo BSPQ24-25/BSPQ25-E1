@@ -1,4 +1,10 @@
-/home/Isaac/Documents/BSPQ25/BSPQ25-E1/src/test/java/com/hospital/healthcare_portal/AdminTest.java
-/home/Isaac/Documents/BSPQ25/BSPQ25-E1/src/test/java/com/hospital/healthcare_portal/DoctorTest.java
-/home/Isaac/Documents/BSPQ25/BSPQ25-E1/src/test/java/com/hospital/healthcare_portal/PatientTest.java
-/home/Isaac/Documents/BSPQ25/BSPQ25-E1/src/test/java/com/hospital/healthcare_portal/SpecialtyTest.java
+/home/Isaac/Documents/BSPQ25/BSPQ25-E1/src/test/java/com/hospital/portal/TestControllers/LoginControllerTest.java
+/home/Isaac/Documents/BSPQ25/BSPQ25-E1/src/test/java/com/hospital/portal/TestControllers/RegisterControllerTest.java
+/home/Isaac/Documents/BSPQ25/BSPQ25-E1/src/test/java/com/hospital/portal/TestModels/AdminTest.java
+/home/Isaac/Documents/BSPQ25/BSPQ25-E1/src/test/java/com/hospital/portal/TestModels/DoctorTest.java
+/home/Isaac/Documents/BSPQ25/BSPQ25-E1/src/test/java/com/hospital/portal/TestModels/PatientTest.java
+/home/Isaac/Documents/BSPQ25/BSPQ25-E1/src/test/java/com/hospital/portal/TestModels/SpecialtyTest.java
+/home/Isaac/Documents/BSPQ25/BSPQ25-E1/src/test/java/com/hospital/portal/TestServices/LoginServiceTest.java
+/home/Isaac/Documents/BSPQ25/BSPQ25-E1/src/test/java/com/hospital/portal/TestServices/PasswordServiceTest.java
+/home/Isaac/Documents/BSPQ25/BSPQ25-E1/src/test/java/com/hospital/portal/TestServices/RegisterServiceTest.java
+/home/Isaac/Documents/BSPQ25/BSPQ25-E1/src/test/java/com/hospital/portal/TestServices/RoleServiceTest.java
