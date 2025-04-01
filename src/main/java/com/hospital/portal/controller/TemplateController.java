@@ -28,4 +28,9 @@ public class TemplateController {
     public String showInicioDoctor() {
         return "doctorHome";
     }
+
+    @GetMapping("/adminHome")
+    public String showInicioAdmin() {
+        return "adminHome";
+    }
 }
