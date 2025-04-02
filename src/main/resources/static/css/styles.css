@@ -74,6 +74,18 @@ form h1 {
   color: #fff;
 }
 
+.error {
+    border: 2px solid red !important;
+    background-color: #ffe6e6;
+}
+
+.error-message {
+    color: red;
+    font-size: 12px;
+    margin-top: 5px;
+    display: none;
+}
+
 .btn.primary:hover {
   background-color: #0056b3;
 }
