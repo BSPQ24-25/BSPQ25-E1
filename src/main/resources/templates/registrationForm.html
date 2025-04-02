@@ -11,30 +11,43 @@
 <body>
   <form id="registrationForm">
     <h1>User Registration</h1>
+
     <div>
       <label for="dni">DNI:</label>
       <input type="text" id="dni" name="dni" required>
+      <p class="error-message" id="dniError">Invalid DNI format</p>
     </div>
+
     <div>
       <label for="name">Name:</label>
       <input type="text" id="name" name="name" required>
+      <p class="error-message" id="nameError">Name is required</p>
     </div>
+
     <div>
       <label for="surname">Surname:</label>
       <input type="text" id="surname" name="surname" required>
+      <p class="error-message" id="surnameError">Surname is required</p>
     </div>
+
     <div>
       <label for="phone">Phone:</label>
       <input type="text" id="phone" name="phone" required>
+      <p class="error-message" id="phoneError">Invalid phone format</p>
     </div>
+
     <div>
       <label for="email">Email:</label>
       <input type="email" id="email" name="email" required>
+      <p class="error-message" id="emailError">Invalid email format</p>
     </div>
+
     <div>
       <label for="birthDate">Birth Date:</label>
       <input type="date" id="birthDate" name="birthDate" required>
+      <p class="error-message" id="birthDateError">Birth date cannot be in the future</p>
     </div>
+
     <div>
       <label for="gender">Gender:</label>
       <select id="gender" name="gender" required>
@@ -44,83 +57,152 @@
         <option value="Other">Other</option>
       </select>
     </div>
+
     <div>
       <label for="password">Password:</label>
       <input type="password" id="password" name="password" required>
+      <p class="error-message" id="passwordError">Password must have at least 8 characters, 1 uppercase, 1 number, and 1
+        special character</p>
     </div>
+
     <div>
       <button type="button" id="submitButton">Register</button>
     </div>
   </form>
 
+
   <script>
     document.getElementById('submitButton').addEventListener('click', function () {
-        const form = document.getElementById('registrationForm');
-        const formData = new FormData(form);
-        
-        // Convert birthDate to proper format
-        const jsonData = Object.fromEntries(formData);
-        jsonData.birthDate = new Date(jsonData.birthDate).toISOString().split('T')[0];
-        
-        fetch('/register', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded'
-            },
-            body: new URLSearchParams(formData).toString()
-        })
+      const form = document.getElementById('registrationForm');
+      const formData = new FormData(form);
+
+      // Resetear errores
+      document.querySelectorAll('.error-message').forEach(el => el.style.display = 'none');
+      document.querySelectorAll('input, select').forEach(el => el.classList.remove('error'));
+
+      // Validation patterns
+      const patterns = {
+        dni: /^\d{8}[A-Za-z]$/,
+        phone: /^\+?\d{9,15}$/,
+        email: /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/,
+        password: /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[\W_]).{10,}$/
+      };
+
+      let isValid = true;
+
+      // Validation of all the submited information
+      ['name', 'surname', 'phone', 'email', 'password', 'dni', 'birthDate'].forEach(id => {
+        const input = document.getElementById(id);
+        if (!input.value.trim()) {
+          showError(id, 'This field is required');
+          isValid = false;
+        }
+      });
+
+      // Validation of information
+      if (!patterns.dni.test(document.getElementById('dni').value)) {
+        showError('dni', 'Invalid DNI (8 digits + letter)');
+        isValid = false;
+      }
+
+      if (!patterns.phone.test(document.getElementById('phone').value)) {
+        showError('phone', 'Invalid phone (9-15 digits)');
+        isValid = false;
+      }
+
+      if (!patterns.email.test(document.getElementById('email').value)) {
+        showError('email', 'Invalid email');
+        isValid = false;
+      }
+
+      if (!patterns.password.test(document.getElementById('password').value)) {
+        showError('password', 'Password must have: 10+ chars, 1 uppercase, 1 lowercase, 1 number, 1 special char');
+        isValid = false;
+      }
+
+      const birthDate = new Date(document.getElementById('birthDate').value);
+      if (birthDate > new Date()) {
+        showError('birthDate', 'Birth date must be in the past');
+        isValid = false;
+      }
+
+      if (!document.getElementById('gender').value) {
+        showError('gender', 'Gender is required');
+        isValid = false;
+      }
+
+      if (!isValid) return;
+
+      // Convert birthDate to proper format      
+      const jsonData = Object.fromEntries(formData);
+      jsonData.birthDate = new Date(jsonData.birthDate).toISOString().split('T')[0];
+
+      fetch('/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: new URLSearchParams(formData).toString()
+      })
         .then(response => {
-            // We'll always parse the response text first
-            return response.text().then(text => {
-                if (response.ok) {
-                    // Success case
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Registration Successful',
-                        text: 'You will be redirected to login page.',
-                        confirmButtonColor: '#4CAF50'
-                    }).then(() => {
-                        window.location.href = '/login'; // Redirect to login page
-                    });
-                } else {
-                    // Here we handle both server errors and validation errors
-                    let errorMessage = text;
-                    
-                    // Check if the error contains our custom message about duplicate DNI/email
-                    if (text.includes("DNI or email are already registered")) {
-                        errorMessage = "DNI or email are already registered!";
-                    }
-                    
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Registration Failed',
-                        text: errorMessage,
-                        confirmButtonColor: '#ff4d4d'
-                    }).then(() => {
-                        // Reset the form after the user closes the error alert
-                        form.reset();
-                        // Reset the gender dropdown to show the placeholder
-                        document.getElementById('gender').selectedIndex = 0;
-                    });
-                }
-            });
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            Swal.fire({
+          //We'll always parse the response text first
+          return response.text().then(text => {
+            if (response.ok) {
+              //Success case
+              Swal.fire({
+                icon: 'success',
+                title: 'Registration Successful',
+                text: 'You will be redirected to login page.',
+                confirmButtonColor: '#4CAF50'
+              }).then(() => {
+                window.location.href = '/login'; //Redirect to login page
+              });
+            } else {
+              //Here we handle both server errors and validation errors
+              let errorMessage = text;
+
+              //Check if the error contains our custom message about duplicate DNI/email
+              if (text.includes("DNI or email are already registered")) {
+                errorMessage = "DNI or email are already registered!";
+              }
+
+              Swal.fire({
                 icon: 'error',
                 title: 'Registration Failed',
-                text: 'An unexpected error occurred. Please try again later.',
+                text: errorMessage,
                 confirmButtonColor: '#ff4d4d'
-            }).then(() => {
-                // Reset the form after the user closes the error alert
-                form.reset();
-                // Reset the gender dropdown to show the placeholder
-                document.getElementById('gender').selectedIndex = 0;
-            });
+              });
+            }
+          });
+        })
+        .catch(error => {
+          console.error('Error:', error);
+          Swal.fire({
+            icon: 'error',
+            title: 'Registration Failed',
+            text: 'An unexpected error occurred. Please try again later.',
+            confirmButtonColor: '#ff4d4d'          
+          });
         });
     });
-    </script>
+
+    function showError(id, message) {
+      const input = document.getElementById(id);
+      const error = document.getElementById(`${id}Error`);
+      input.classList.add('error');
+      error.textContent = message;
+      error.style.display = 'block';
+    }
+
+    // Clean errors when writing/selecting
+    document.querySelectorAll('input, select').forEach(el => {
+      el.addEventListener('input', function () {
+        this.classList.remove('error');
+        document.getElementById(`${this.id}Error`).style.display = 'none';
+      });
+    });
+  </script>
+
 </body>
 
 </html>

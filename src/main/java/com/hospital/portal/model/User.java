@@ -3,6 +3,11 @@ import java.time.LocalDate;
 
 import jakarta.persistence.Id;
 import jakarta.persistence.MappedSuperclass;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Past;
+import jakarta.validation.constraints.Pattern;
 import jakarta.persistence.Column;
 
 
@@ -10,21 +15,43 @@ import jakarta.persistence.Column;
 public abstract class User {
     @Id
     @Column(nullable = false)
-    public String dni; 
+    @NotBlank(message = "DNI is required")
+    @Pattern(regexp = "^\\d{8}[A-Za-z]$")
+    public String dni;
+    
     @Column(nullable = false)
+    @NotBlank(message = "Name is required")
     private String name;
+    
     @Column(nullable = false)
+    @NotBlank(message = "Surname is required")
     private String surname;
+    
     @Column(nullable = false)
+    @NotNull(message = "Birth date is required")
+    @Past(message = "Birth date must be in the past")
     private LocalDate birthDate;
+    
     @Column(nullable = false)
+    @NotBlank(message = "Gender is required")
     private String gender;
+    
     @Column(nullable = false)
+    @NotBlank(message = "Phone number is required")
+    @Pattern(regexp = "^\\+?\\d{9,15}$", message = "Invalid phone number")
     private String phone;
-    @Column(nullable = false)
+    
+    @Column(nullable = false, name = "mail")
+    @NotBlank(message = "Email is required")
+    @Email(message = "Invalid email")
     private String mail;
+    
     @Column(nullable = false)
+    @NotBlank(message = "Password is required")
+    @Pattern(regexp = "^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[\\W_]).{10,}$", 
+             message = "Password must have: 10+ chars, 1 uppercase, 1 lowercase, 1 number, 1 special char")
     private String password;
+
 
     // Default constructor
     public User() {}
