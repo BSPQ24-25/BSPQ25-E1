@@ -31,10 +31,9 @@
   <script>
     document.getElementById("loginForm").addEventListener("submit", async function(event) {
         event.preventDefault();
-
+        
         const dni = document.getElementById("dni").value;
         const password = document.getElementById("password").value;
-
         const response = await fetch("/login", {
             method: "POST",
             headers: { "Content-Type": "application/x-www-form-urlencoded" },
@@ -44,7 +43,15 @@
         if (response.ok) {
             const data = await response.json();
             localStorage.setItem("userInfo", JSON.stringify(data)); 
-            window.location.href = "/homepage";
+            const userInfo = JSON.parse(localStorage.getItem("userInfo"));
+
+            if (userInfo.role === "DOCTOR") {
+                window.location.href = "/doctorHome";
+            } else if (userInfo.role === "PATIENT") {
+                window.location.href = "/homepage";
+            }else{ //ADMIN
+                window.location.href = "/adminHome";
+            }
         } else {
             Swal.fire({
                 icon: 'error',

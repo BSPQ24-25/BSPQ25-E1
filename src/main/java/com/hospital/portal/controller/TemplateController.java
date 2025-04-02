@@ -23,4 +23,14 @@ public class TemplateController {
     public String showInicio() {
         return "homepage";
     }
+
+    @GetMapping("/doctorHome")
+    public String showInicioDoctor() {
+        return "doctorHome";
+    }
+
+    @GetMapping("/adminHome")
+    public String showInicioAdmin() {
+        return "adminHome";
+    }
 }
