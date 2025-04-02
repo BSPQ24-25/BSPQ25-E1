@@ -11,6 +11,8 @@ import java.util.Optional;
 public class RegisterService {
     @Autowired
     private PatientRepository patientRepository;
+    @Autowired
+    private PasswordService passwordService;
 
     public String generateIncrementalPatientId() {
         // Find the last patient to get the maximum current patient ID
@@ -29,9 +31,9 @@ public class RegisterService {
         return String.format("P%04d", currentNumber + 1);
     }
 
-    public String registerPatient(String dni, String name, String surname, String phone, String email, LocalDate birthDate, String gender, String password) {
-        if (patientRepository.existsById(dni)) {
-            return "DNI already registered";
+    public String registerPatient(String dni, String name, String surname, String phone, String mail, LocalDate birthDate, String gender, String password) {
+        if (patientRepository.existsByDni(dni) || patientRepository.existsByMail(mail)) {
+            return "DNI or email are already registered!";
         }
         
         Patient newPatient = new Patient();
@@ -39,14 +41,11 @@ public class RegisterService {
         newPatient.setName(name);
         newPatient.setSurname(surname);
         newPatient.setPhone(phone);
-        newPatient.setEmail(email);
+        newPatient.setEmail(mail);
         newPatient.setBirthDate(birthDate);
         newPatient.setGender(gender);
-        newPatient.setPassword(password);
-        
-        // Generate incremental patient ID
-        String newPatientId = generateIncrementalPatientId();
-        newPatient.setPatientId(newPatientId);
+        newPatient.setPassword(passwordService.hashPassword(password));
+        newPatient.setPatientId(generateIncrementalPatientId());
         
         patientRepository.save(newPatient);
         return "Registration successful";

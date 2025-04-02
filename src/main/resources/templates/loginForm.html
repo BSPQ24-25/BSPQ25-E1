@@ -1,25 +1,32 @@
+
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Login</title>
-  <link href="/css/styles.css" rel="stylesheet">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Login</title>
+
+    <link rel="stylesheet" href="/css/formStyles.css">
+  </head>
 </head>
 <body>
-  <form id="loginForm">
-    <h1>Login</h1>
-    <div>
-      <label for="dni">Username:</label>
-      <input type="text" id="dni" name="dni" required>
-    </div>
-    <div>
-      <label for="password">Password:</label>
-      <input type="password" id="password" name="password" required>
-    </div>
-    <div>
-      <button type="submit">Login</button>
-    </div>
-  </form>
+  <div class="form-wrapper">
+    <form id="loginForm">
+      <h1>Login</h1>
+      <div class="form-group">
+        <label for="dni">DNI:</label>
+        <input type="text" id="dni" name="dni" placeholder="Enter your DNI" required>
+      </div>
+      <div class="form-group">
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" placeholder="Enter your password" required>
+      </div>
+      <div>
+        <button type="submit" class="btn primary">Login</button>
+      </div>
+    </form>
+  </div>
 
   <script>
     document.getElementById("loginForm").addEventListener("submit", async function(event) {
@@ -34,7 +41,7 @@
         });
 
         if (response.ok) {
-            const data = await response.json(); //get user values: name, dni, role
+            const data = await response.json();
             localStorage.setItem("userInfo", JSON.stringify(data)); 
             const userInfo = JSON.parse(localStorage.getItem("userInfo"));
 
@@ -45,12 +52,15 @@
             }else{ //ADMIN
                 window.location.href = "/adminHome";
             }
-            
         } else {
-            alert("INVALID CREDENTIALS");
+            Swal.fire({
+                icon: 'error',
+                title: 'Login Failed',
+                text: 'Invalid Credentials. Please try again.',
+                confirmButtonColor: '#ff4d4d'
+            });
         }
     });
   </script>
-
 </body>
 </html>

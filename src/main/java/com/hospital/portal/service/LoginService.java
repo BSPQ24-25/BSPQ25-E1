@@ -22,39 +22,33 @@ import java.security.Key;
 public class LoginService {
 
     private static final Key SECRET_KEY = Keys.secretKeyFor(SignatureAlgorithm.HS256);
-    
+ 
     @Autowired
     private AdminRepository adminRepository;
-    
     @Autowired
     private DoctorRepository doctorRepository;
-    
     @Autowired
     private PatientRepository patientRepository;
+    @Autowired
+    private PasswordService passwordService;
 
     public Map<String, Object> login(String dni, String password) {
-
         Optional<Admin> admin = adminRepository.findById(dni);
-        if (admin.isPresent() && password.equals(admin.get().getPassword())) {
-            return getUserInfo(admin.get().getDni(), admin.get().getName(),"ADMIN");
-
+        if (admin.isPresent() && passwordService.verifyPassword(password, admin.get().getPassword())) {
+            return getUserInfo(admin.get().getDni(), admin.get().getName(), "ADMIN");
         }
 
         Optional<Doctor> doctor = doctorRepository.findById(dni);
-        if (doctor.isPresent() && password.equals(doctor.get().getPassword())) {
-            //return "DOCTOR";
-            return getUserInfo(doctor.get().getDni(), doctor.get().getName(),"DOCTOR");
-
+        if (doctor.isPresent() && passwordService.verifyPassword(password, doctor.get().getPassword())) {
+            return getUserInfo(doctor.get().getDni(), doctor.get().getName(), "DOCTOR");
         }
 
         Optional<Patient> patient = patientRepository.findById(dni);
-        if (patient.isPresent() && password.equals(patient.get().getPassword())) {
-            //return "PATIENT";
-            return getUserInfo(patient.get().getDni(), patient.get().getName(),"PATIENT");
-
+        if (patient.isPresent() && passwordService.verifyPassword(password, patient.get().getPassword())) {
+            return getUserInfo(patient.get().getDni(), patient.get().getName(), "PATIENT");
         }
 
-        return Map.of("role", "INVALID_CREDENTIALS");//"INVALID_CREDENTIALS";
+        return Map.of("role", "INVALID_CREDENTIALS");
     }
 
     private Map<String, Object> getUserInfo(String dni, String name, String role) {
