@@ -9,11 +9,20 @@ import com.hospital.portal.repository.PatientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.Map;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Optional;
 
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.security.Keys;
+import java.security.Key;
+
 @Service
 public class LoginService {
+
+    private static final Key SECRET_KEY = Keys.secretKeyFor(SignatureAlgorithm.HS256);
+ 
     @Autowired
     private AdminRepository adminRepository;
     @Autowired
@@ -47,6 +56,23 @@ public class LoginService {
         userInfo.put("dni", dni);
         userInfo.put("name", name);
         userInfo.put("role", role);
+
+        String token = generateToken(dni, role);
+        userInfo.put("token", token);
+
         return userInfo;
+    }
+
+
+    
+    private String generateToken(String dni, String role) {
+
+        return Jwts.builder()
+                .setSubject(dni)  
+                .claim("role", role) 
+                .setIssuedAt(new Date())  
+                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60))//1 hour 
+                .signWith(SECRET_KEY, SignatureAlgorithm.HS256)
+                .compact();
     }
 }

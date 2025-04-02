@@ -1,34 +1,39 @@
+
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Login</title>
-  <link href="/css/styles.css" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Login</title>
+
+    <link rel="stylesheet" href="/css/formStyles.css">
+  </head>
 </head>
 <body>
-  <form id="loginForm">
-    <h1>Login</h1>
-    <div>
-      <label for="dni">DNI:</label>
-      <input type="text" id="dni" name="dni" required>
-    </div>
-    <div>
-      <label for="password">Password:</label>
-      <input type="password" id="password" name="password" required>
-    </div>
-    <div>
-      <button type="submit">Login</button>
-    </div>
-  </form>
+  <div class="form-wrapper">
+    <form id="loginForm">
+      <h1>Login</h1>
+      <div class="form-group">
+        <label for="dni">DNI:</label>
+        <input type="text" id="dni" name="dni" placeholder="Enter your DNI" required>
+      </div>
+      <div class="form-group">
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" placeholder="Enter your password" required>
+      </div>
+      <div>
+        <button type="submit" class="btn primary">Login</button>
+      </div>
+    </form>
+  </div>
 
   <script>
     document.getElementById("loginForm").addEventListener("submit", async function(event) {
         event.preventDefault();
-
+        
         const dni = document.getElementById("dni").value;
         const password = document.getElementById("password").value;
-
         const response = await fetch("/login", {
             method: "POST",
             headers: { "Content-Type": "application/x-www-form-urlencoded" },
@@ -38,7 +43,15 @@
         if (response.ok) {
             const data = await response.json();
             localStorage.setItem("userInfo", JSON.stringify(data)); 
-            window.location.href = "/homepage";
+            const userInfo = JSON.parse(localStorage.getItem("userInfo"));
+
+            if (userInfo.role === "DOCTOR") {
+                window.location.href = "/doctorHome";
+            } else if (userInfo.role === "PATIENT") {
+                window.location.href = "/homepage";
+            }else{ //ADMIN
+                window.location.href = "/adminHome";
+            }
         } else {
             Swal.fire({
                 icon: 'error',
