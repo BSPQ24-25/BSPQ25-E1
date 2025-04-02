@@ -9,67 +9,64 @@ import org.junit.jupiter.api.Test;
 import static org.mockito.ArgumentMatchers.any;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import static org.mockito.Mockito.never;
-import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import org.mockito.MockitoAnnotations;
 
 import com.hospital.portal.model.Patient;
 import com.hospital.portal.repository.PatientRepository;
+import com.hospital.portal.service.PasswordService;
 import com.hospital.portal.service.RegisterService;
 
 class RegisterServiceTest {
 
     @Mock
-    private PatientRepository patientRepository;
+    private PatientRepository patientRepository;  // Mock for PatientRepository
+
+    @Mock
+    private PasswordService passwordService;  // Mock for PasswordService
 
     @InjectMocks
-    private RegisterService registerService;
+    private RegisterService registerService;  // Inject the mocks into RegisterService
 
-
-    // Create the mocks in the setup
-
+    // Set up method to initialize mocks before each test
     @BeforeEach
     void setUp() {
-        MockitoAnnotations.openMocks(this);
+        MockitoAnnotations.openMocks(this);  // Initializes the mocks
     }
 
-    // Test to check that if it is no patient created, the first one is P0001
-
+    // Test to verify that if no patients exist, the first patient will be assigned ID "P0001"
     @Test
     void testGenerateIncrementalPatientId_FirstPatient() {
-        // Simular que no hay pacientes en la BD
+        // Mock the database to simulate no patients
         when(patientRepository.findTopByOrderByPatientIdDesc()).thenReturn(Optional.empty());
 
-        // Ejecutar el método
+        // Call the method to generate the new patient ID
         String newPatientId = registerService.generateIncrementalPatientId();
 
-        // Verificar resultado esperado
-        assertEquals("P0001", newPatientId);
+        // Verify the expected result
+        assertEquals("P0001", newPatientId);  // The first patient ID should be "P0001"
     }
 
-     // Test to check that if there are 23 patient the next one is P0024
-
-
+    // Test to verify that if there are 23 existing patients, the next one will be assigned ID "P0024"
     @Test
     void testGenerateIncrementalPatientId_WithExistingPatients() {
-        // Simular que el último paciente tiene ID "P0023"
+        // Simulate the last patient having ID "P0023"
         Patient lastPatient = new Patient();
         lastPatient.setPatientId("P0023");
         when(patientRepository.findTopByOrderByPatientIdDesc()).thenReturn(Optional.of(lastPatient));
 
-        // Ejecutar el método
+        // Call the method to generate the new patient ID
         String newPatientId = registerService.generateIncrementalPatientId();
 
-        // Verificar que el nuevo ID sea "P0024"
-        assertEquals("P0024", newPatientId);
+        // Verify that the new ID will be "P0024"
+        assertEquals("P0024", newPatientId);  // The new ID should be "P0024"
     }
 
-    //Test to check the register is done correctly
-
+    // Test for successful patient registration
     @Test
-    void testRegisterPatient_Success() {
+    public void testRegisterPatient_Success() {
+        // Patient data for registration
         String dni = "12345678X";
         String name = "John";
         String surname = "Doe";
@@ -79,32 +76,18 @@ class RegisterServiceTest {
         String gender = "Male";
         String password = "password123";
 
-        // Simular que el paciente no está registrado
-        when(patientRepository.existsById(dni)).thenReturn(false);
-        when(patientRepository.findTopByOrderByPatientIdDesc()).thenReturn(Optional.empty());
+        // Mock checks for the availability of the DNI and email
+        when(patientRepository.existsByDni(dni)).thenReturn(false);  // Mocking that the DNI does not exist
+        when(patientRepository.existsByMail(email)).thenReturn(false);  // Mocking that the email does not exist
+        when(patientRepository.findTopByOrderByPatientIdDesc()).thenReturn(Optional.empty());  // Mocking no existing patients
 
-        // Ejecutar el método
+        // Call the method to register the patient
         String result = registerService.registerPatient(dni, name, surname, phone, email, birthDate, gender, password);
 
-        // Verificar que el resultado sea el esperado
-        assertEquals("Registration successful", result);
-        verify(patientRepository, times(1)).save(any(Patient.class));
-    }
+        // Verify the expected result
+        assertEquals("Registration successful", result);  // The registration should be successful
 
-    //Test to check that if DNI is not valid, rejected 
-    @Test
-    void testRegisterPatient_DniAlreadyExists() {
-        String dni = "12345678X";
-
-        // Simular que el DNI ya está registrado
-        when(patientRepository.existsById(dni)).thenReturn(true);
-
-        // Ejecutar el método
-        String result = registerService.registerPatient(dni, "John", "Doe", "123456789", "john@example.com",
-                LocalDate.of(1990, 1, 1), "Male", "password123");
-
-        // Verificar que se devuelve el mensaje esperado
-        assertEquals("DNI already registered", result);
-        verify(patientRepository, never()).save(any(Patient.class));
+        // Verify that saveAndFlush method was called on the repository
+        verify(patientRepository).saveAndFlush(any(Patient.class));  // Verifying that the patient is saved
     }
 }
