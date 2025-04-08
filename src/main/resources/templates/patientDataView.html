@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Patient data view</title>
+
+  <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+  <link rel="stylesheet" th:href="@{/css/font-awesome.min.css}">
+  <link rel="stylesheet" th:href="@{/css/animate.css}">
+  <link rel="stylesheet" th:href="@{/css/owl.carousel.css}">
+  <link rel="stylesheet" th:href="@{/css/owl.theme.default.min.css}">
+
+  <!-- MAIN CSS -->
+  <link rel="stylesheet" th:href="@{/css/tooplate-style.css}">
+</head>
+
+<body id="top" data-spy="scroll" data-target=".navbar-collapse" data-offset="50">
+
+  <!-- PRE LOADER -->
+  <section class="preloader">
+    <div class="spinner">
+
+      <span class="spinner-rotate"></span>
+
+    </div>
+  </section>
+
+  <header>
+    <div class="container">
+      <div class="row">
+
+        <div class="col-md-4 col-sm-5">
+          <p>Welcome to a Professional Hospital</p>
+        </div>
+
+        <div class="col-md-8 col-sm-7 text-align-right">
+          <span class="phone-icon"><i class="fa fa-phone"></i> 000-111-222</span>
+          <span class="date-icon"><i class="fa fa-calendar-plus-o"></i> 6:00 AM - 10:00 PM (Mon-Fri)</span>
+          <span class="email-icon"><i class="fa fa-envelope-o"></i> <a href="#">info@hospital.com</a></span>
+        </div>
+
+      </div>
+    </div>
+  </header>
+
+  <!-- MENU -->
+  <section class="navbar navbar-default navbar-static-top" role="navigation">
+    <div class="container">
+
+      <div class="navbar-header">
+        <button class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+          <span class="icon icon-bar"></span>
+          <span class="icon icon-bar"></span>
+          <span class="icon icon-bar"></span>
+        </button>
+
+        <!-- lOGO TEXT HERE -->
+        <a href="/" class="navbar-brand"><i class="fa fa-h-square"></i>ealth Center</a>
+      </div>
+
+      <!-- MENU LINKS -->
+      <div class="collapse navbar-collapse">
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="/" class="smoothScroll">Logout</a></li>
+          <li class="appointment-btn"><a href="/">Home</a></li>
+        </ul>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="patient-data py-5">
+    <div class="row justify-content-center">
+      <div class="col-md-8">
+        <div class="card shadow">
+          <div class="card-header text-center">
+            <h2 class="mb-0">Patient Data</h2>
+          </div>
+          <div class="card-body">
+            <div class="row">
+              <!-- Primera columna -->
+              <div class="col-md-6 text-center">
+                <p>
+                  <i class="fa fa-id-card-o" aria-hidden="true"></i>
+                  <strong>DNI:</strong>
+                  <span th:text="${patient.dni}">DNI</span>
+                </p>
+                <p>
+                  <i class="fa fa-user" aria-hidden="true"></i>
+                  <strong>Name:</strong>
+                  <span th:text="${patient.name}">Name</span>
+                </p>
+                <p>
+                  <i class="fa fa-user" aria-hidden="true"></i>
+                  <strong>Surname:</strong>
+                  <span th:text="${patient.surname}">Surname</span>
+                </p>
+                <p>
+                  <i class="fa fa-calendar" aria-hidden="true"></i>
+                  <strong>Birthdate:</strong>
+                  <span th:text="${patient.birthDate}">Birthdate</span>
+                </p>
+              </div>
+              <!-- Segunda columna -->
+              <div class="col-md-6 text-center">
+                <p>
+                  <i class="fa fa-venus-mars" aria-hidden="true"></i>
+                  <strong>Gender:</strong>
+                  <span th:text="${patient.gender}">Gender</span>
+                </p>
+                <p>
+                  <i class="fa fa-phone" aria-hidden="true"></i>
+                  <strong>Phone:</strong>
+                  <span th:text="${patient.phone}">Phone</span>
+                </p>
+                <p>
+                  <i class="fa fa-envelope" aria-hidden="true"></i>
+                  <strong>Email:</strong>
+                  <span th:text="${patient.email}">Email</span>
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="card-footer text-muted text-center">
+            <small>Información actualizada al momento de la consulta.</small>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- SCRIPTS -->
+  <script th:src="@{/js/jquery.js}"></script>
+  <script th:src="@{/js/bootstrap.min.js}"></script>
+  <script th:src="@{/js/jquery.sticky.js}"></script>
+  <script th:src="@{/js/jquery.stellar.min.js}"></script>
+  <script th:src="@{/js/wow.min.js}"></script>
+  <script th:src="@{/js/smoothscroll.js}"></script>
+  <script th:src="@{/js/owl.carousel.min.js}"></script>
+  <script th:src="@{/js/custom.js}"></script>
+</body>
+
+</html>
