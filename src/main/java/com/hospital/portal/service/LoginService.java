@@ -1,22 +1,24 @@
 package com.hospital.portal.service;
 
+import java.security.Key;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.hospital.portal.model.Admin;
 import com.hospital.portal.model.Doctor;
 import com.hospital.portal.model.Patient;
 import com.hospital.portal.repository.AdminRepository;
 import com.hospital.portal.repository.DoctorRepository;
 import com.hospital.portal.repository.PatientRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import java.util.Map;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Optional;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
-import java.security.Key;
 
 @Service
 public class LoginService {
