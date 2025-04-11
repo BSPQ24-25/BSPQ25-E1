@@ -1,4 +1,4 @@
-package com.hospital.portal.TestControllers;
+package com.hospital.portal.unit.TestControllers;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;

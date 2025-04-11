@@ -1,4 +1,4 @@
-package com.hospital.portal.TestModels;
+package com.hospital.portal.unit.TestModels;
 import java.time.LocalDate;
 import java.util.Optional;
 
