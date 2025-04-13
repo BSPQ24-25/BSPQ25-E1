@@ -1,4 +1,4 @@
-package com.hospital.portal.TestServices;
+package com.hospital.portal.unit.TestServices;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;

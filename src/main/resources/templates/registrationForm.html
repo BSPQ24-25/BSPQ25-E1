@@ -1,42 +1,47 @@
-
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>User Registration</title>
   <link href="/css/formStyles.css" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
-
 <body>
   <div class="form-wrapper">
     <form id="registrationForm">
-      <h1>User Registration</h1>
+      <h2>User Registration</h2>
+      
       <div class="form-group">
         <label for="dni">DNI:</label>
-        <input type="text" id="dni" name="dni" required>
+        <input type="text" id="dni" name="dni" placeholder="Enter your DNI" required>
       </div>
+      
       <div class="form-group">
         <label for="name">Name:</label>
-        <input type="text" id="name" name="name" required>
+        <input type="text" id="name" name="name" placeholder="Enter your name" required>
       </div>
+      
       <div class="form-group">
         <label for="surname">Surname:</label>
-        <input type="text" id="surname" name="surname" required>
+        <input type="text" id="surname" name="surname" placeholder="Enter your surname" required>
       </div>
+      
       <div class="form-group">
         <label for="phone">Phone:</label>
-        <input type="text" id="phone" name="phone" required>
+        <input type="text" id="phone" name="phone" placeholder="Enter your phone number" required>
       </div>
+      
       <div class="form-group">
         <label for="email">Email:</label>
-        <input type="email" id="email" name="email" required>
+        <input type="email" id="email" name="email" placeholder="Enter your email" required>
       </div>
+      
       <div class="form-group">
         <label for="birthDate">Birth Date:</label>
         <input type="date" id="birthDate" name="birthDate" required>
       </div>
+      
       <div class="form-group">
         <label for="gender">Gender:</label>
         <select id="gender" name="gender" required>
@@ -46,84 +51,151 @@
           <option value="Other">Other</option>
         </select>
       </div>
+      
       <div class="form-group">
         <label for="password">Password:</label>
-        <input type="password" id="password" name="password" required>
+        <input type="password" id="password" name="password" placeholder="Enter your password" required>
       </div>
-      <div class="form-group">
+      
+      <div>
         <button type="button" id="submitButton" class="btn primary">Register</button>
       </div>
     </form>
   </div>
-
+  
   <script>
     document.getElementById('submitButton').addEventListener('click', function () {
-        const form = document.getElementById('registrationForm');
-        const formData = new FormData(form);
-        
-        // Convert birthDate to proper format
-        const jsonData = Object.fromEntries(formData);
-        jsonData.birthDate = new Date(jsonData.birthDate).toISOString().split('T')[0];
-        
-        fetch('/register', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded'
-            },
-            body: new URLSearchParams(formData).toString()
-        })
-        .then(response => {
-            // We'll always parse the response text first
-            return response.text().then(text => {
-                if (response.ok) {
-                    // Success case
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Registration Successful',
-                        text: 'You will be redirected to login page.',
-                        confirmButtonColor: '#4CAF50'
-                    }).then(() => {
-                        window.location.href = '/login'; // Redirect to login page
-                    });
-                } else {
-                    // Here we handle both server errors and validation errors
-                    let errorMessage = text;
-                    
-                    // Check if the error contains our custom message about duplicate DNI/email
-                    if (text.includes("DNI or email are already registered")) {
-                        errorMessage = "DNI or email are already registered!";
-                    }
-                    
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Registration Failed',
-                        text: errorMessage,
-                        confirmButtonColor: '#ff4d4d'
-                    }).then(() => {
-                        // Reset the form after the user closes the error alert
-                        form.reset();
-                        // Reset the gender dropdown to show the placeholder
-                        document.getElementById('gender').selectedIndex = 0;
-                    });
-                }
-            });
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            Swal.fire({
-                icon: 'error',
-                title: 'Registration Failed',
-                text: 'An unexpected error occurred. Please try again later.',
-                confirmButtonColor: '#ff4d4d'
-            }).then(() => {
-                // Reset the form after the user closes the error alert
-                form.reset();
-                // Reset the gender dropdown to show the placeholder
-                document.getElementById('gender').selectedIndex = 0;
-            });
+      const form = document.getElementById('registrationForm');
+      const formData = new FormData(form);
+      
+      // Reset input styling
+      document.querySelectorAll('input, select').forEach(el => el.style.borderColor = '');
+      
+      // Validation patterns
+      const patterns = {
+        dni: /^\d{8}[A-Za-z]$/,
+        phone: /^\+?\d{9,15}$/,
+        email: /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/,
+        password: /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[\W_]).{10,}$/
+      };
+      
+      let isValid = true;
+      let errorMessages = [];
+      
+      // Validation of all the submitted information
+      ['name', 'surname', 'phone', 'email', 'password', 'dni', 'birthDate', 'gender'].forEach(id => {
+        const input = document.getElementById(id);
+        if (!input.value.trim()) {
+          highlightField(id);
+          errorMessages.push(`${id.charAt(0).toUpperCase() + id.slice(1)} is required`);
+          isValid = false;
+        }
+      });
+      
+      // Specific validations
+      if (document.getElementById('dni').value && !patterns.dni.test(document.getElementById('dni').value)) {
+        highlightField('dni');
+        errorMessages.push('Invalid DNI (8 digits + letter)');
+        isValid = false;
+      }
+      
+      if (document.getElementById('phone').value && !patterns.phone.test(document.getElementById('phone').value)) {
+        highlightField('phone');
+        errorMessages.push('Invalid phone (9-15 digits)');
+        isValid = false;
+      }
+      
+      if (document.getElementById('email').value && !patterns.email.test(document.getElementById('email').value)) {
+        highlightField('email');
+        errorMessages.push('Invalid email format');
+        isValid = false;
+      }
+      
+      if (document.getElementById('password').value && !patterns.password.test(document.getElementById('password').value)) {
+        highlightField('password');
+        errorMessages.push('Password must have: 10+ chars, 1 uppercase, 1 lowercase, 1 number, 1 special char');
+        isValid = false;
+      }
+      
+      const birthDate = new Date(document.getElementById('birthDate').value);
+      if (document.getElementById('birthDate').value && birthDate > new Date()) {
+        highlightField('birthDate');
+        errorMessages.push('Birth date must be in the past');
+        isValid = false;
+      }
+      
+      if (!isValid) {
+        Swal.fire({
+          icon: 'error',
+          title: 'Validation Error',
+          html: errorMessages.join('<br>'),
+          confirmButtonColor: '#ff4d4d'
         });
+        return;
+      }
+      
+      // Convert birthDate to proper format      
+      const jsonData = Object.fromEntries(formData);
+      jsonData.birthDate = new Date(jsonData.birthDate).toISOString().split('T')[0];
+      
+      fetch('/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: new URLSearchParams(formData).toString()
+      })
+      .then(response => {
+        // We'll always parse the response text first
+        return response.text().then(text => {
+          if (response.ok) {
+            // Success case
+            Swal.fire({
+              icon: 'success',
+              title: 'Registration Successful',
+              text: 'You will be redirected to login page.',
+              confirmButtonColor: '#007BFF'
+            }).then(() => {
+              window.location.href = '/login'; // Redirect to login page
+            });
+          } else {
+            // Here we handle both server errors and validation errors
+            let errorMessage = text;
+            // Check if the error contains our custom message about duplicate DNI/email
+            if (text.includes("DNI or email are already registered")) {
+              errorMessage = "DNI or email are already registered!";
+            }
+            Swal.fire({
+              icon: 'error',
+              title: 'Registration Failed',
+              text: errorMessage,
+              confirmButtonColor: '#ff4d4d'
+            });
+          }
+        });
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        Swal.fire({
+          icon: 'error',
+          title: 'Registration Failed',
+          text: 'An unexpected error occurred. Please try again later.',
+          confirmButtonColor: '#ff4d4d'          
+        });
+      });
     });
-    </script>
+    
+    function highlightField(id) {
+      const input = document.getElementById(id);
+      input.style.borderColor = '#ff4d4d';
+    }
+    
+    // Reset field styling on input
+    document.querySelectorAll('input, select').forEach(el => {
+      el.addEventListener('input', function () {
+        this.style.borderColor = '';
+      });
+    });
+  </script>
 </body>
-
 </html>

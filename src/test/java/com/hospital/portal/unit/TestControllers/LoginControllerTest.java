@@ -1,4 +1,5 @@
-package com.hospital.portal.TestControllers;
+package com.hospital.portal.unit.TestControllers;
+
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -21,20 +22,26 @@ class LoginControllerTest {
 
     @BeforeEach
     void setUp() {
-        loginService = mock(LoginService.class);  // Create mock
-        loginController = new LoginController(loginService);  // Use constructor
+        loginService = mock(LoginService.class);  // Create mock of LoginService
+        loginController = new LoginController(loginService);  // Initialize controller with mock service
     }
 
     @Test
-    @DisplayName("Should return role, dni, and name when credentials are valid")
+    @DisplayName("Should return role, dni, name, and token when credentials are valid")
     void testLogin_Success() {
-        Map<String, Object> userInfo = Map.of("role", "ADMIN", "dni", "12345678A", "name", "John Doe");
+        Map<String, Object> userInfo = Map.of(
+            "role", "ADMIN", 
+            "dni", "12345678A", 
+            "name", "John Doe", 
+            "token", "some-token"
+        );
         when(loginService.login("12345678A", "password123")).thenReturn(userInfo);
 
         ResponseEntity<?> response = loginController.login("12345678A", "password123");
 
-        assertEquals(200, response.getStatusCode().value());  // Verify code 200
-        assertEquals(userInfo, response.getBody());  // Verify it is what we expect
+        assertEquals(200, response.getStatusCode().value());  // Verify that the status code is 200
+        Map<String, Object> responseBody = (Map<String, Object>) response.getBody();  // Cast to Map
+        assertEquals(userInfo, responseBody);  // Verify that the response body matches the expected user info
     }
 
     @Test
@@ -45,8 +52,9 @@ class LoginControllerTest {
 
         ResponseEntity<?> response = loginController.login("12345678A", "wrongpassword");
 
-        assertEquals(401, response.getStatusCode().value());  // Code 401 for incorrect credential 
-        assertEquals("Invalid credentials", response.getBody());
+        assertEquals(401, response.getStatusCode().value());  // Code 401 for incorrect credentials
+        String responseBody = (String) response.getBody();  // Cast to String
+        assertEquals("Invalid credentials", responseBody);  // Check for the exact error message
     }
 
     @Test
@@ -55,11 +63,13 @@ class LoginControllerTest {
         ResponseEntity<?> response1 = loginController.login(null, "password123");
         ResponseEntity<?> response2 = loginController.login("12345678A", null);
 
-        assertEquals(400, response1.getStatusCode().value());
-        assertEquals("DNI and password are required.", response1.getBody());
+        assertEquals(400, response1.getStatusCode().value());  // Bad request for missing DNI
+        String responseBody1 = (String) response1.getBody();  // Cast to String
+        assertEquals("DNI and password are required.", responseBody1);  // Error message
 
-        assertEquals(400, response2.getStatusCode().value());
-        assertEquals("DNI and password are required.", response2.getBody());
+        assertEquals(400, response2.getStatusCode().value());  // Bad request for missing password
+        String responseBody2 = (String) response2.getBody();  // Cast to String
+        assertEquals("DNI and password are required.", responseBody2);  // Error message
     }
 
     @Test
@@ -69,7 +79,8 @@ class LoginControllerTest {
 
         ResponseEntity<?> response = loginController.login("12345678A", "password123");
 
-        assertEquals(500, response.getStatusCode().value());  // Code 500 for other errors
-        assertTrue(response.getBody().toString().contains("Login failed: Database error"));
+        assertEquals(500, response.getStatusCode().value());  // Code 500 for internal server error
+        String responseBody = (String) response.getBody();  // Cast to String
+        assertTrue(responseBody.contains("Login failed: Database error"));
     }
 }

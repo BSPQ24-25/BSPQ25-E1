@@ -33,7 +33,7 @@ public class LoginController {
             if ("INVALID_CREDENTIALS".equals(userInfo.get("role"))) {
                 return ResponseEntity.status(401).body("Invalid credentials");
             }
-            return ResponseEntity.ok(Map.of("role", userInfo.get("role"), "dni", userInfo.get("dni"), "name", userInfo.get("name")));
+            return ResponseEntity.ok(Map.of("role", userInfo.get("role"), "dni", userInfo.get("dni"), "name", userInfo.get("name"), "token", userInfo.get("token")));
         } catch (Exception e) {
             return ResponseEntity.status(500).body("Login failed: " + e.getMessage());
         }

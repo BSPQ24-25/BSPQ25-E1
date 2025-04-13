@@ -1,19 +1,17 @@
 package com.hospital.portal.controller;
 
 import com.hospital.portal.service.RegisterService;
-import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
+
+import org.springframework.http.HttpStatus;
+//import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.time.LocalDate;
-import com.hospital.portal.model.Patient;
-import org.springframework.http.HttpStatus;
 
 @RestController
 @RequestMapping("/register")
 public class RegisterController {
-     
-    @Autowired
+
     private final RegisterService registerService;
 
     public RegisterController(RegisterService registerService) {
@@ -33,14 +31,13 @@ public class RegisterController {
         try {
             LocalDate birthDate = LocalDate.parse(birthDateString);
             String result = registerService.registerPatient(
-                dni, name, surname, phone, email, birthDate, gender, password
-            );
-            
+                    dni, name, surname, phone, email, birthDate, gender, password);
+
             // Check if the result contains an error message
             if (result.contains("already registered")) {
                 return ResponseEntity.status(HttpStatus.CONFLICT).body(result);
             }
-            
+
             return ResponseEntity.ok(result);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("Registration failed: " + e.getMessage());

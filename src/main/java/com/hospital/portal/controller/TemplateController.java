@@ -35,9 +35,19 @@ public class TemplateController {
     }
 
     @GetMapping("/patient/{dni}")
-    public String showPatientData(@PathVariable("dni") String dni, Model model) {
+    public String showInicioPaciente(@PathVariable("dni") String dni, Model model) {
         Patient patient = patientService.findPatientByDni(dni);
         model.addAttribute("patient", patient);
         return "patientDataView";
+    }
+
+    @GetMapping("/doctorHome")
+    public String showInicioDoctor() {
+        return "doctorHome";
+    }
+
+    @GetMapping("/adminHome")
+    public String showInicioAdmin() {
+        return "adminHome";
     }
 }
