@@ -32,6 +32,9 @@ target/
 # Ignore IntelliJ IDEA project files
 .idea/
 
+# Ignore VS Code project files
+.vscode
+
 # Ignore Eclipse project files
 .project
 .classpath
