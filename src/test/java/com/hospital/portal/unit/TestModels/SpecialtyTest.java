@@ -1,5 +1,6 @@
 package com.hospital.portal.unit.TestModels;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -44,5 +45,13 @@ class SpecialtyTest {
     void testGetSpecialtyDescription() {
         // Verify the description is correct after initialization
         assertEquals("Heart and vascular system diseases", specialty.getDescription());
+    }
+
+    @Test
+    @DisplayName("Should Initialize with Null Values Using Default Constructor")
+    void testDefaultConstructor() {
+        Specialty emptySpecialty = new Specialty();
+        assertNull(emptySpecialty.getName());
+        assertNull(emptySpecialty.getDescription());
     }
 }

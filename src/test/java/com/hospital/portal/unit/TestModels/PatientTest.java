@@ -100,4 +100,53 @@ class PatientTest {
         patient.setPatientId("patient003");
         assertEquals("patient003", patient.getPatientId());
     }
+
+
+    @Test
+    @DisplayName("Should Get DNI Correctly")
+    void testGetDni() {
+        assertEquals("1", patient.getDni());
+    }
+
+    @Test
+    @DisplayName("Should Get Name Correctly")
+    void testGetName() {
+        assertEquals("John", patient.getName());
+    }
+
+    @Test
+    @DisplayName("Should Get Surname Correctly")
+    void testGetSurname() {
+        assertEquals("Doe", patient.getSurname());
+    }
+
+    @Test
+    @DisplayName("Should Get Birth Date Correctly")
+    void testGetBirthDate() {
+        assertEquals(LocalDate.of(1990, 4, 15), patient.getBirthDate());
+    }
+
+    @Test
+    @DisplayName("Should Get Gender Correctly")
+    void testGetGender() {
+        assertEquals("Male", patient.getGender());
+    }
+
+    @Test
+    @DisplayName("Should Get Phone Correctly")
+    void testGetPhone() {
+        assertEquals("987654321", patient.getPhone());
+    }
+
+    @Test
+    @DisplayName("Should Get Email Correctly")
+    void testGetEmail() {
+        assertEquals("john.doe@mail.com", patient.getEmail());
+    }
+
+    @Test
+    @DisplayName("Should Get Password Correctly")
+    void testGetPassword() {
+        assertEquals("password456", patient.getPassword());
+    }
 }
