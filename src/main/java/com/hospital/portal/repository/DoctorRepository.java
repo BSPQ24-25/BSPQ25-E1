@@ -7,5 +7,5 @@ import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface DoctorRepository extends JpaRepository<Doctor, String> {
-	Optional<Doctor> findByDoctorId(String doctorId);
+	Optional<Doctor> findByDni(String dni);
 }
