@@ -16,14 +16,14 @@ public class DocAppointmentController {
         this.docAppointmentService = docAppointmentService;
     }
 
-    @GetMapping("/{doctorId}/appointments")
-    public List<Appointment> getAppointmentsByDoctor(@PathVariable String doctorId) {
-        return docAppointmentService.getAppointmentsByDoctor(doctorId);
+    @GetMapping("/{dni}/appointments")
+    public List<Appointment> getAppointmentsByDoctor(@PathVariable String dni) {
+        return docAppointmentService.getAppointmentsByDoctor(dni);
     }
 
-    @PostMapping("/{doctorId}/appointments")
-    public Appointment createAppointment(@PathVariable String doctorId, @RequestBody Appointment appointment) {
-        return docAppointmentService.createAppointment(doctorId, appointment);
+    @PostMapping("/{dni}/appointments")
+    public Appointment createAppointment(@PathVariable String dni, @RequestBody Appointment appointment) {
+        return docAppointmentService.createAppointment(dni, appointment);
     }
 
     @PutMapping("/appointments/{appointmentId}")
