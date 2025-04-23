@@ -57,7 +57,7 @@ class DocAppointmentServiceTest {
     void testGetAppointmentsByDoctor() {
         String doctorId = "doc123";
         // Mock the behavior of the repository
-        when(appointmentRepository.findByDoctorDoctorId(doctorId)).thenReturn(List.of(appointment));
+        when(appointmentRepository.findByDoctorDni(doctorId)).thenReturn(List.of(appointment));
 
         // Call the service method
         var result = docAppointmentService.getAppointmentsByDoctor(doctorId);
@@ -66,7 +66,7 @@ class DocAppointmentServiceTest {
         assertNotNull(result);
         assertEquals(1, result.size());
         assertEquals("Routine Check", result.get(0).getAppointmentPurpose());
-        verify(appointmentRepository, times(1)).findByDoctorDoctorId(doctorId);
+        verify(appointmentRepository, times(1)).findByDoctorDni(doctorId);
     }
 
     @Test
@@ -77,7 +77,7 @@ class DocAppointmentServiceTest {
         );
 
         // Mock the behavior of doctorRepository
-        when(doctorRepository.findByDoctorId(doctorId)).thenReturn(Optional.of(doctor));
+        when(doctorRepository.findByDni(doctorId)).thenReturn(Optional.of(doctor));
         when(appointmentRepository.save(any(Appointment.class))).thenReturn(newAppointment);
 
         // Call the service method
@@ -86,7 +86,7 @@ class DocAppointmentServiceTest {
         // Verify the result
         assertNotNull(result);
         assertEquals("Follow-up", result.getAppointmentPurpose());
-        verify(doctorRepository, times(1)).findByDoctorId(doctorId);
+        verify(doctorRepository, times(1)).findByDni(doctorId);
         verify(appointmentRepository, times(1)).save(any(Appointment.class));
     }
 
@@ -134,14 +134,14 @@ class DocAppointmentServiceTest {
         );
 
         // Mock the behavior of doctorRepository to return empty
-        when(doctorRepository.findByDoctorId(doctorId)).thenReturn(Optional.empty());
+        when(doctorRepository.findByDni(doctorId)).thenReturn(Optional.empty());
 
         // Test that creating an appointment throws an exception when the doctor is not found
         assertThrows(IllegalArgumentException.class, () -> {
             docAppointmentService.createAppointment(doctorId, newAppointment);
         });
 
-        verify(doctorRepository, times(1)).findByDoctorId(doctorId);
+        verify(doctorRepository, times(1)).findByDni(doctorId);
         verify(appointmentRepository, never()).save(any(Appointment.class));  // Ensure save is never called
     }
 }
