@@ -41,38 +41,38 @@ class DocAppointmentControllerTest {
 
     @Test
     void testGetAppointmentsByDoctor() {
-        String doctorId = "doc123";
+        String doctorDNI = "doc123";
         List<Appointment> appointments = Arrays.asList(appointment);
 
         // Mock the service method
-        when(docAppointmentService.getAppointmentsByDoctor(doctorId)).thenReturn(appointments);
+        when(docAppointmentService.getAppointmentsByDoctor(doctorDNI)).thenReturn(appointments);
 
         // Call the controller method
-        List<Appointment> result = docAppointmentController.getAppointmentsByDoctor(doctorId);
+        List<Appointment> result = docAppointmentController.getAppointmentsByDoctor(doctorDNI);
 
         // Verify the result
         assertEquals(1, result.size());
         assertEquals("Routine Check", result.get(0).getAppointmentPurpose());
-        verify(docAppointmentService, times(1)).getAppointmentsByDoctor(doctorId);
+        verify(docAppointmentService, times(1)).getAppointmentsByDoctor(doctorDNI);
     }
 
     @Test
     void testCreateAppointment() {
-        String doctorId = "doc123";
+        String doctorDNI = "doc123";
         Appointment newAppointment = new Appointment(
             LocalDate.now(), LocalTime.of(11, 0), LocalTime.of(12, 0), null, null, "Follow-up"
         );
 
         // Mock the service method
-        when(docAppointmentService.createAppointment(doctorId, newAppointment)).thenReturn(newAppointment);
+        when(docAppointmentService.createAppointment(doctorDNI, newAppointment)).thenReturn(newAppointment);
 
         // Call the controller method
-        Appointment result = docAppointmentController.createAppointment(doctorId, newAppointment);
+        Appointment result = docAppointmentController.createAppointment(doctorDNI, newAppointment);
 
         // Verify the result
         assertNotNull(result);
         assertEquals("Follow-up", result.getAppointmentPurpose());
-        verify(docAppointmentService, times(1)).createAppointment(doctorId, newAppointment);
+        verify(docAppointmentService, times(1)).createAppointment(doctorDNI, newAppointment);
     }
 
     @Test
