@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -8,26 +8,36 @@
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
+  <section class="navbar navbar-default navbar-static-top" role="navigation">
+    <div class="container">
+         <div class="language-switcher">
+              <a href="?lang=en">English</a> | 
+              <a href="?lang=es">Español</a> | 
+              <a href="?lang=fr">Français</a>
+          </div>
+
+    </div>
+</section>
   <div class="form-wrapper">
     <form id="loginForm">
-      <h2>Login</h2>
+      <h2>[[#{login.title}]]</h2>
       
       <div class="form-group">
-        <label for="dni">DNI:</label>
-        <input type="text" id="dni" name="dni" placeholder="Enter your DNI" required>
+        <label for="dni">[[#{login.dni.label}]]</label>
+        <input type="text" id="dni" name="dni" th:attr="placeholder=#{login.dni.placeholder}" required>
       </div>
       
       <div class="form-group">
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password" placeholder="Enter your password" required>
+        <label for="password">[[#{login.password.label}]]</label>
+        <input type="password" id="password" name="password" th:attr="placeholder=#{login.password.placeholder}" required>
       </div>
       
       <div class="form-group">
-        <button type="submit" class="btn primary">Login</button>
+        <button type="submit" class="btn primary">[[#{login.submit.button}]]</button>
       </div>
 
       <div class="form-group register-link">
-        <p>Don't have an account? <a href="/register">Register</a></p>
+        <p>[[#{login.register.text}]] <a href="/register">[[#{login.register.link}]]</a></p>
       </div>
     </form>
   </div>

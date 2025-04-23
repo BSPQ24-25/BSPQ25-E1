@@ -3,6 +3,10 @@ package com.hospital.portal.controller;
 import com.hospital.portal.model.Patient;
 import com.hospital.portal.service.PatientService;
 
+import jakarta.servlet.http.HttpServletRequest;
+
+import java.util.Locale;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,6 +20,7 @@ public class TemplateController {
 
     @GetMapping("/")
     public String showIndex() {
+       
         return "index";
     }
 

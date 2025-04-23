@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 
      <title>Hospital</title>
@@ -37,13 +37,13 @@
                <div class="row">
 
                     <div class="col-md-4 col-sm-5">
-                         <p>Welcome to a Professional Hospital</p>
+                         <p>[[#{app.title}]]</p>
                     </div>
                          
                     <div class="col-md-8 col-sm-7 text-align-right">
-                         <span class="phone-icon"><i class="fa fa-phone"></i> 000-111-222</span>
-                         <span class="date-icon"><i class="fa fa-calendar-plus-o"></i> 6:00 AM - 10:00 PM (Mon-Fri)</span>
-                         <span class="email-icon"><i class="fa fa-envelope-o"></i> <a href="#">info@hospital.com</a></span>
+                         <span class="phone-icon"><i class="fa fa-phone"></i>[[#{contact.phone}]]</span>
+                         <span class="date-icon"><i class="fa fa-calendar-plus-o"></i>[[#{opening.hours}]]</span>
+                         <span class="email-icon"><i class="fa fa-envelope-o"></i> <a href="#">[[#{contact.email}]]</a></span>
                     </div>
 
                </div>
@@ -69,12 +69,18 @@
                <!-- MENU LINKS -->
                <div class="collapse navbar-collapse">
                     <ul class="nav navbar-nav navbar-right">
-                         <li><a href="#top" class="smoothScroll">Home</a></li>
-                         <li><a href="#about" class="smoothScroll">About Us</a></li>
-                         <li class="appointment-btn"><a href="/login">Login</a></li>
-                         <li class="appointment-btn"><a href="/register">Register</a></li>
+                         <li><a href="#top" class="smoothScroll">[[#{menu.home}]]</a></li>
+                         <li><a href="#about" class="smoothScroll">[[#{menu.about}]]</a></li>
+                         <li class="appointment-btn"><a href="/login">[[#{menu.login}]]</a></li>
+                         <li class="appointment-btn"><a href="/register">[[#{menu.register}]]</a></li>
                     </ul>
                </div>
+
+               <div class="language-switcher">
+                    <a href="?lang=en">English</a> | 
+                    <a href="?lang=es">Español</a> | 
+                    <a href="?lang=fr">Français</a>
+                </div>
 
           </div>
      </section>
@@ -89,7 +95,7 @@
                               <div class="item item-first">
                                    <div class="caption">
                                         <div class="col-md-offset-1 col-md-10">
-                                             <h1>Healthy Living</h1>
+                                             <h1>[[#{car.text1}]]</h1>
                                              <!-- <a href="#" class="section-btn btn btn-default smoothScroll">placeholder</a> -->
                                         </div>
                                    </div>
@@ -98,7 +104,7 @@
                               <div class="item item-second">
                                    <div class="caption">
                                         <div class="col-md-offset-1 col-md-10">
-                                             <h1>New Lifestyle</h1>
+                                             <h1>[[#{car.text2}]]</h1>
                                               <!-- <a href="#" class="section-btn btn btn-default btn-gray smoothScroll">placeholder</a> -->
                                         </div>
                                    </div>
@@ -107,7 +113,7 @@
                               <div class="item item-third">
                                    <div class="caption">
                                         <div class="col-md-offset-1 col-md-10">
-                                             <h1>Your Health Benefits</h1>
+                                             <h1>[[#{car.text3}]]</h1>
                                               <!-- <a href="#" class="section-btn btn btn-default btn-blue smoothScroll">placeholder</a> -->
                                         </div>
                                    </div>
@@ -126,10 +132,10 @@
 
                     <div class="col-md-6 col-sm-6">
                          <div class="about-info">
-                              <h2 class="wow fadeInUp" data-wow-delay="0.6s">Welcome to Your <i class="fa fa-h-square"></i>ealth Center</h2>
+                              <h2 class="wow fadeInUp" data-wow-delay="0.6s">[[#{about.title_p1}]] <i class="fa fa-h-square"></i>ealth Center</h2>
                               <div class="wow fadeInUp" data-wow-delay="0.8s">
-                                   <p>At this hospital we are committed to delivering high-quality, compassionate healthcare. Our experienced medical team provides advanced treatments and personalized care to ensure the best outcomes.</p>
-                                   <p>Patient well-being is our priority, and we strive to offer a safe and comfortable environment. From emergency care to specialized treatments, we are here for you every step of the way.</p>
+                                   <p>[[#{about.text1}]]</p>
+                                   <p>[[#{about.text2}]]</p>
                               </div>
                               <figure class="profile wow fadeInUp" data-wow-delay="1s">
                                    <img src="images/author-image.jpg" class="img-responsive" alt="">
@@ -151,8 +157,8 @@
 
                     <div class="col-md-4 col-sm-4">
                          <div class="footer-thumb"> 
-                              <h4 class="wow fadeInUp" data-wow-delay="0.4s">Contact Info</h4>
-                              <p>You can contact us by the following mediums</p>
+                              <h4 class="wow fadeInUp" data-wow-delay="0.4s">[[#{footer.tContact}]]</h4>
+                              <p>[[#{footer.tContactText}]]</p>
 
                               <div class="contact-info">
                                    <p><i class="fa fa-phone"></i> 000-111-222</p>
@@ -163,10 +169,10 @@
                     <div class="col-md-4 col-sm-4"> 
                          <div class="footer-thumb">
                               <div class="opening-hours">
-                                   <h4 class="wow fadeInUp" data-wow-delay="0.4s">Opening Hours</h4>
-                                   <p>Monday - Friday <span>06:00 AM - 10:00 PM</span></p>
-                                   <p>Saturday <span>09:00 AM - 08:00 PM</span></p>
-                                   <p>Sunday <span>Closed</span></p>
+                                   <h4 class="wow fadeInUp" data-wow-delay="0.4s">[[#{footer.tOpening}]]</h4>
+                                   <p>[[#{footer.OP_mon_fri}]] <span>06:00 AM - 10:00 PM</span></p>
+                                   <p>[[#{footer.OP_sat}]] <span>09:00 AM - 08:00 PM</span></p>
+                                   <p>[[#{footer.OP_sun}]] <span>[[#{footer.OP_sunClosed}]]</span></p>
                               </div> 
 
                               <ul class="social-icon">
