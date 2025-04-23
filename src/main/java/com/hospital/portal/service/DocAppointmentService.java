@@ -19,14 +19,13 @@ public class DocAppointmentService {
         this.doctorRepository = doctorRepository;
     }
 
-    public List<Appointment> getAppointmentsByDoctor(String doctorId) {
-        return appointmentRepository.findByDoctorDoctorId(doctorId);
+    public List<Appointment> getAppointmentsByDoctor(String dni) {
+        return appointmentRepository.findByDoctorDni(dni);
     }
 
-
-    public Appointment createAppointment(String doctorId, Appointment appointmentRequest) {
-        Doctor doctor = doctorRepository.findByDoctorId(doctorId)
-                .orElseThrow(() -> new IllegalArgumentException("Doctor no encontrado con ID: " + doctorId));
+    public Appointment createAppointment(String dni, Appointment appointmentRequest) {
+        Doctor doctor = doctorRepository.findByDni(dni)
+                .orElseThrow(() -> new IllegalArgumentException("Doctor not found with DNI: " + dni));
 
         Appointment newAppointment = new Appointment();
         newAppointment.setDate(appointmentRequest.getDate());
@@ -36,16 +35,15 @@ public class DocAppointmentService {
         newAppointment.setPatient(appointmentRequest.getPatient());
         newAppointment.setAppointmentPurpose(appointmentRequest.getAppointmentPurpose());
         newAppointment.setObservations(appointmentRequest.getObservations());
-        
+
         newAppointment.setAppointmentId(generateAppointmentId());
 
         return appointmentRepository.save(newAppointment);
     }
 
     private String generateAppointmentId() {
-        return "APP" + System.currentTimeMillis(); 
+        return "APP" + System.currentTimeMillis();
     }
-
 
     public Appointment updateAppointment(String id, Appointment newAppointmentData) {
         Appointment existing = appointmentRepository.findById(id)
@@ -54,19 +52,19 @@ public class DocAppointmentService {
         if (newAppointmentData.getDate() != null) {
             existing.setDate(newAppointmentData.getDate());
         }
-        
+
         if (newAppointmentData.getStartTime() != null) {
             existing.setStartTime(newAppointmentData.getStartTime());
         }
-        
+
         if (newAppointmentData.getEndTime() != null) {
             existing.setEndTime(newAppointmentData.getEndTime());
         }
-        
+
         if (newAppointmentData.getPatient() != null) {
             existing.setPatient(newAppointmentData.getPatient());
         }
-        
+
         if (newAppointmentData.getAppointmentPurpose() != null) {
             existing.setAppointmentPurpose(newAppointmentData.getAppointmentPurpose());
         }
@@ -77,7 +75,6 @@ public class DocAppointmentService {
 
         return appointmentRepository.save(existing);
     }
-
 
     public void deleteAppointment(String id) {
         appointmentRepository.deleteById(id);
