@@ -42,7 +42,7 @@ public class AppointmentIntegrationTest {
 
     @BeforeEach
     void setup() {
-        // Configura el ObjectMapper para soportar LocalDate y LocalTime
+        // Configure this to serialize Date
         mapper = new ObjectMapper();
         mapper.registerModule(new JavaTimeModule());
         mapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
@@ -53,7 +53,7 @@ public class AppointmentIntegrationTest {
     void testCreateAppointment() throws Exception {
         System.out.println("Iniciando testCreateAppointmentWithExistingPatient...");
 
-        // Login como doctor
+        // Login as doctor
         ResponseEntity<String> loginResponse = restTemplate.exchange(
                 "/login?dni=" + doctorDni + "&password=" + doctorPass,
                 HttpMethod.POST,
@@ -66,11 +66,11 @@ public class AppointmentIntegrationTest {
         token = (String) loginBody.get("token");
         assertNotNull(token);
 
-        // Creamos el paciente como objeto embebido (ya existe en base de datos)
+        // Use patient
         Patient patient = new Patient();
         patient.setDni("56789123P");
 
-        // Crear cita
+        // Create appointment
         Appointment appointment = new Appointment();
         appointment.setDate(LocalDate.of(2025, 5, 10));
         appointment.setStartTime(LocalTime.of(10, 0));
@@ -112,6 +112,8 @@ public class AppointmentIntegrationTest {
 
         HttpEntity<Void> request = new HttpEntity<>(headers);
 
+
+        // delete appointment 
         ResponseEntity<Void> response = restTemplate.exchange(
                 "/api/doctors/appointments/" + appointmentId,
                 HttpMethod.DELETE,
