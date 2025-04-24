@@ -1,0 +1,83 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <title th:text="'Citas de ' + ${patient.name}">Citas Paciente</title>
+
+  <!-- FullCalendar CSS -->
+  <link
+    href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.css"
+    rel="stylesheet"/>
+
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; }
+    #calendar { max-width: 900px; margin: 0 auto; }
+  </style>
+</head>
+<body>
+  <h1 th:text="'Citas de ' + ${patient.name}">Citas Paciente</h1>
+  <div id="calendar"></div>
+
+  <!-- FullCalendar + locales -->
+  <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/locales-all.min.js"></script>
+  <!-- Popper + Tooltip.js -->
+  <script src="https://unpkg.com/@popperjs/core@2"></script>
+  <script src="https://unpkg.com/tooltip.js@1"></script>
+
+  <script th:inline="javascript">
+    /*<![CDATA[*/
+    var appointmentEvents = [
+      /*[# th:each="apt,iterStat : ${appointments}"]*/
+      {
+        id:        '[[${apt.appointmentId}]]',
+        title:     '[[${apt.appointmentPurpose}]]',
+        start:     '[[${apt.date}]]T[[${apt.startTime}]]',
+        end:       '[[${apt.date}]]T[[${apt.endTime}]]',
+        purpose:   '[[${apt.appointmentPurpose}]]',
+        observations: '[[${apt.observations}]]'
+      }/*[[${iterStat.last} ? '' : ',' ]]*/,
+      /*[/]*/
+    ];
+
+    document.addEventListener('DOMContentLoaded', function() {
+      var calendar = new FullCalendar.Calendar(
+        document.getElementById('calendar'),
+        {
+          locale: 'es',
+          initialView: 'dayGridMonth',
+          headerToolbar: {
+            left:  'prev,next today',
+            center:'title',
+            right: 'dayGridMonth,timeGridWeek,timeGridDay'
+          },
+          navLinks:    true,
+          nowIndicator:true,
+          events:      appointmentEvents,
+          eventTimeFormat: {
+            hour:   '2-digit',
+            minute: '2-digit',
+            hour12: false
+          },
+          eventDidMount: function(info) {
+            var content = '<strong>Motivo:</strong> ' + info.event.extendedProps.purpose;
+            if (info.event.extendedProps.observations) {
+              content += '<br/><strong>Observaciones:</strong> ' + info.event.extendedProps.observations;
+            }
+            new Tooltip(info.el, {
+              title:   content,
+              html:    true,
+              placement:'top',
+              trigger: 'hover',
+              container:'body'
+            });
+          }
+        }
+      );
+      calendar.render();
+    });
+    /*]]>*/
+  </script>
+</body>
+</html>

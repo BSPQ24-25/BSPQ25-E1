@@ -12,6 +12,7 @@ import jakarta.persistence.Table;
 import jakarta.validation.constraints.FutureOrPresent;
 import jakarta.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 @Entity
 @Table(name = "appointments")
 public class Appointment {
@@ -22,14 +23,17 @@ public class Appointment {
     @Column(nullable = false)
     @NotNull(message = "Date is required")
     @FutureOrPresent(message = "Date must be in the present or future")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate date;
 
     @Column(nullable = false)
     @NotNull(message = "Start time is required")
+    @JsonFormat(pattern = "HH:mm:ss")
     private LocalTime startTime;
 
     @Column(nullable = false)
     @NotNull(message = "End time is required")
+    @JsonFormat(pattern = "HH:mm:ss")
     private LocalTime endTime;
 
     @ManyToOne
