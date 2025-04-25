@@ -1,6 +1,8 @@
 # BSPQ25-E1
-BSPQ25-E1
+Members: Ane Altuna, Iker Ruesgas, Jon Lasa, Izaro Serrano, Isaac Herbozo, Ibon Castro
 
-In here you would add your documentation
-
-More documentation
+# Performance Test Reports
+## Throughput Test
+![Througput](Throughput%20Test.png)
+## Duration Test
+![Duration](Duration%20Test.png)
