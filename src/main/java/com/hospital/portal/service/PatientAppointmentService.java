@@ -24,9 +24,9 @@ public class PatientAppointmentService {
         return appointmentRepository.findByPatientDni(patientDNI);
     }
 
-    /**public List<Appointment> getAppointmentsBySpeciality(String specialtyName) {
-        return appointmentRepository.findBySpeciality(specialtyName);
-    }**/
+    public List<Appointment> getAppointmentByPatientDniAndDoctorSpecialtyName(String patientDni, String specialty_name) {
+        return appointmentRepository.findByPatientDniAndDoctorSpecialtyName(patientDni, specialty_name);
+    }
 
     public List<Appointment> getAppointmentsByDate(String patientDNI, LocalDate dateTime) {
         return appointmentRepository.findByPatientDniAndDate(patientDNI, dateTime);

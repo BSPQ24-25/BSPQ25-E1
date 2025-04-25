@@ -28,6 +28,11 @@ public class PatientAppointmentController {
         return patientAppointmentService.getAppointmentsByDate(patientDNI, date);
     }
 
+    @GetMapping("/{patientDNI}/appointmentsBySpecialty")
+    public List<Appointment> getAppointmentByPatientDniAndDoctorSpecialtyName(@PathVariable String patientDNI, @RequestParam String specialty_name) {
+        return patientAppointmentService.getAppointmentByPatientDniAndDoctorSpecialtyName(patientDNI, specialty_name);
+    }
+
     @PostMapping("/{patientDNI}/appointments")
     public Appointment addAppointmentPatient(@PathVariable String patientDNI, @RequestBody Appointment appointment) {
         return patientAppointmentService.addAppointmentPatient(patientDNI, appointment);
