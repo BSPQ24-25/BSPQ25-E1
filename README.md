@@ -3,6 +3,6 @@ Members: Ane Altuna, Iker Ruesgas, Jon Lasa, Izaro Serrano, Isaac Herbozo, Ibon 
 
 # Performance Test Reports
 ## Throughput Test
-![Througput](Throughput Test.png)
+![Througput](Throughput%20Test.png)
 ## Duration Test
-![Duration](Duration Test.png)
+![Duration](Duration%20Test.png)
