@@ -4,6 +4,7 @@ import com.hospital.portal.model.Appointment;
 import com.hospital.portal.service.DocAppointmentService;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -34,5 +35,10 @@ public class DocAppointmentController {
     @DeleteMapping("/appointments/{appointmentId}")
     public void deleteAppointment(@PathVariable String appointmentId) {
         docAppointmentService.deleteAppointment(appointmentId);
+    }
+    
+    @GetMapping("/{dni}/appointments/filter")
+    public List<Appointment> getAppointmentsByDoctorAndDateRange(@PathVariable String dni, @RequestParam("startDate") LocalDate startDate, @RequestParam("endDate") LocalDate endDate) {
+        return docAppointmentService.getAppointmentsByDoctorAndDateRange(dni, startDate, endDate);
     }
 }
