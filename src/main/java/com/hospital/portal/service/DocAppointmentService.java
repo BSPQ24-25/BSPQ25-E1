@@ -6,7 +6,10 @@ import com.hospital.portal.repository.AppointmentRepository;
 import com.hospital.portal.repository.DoctorRepository;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class DocAppointmentService {
@@ -78,5 +81,18 @@ public class DocAppointmentService {
 
     public void deleteAppointment(String id) {
         appointmentRepository.deleteById(id);
+    }
+    
+    public List<Appointment> getAppointmentsByDoctorAndDateRange(String dni, LocalDate startDate, LocalDate endDate) {
+        List<Appointment> allAppointments = appointmentRepository.findByDoctorDni(dni);
+
+        return allAppointments.stream()
+                .filter(app -> {
+                    LocalDate date = app.getDate();
+                    return !date.isBefore(startDate) && !date.isAfter(endDate);
+                })
+                .sorted(Comparator.comparing(Appointment::getDate)
+                                  .thenComparing(Appointment::getStartTime))
+                .collect(Collectors.toList());
     }
 }
