@@ -4,6 +4,7 @@ import com.hospital.portal.model.Patient;
 import com.hospital.portal.service.PatientService;
 import com.hospital.portal.model.Appointment;
 import com.hospital.portal.service.PatientAppointmentService;
+import com.hospital.portal.service.DocAppointmentService;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule; // Importante para fechas
@@ -24,6 +25,9 @@ public class TemplateController {
 
   @Autowired
   private PatientAppointmentService appointmentServiceP;
+
+  @Autowired
+  private DocAppointmentService docAppointmentService;
 
   private final ObjectMapper mapper;
 
@@ -69,7 +73,7 @@ public class TemplateController {
     return "adminHome";
   }
 
-  @GetMapping("/{patientId}/calendar")
+  @GetMapping("patient/{patientId}/calendar")
   public String showAppointmentCalendar(@PathVariable String patientId, Model model) throws JsonProcessingException {
     Patient patient = patientService.findPatientByDni(patientId);
     List<Appointment> appointments = appointmentServiceP.getAppointmentsByPatientDNI(patientId);
@@ -80,5 +84,17 @@ public class TemplateController {
     model.addAttribute("appointmentsJson", appointmentsJson);
     model.addAttribute("appointments", appointments);
     return "patientAppointmentView";
+  }
+
+  @GetMapping("doctor/{doctorId}/calendar")
+  public String showDoctorAppointmentCalendar(@PathVariable String doctorId, Model model)
+      throws JsonProcessingException {
+    List<Appointment> appointments = docAppointmentService.getAppointmentsByDoctor(doctorId);
+
+    String appointmentsJson = mapper.writeValueAsString(appointments);
+
+    model.addAttribute("appointmentsJson", appointmentsJson);
+    model.addAttribute("appointments", appointments);
+    return "docAppointmentView";
   }
 }

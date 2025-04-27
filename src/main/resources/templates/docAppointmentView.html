@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
   <meta charset="UTF-8"/>
-  <title>Appointments for <span th:text="${patient.name}">Paciente</span></title>
+  <title>Doctor's Appointments</title>
 
   <!-- FullCalendar CSS -->
   <link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.css" rel="stylesheet"/>
@@ -94,8 +94,6 @@
       </div>
     </div>
   </section>
-
-  <h1 class="text-center">Appointments for <span th:text="${patient.name}">Nombre Paciente</span></h1>
 
   <!-- Contenedor que muestra si no hay citas -->
   <div id="no-appointments" style="display:none;">
