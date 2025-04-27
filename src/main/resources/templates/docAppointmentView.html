@@ -58,7 +58,7 @@
   </style>
 
 </head>
-<body>
+<body th:data-doctor-id="${doctorId}">
 
   <!-- PRE LOADER -->
   <section class="preloader">
@@ -124,34 +124,34 @@
           ></button>
         </div>
         <div class="modal-body">
-          <dl class="row">
-            <dt class="col-sm-4">Appointment ID</dt>
-            <dd class="col-sm-8" id="modal-id"></dd>
-
-            <dt class="col-sm-4">Patient</dt>
-            <dd class="col-sm-8" id="modal-patient"></dd>
-
-            <dt class="col-sm-4">Doctor</dt>
-            <dd class="col-sm-8" id="modal-doctor"></dd>
-
-            <dt class="col-sm-4">Date & Time</dt>
-            <dd class="col-sm-8" id="modal-datetime"></dd>
-
-            <dt class="col-sm-4">Purpose</dt>
-            <dd class="col-sm-8" id="modal-purpose"></dd>
-
-            <dt class="col-sm-4">Observations</dt>
-            <dd class="col-sm-8" id="modal-observations"></dd>
-          </dl>
+          <form id="appointmentForm">
+            <div class="mb-3">
+              <label for="input-date" class="form-label">Date</label>
+              <input type="date" class="form-control" id="input-date" name="date" required>
+            </div>
+            <div class="mb-3">
+              <label for="input-start" class="form-label">Start Time</label>
+              <input type="time" class="form-control" id="input-start" name="startTime" required>
+            </div>
+            <div class="mb-3">
+              <label for="input-end" class="form-label">End Time</label>
+              <input type="time" class="form-control" id="input-end" name="endTime" required>
+            </div>
+            <div class="mb-3">
+              <label for="input-purpose" class="form-label">Purpose</label>
+              <textarea class="form-control" id="input-purpose" name="appointmentPurpose"></textarea>
+            </div>
+            <div class="mb-3">
+              <label for="input-observations" class="form-label">Observations</label>
+              <textarea class="form-control" id="input-observations" name="observations"></textarea>
+            </div>
+            <div id="form-error" class="alert alert-danger d-none"></div>
+          </form>
         </div>
         <div class="modal-footer">
-          <button
-            type="button"
-            class="btn btn-secondary"
-            data-bs-dismiss="modal"
-          >
-            Close
-          </button>
+          <button type="button" class="btn btn-primary" id="saveBtn">Save</button>
+          <button id="deleteButton" type="button" class="btn btn-danger">Delete</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
         </div>
       </div>
     </div>
@@ -221,35 +221,106 @@
           },
 
           // Only this click opens the modal
+
           eventClick: function(info) {
-            // Fill modal fields
-            document.getElementById('modal-id').textContent = info.event.id;
-            document.getElementById('modal-patient').textContent =
-              info.event.extendedProps.patientName;
-            document.getElementById('modal-doctor').textContent =
-              info.event.extendedProps.doctorName;
+            var event = info.event;
+            var apptId = event.id;
+            var bodyEl = document.body;
+            var isPatient = !!bodyEl.dataset.patientDni;
+            var baseUrl = isPatient
+              ? '/api/patients/appointments/' + apptId
+              : '/api/doctors/appointments/'  + apptId;
 
-            var start = info.event.start;
-            var end   = info.event.end;
-            var opts = {
-              year: 'numeric', month: '2-digit', day: '2-digit',
-              hour: '2-digit', minute: '2-digit'
+            // 1) Prefill form
+            document.getElementById('input-date').value         = event.startStr.split('T')[0];
+            document.getElementById('input-start').value        = event.startStr.split('T')[1].substr(0,5);
+            document.getElementById('input-end').value          = event.endStr  .split('T')[1].substr(0,5);
+            document.getElementById('input-purpose').value      = event.extendedProps.purpose || '';
+            document.getElementById('input-observations').value = event.extendedProps.observations || '';
+            document.getElementById('form-error').classList.add('d-none');
+
+            // 2) Enable/disable fields
+            ['input-purpose','input-observations'].forEach(function(id) {
+              document.getElementById(id).disabled = isPatient;
+            });
+
+            // 3) Show modal
+            var modalEl = document.getElementById('appointmentModal');
+            var bsModal = new bootstrap.Modal(modalEl);
+            bsModal.show();
+
+            // 4) Save handler
+            document.getElementById('saveBtn').onclick = function() {
+              let startVal = document.getElementById('input-start').value;
+              let endVal   = document.getElementById('input-end').value;
+
+              var payload = {};
+              // always include date/time
+              payload.date      = document.getElementById('input-date').value;
+              payload.startTime = startVal.length === 5 ? startVal + ':00' : startVal;
+              payload.endTime   = endVal.length   === 5 ? endVal   + ':00' : endVal;
+              // only if doctor, include purpose/obs
+              if (!isPatient) {
+                payload.appointmentPurpose = document.getElementById('input-purpose').value;
+                payload.observations       = document.getElementById('input-observations').value;
+              }
+              fetch(baseUrl, {
+                method: 'PUT',
+                headers: { 'Content-Type':'application/json' },
+                body: JSON.stringify(payload)
+              })
+              .then(function(res){
+                if (!res.ok) {
+                  return res.json().then(function(err){
+                    throw err;
+                  });
+                }
+                return res.json();
+              })
+              .then(function(updated){
+                // Actualizar evento en pantalla
+                event.setStart(updated.date + 'T' + updated.startTime);
+                event.setEnd  (updated.date + 'T' + updated.endTime);
+                if (!isPatient) {
+                  event.setProp('title', updated.appointmentPurpose);
+                  event.setExtendedProp('purpose', updated.appointmentPurpose);
+                  event.setExtendedProp('observations', updated.observations);
+                }
+                bsModal.hide();
+              })
+              .catch(function(err){
+                // Mostrar mensaje de validación
+                var errDiv = document.getElementById('form-error');
+                var msg = err.message || 'Validation error';
+                errDiv.textContent = msg;
+                errDiv.classList.remove('d-none');
+              });
+
+              document.getElementById('deleteButton').onclick = function () {
+                if (!confirm('¿Estás seguro de que quieres eliminar esta cita?')) {
+                  return;
+                }
+                
+                fetch(`/api/patients/appointments/${info.event.id}`, {
+                  method: 'DELETE'
+                })
+                .then(response => {
+                  if (response.ok) {
+                    info.event.remove(); // Elimina la cita del calendario
+                    var appointmentModalEl = document.getElementById('appointmentModal');
+                    var modal = bootstrap.Modal.getInstance(appointmentModalEl);
+                    modal.hide();
+                  } else {
+                    alert('Error al eliminar la cita.');
+                  }
+                })
+                .catch(error => {
+                  console.error('Error:', error);
+                  alert('Ocurrió un error al intentar eliminar la cita.');
+                });
+              };
             };
-            document.getElementById('modal-datetime').textContent =
-              start.toLocaleDateString('en-US', opts) +
-              ' – ' +
-              end.toLocaleTimeString('en-US', opts);
-
-            document.getElementById('modal-purpose').textContent =
-              info.event.extendedProps.purpose || '—';
-            document.getElementById('modal-observations').textContent =
-              info.event.extendedProps.observations || 'None';
-
-            // Show the Bootstrap modal
-            var modal = new bootstrap.Modal(
-              document.getElementById('appointmentModal')
-            );
-            modal.show();
+          
           }
         }
       );

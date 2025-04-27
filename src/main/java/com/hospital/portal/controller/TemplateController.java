@@ -5,7 +5,6 @@ import com.hospital.portal.service.PatientService;
 import com.hospital.portal.model.Appointment;
 import com.hospital.portal.service.PatientAppointmentService;
 import com.hospital.portal.service.DocAppointmentService;
-
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule; // Importante para fechas
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -93,6 +92,7 @@ public class TemplateController {
 
     String appointmentsJson = mapper.writeValueAsString(appointments);
 
+    model.addAttribute("doctorId", doctorId);
     model.addAttribute("appointmentsJson", appointmentsJson);
     model.addAttribute("appointments", appointments);
     return "docAppointmentView";
