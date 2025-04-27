@@ -5,9 +5,9 @@ import com.hospital.portal.service.PatientService;
 import com.hospital.portal.model.Appointment;
 import com.hospital.portal.service.PatientAppointmentService;
 
-import jakarta.servlet.http.HttpServletRequest;
-
-import java.util.Locale;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule; // Importante para fechas
+import com.fasterxml.jackson.core.JsonProcessingException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,57 +19,66 @@ import java.util.List;
 
 @Controller
 public class TemplateController {
-    @Autowired
-    private PatientService patientService;
+  @Autowired
+  private PatientService patientService;
 
-    @Autowired
-    private PatientAppointmentService appointmentServiceP;
+  @Autowired
+  private PatientAppointmentService appointmentServiceP;
 
-    @GetMapping("/")
-    public String showIndex() {
-       
-        return "index";
-    }
+  private final ObjectMapper mapper;
 
-    @GetMapping("/register")
-    public String showRegistrationForm() {
-        return "registrationForm";
-    }
+  public TemplateController() {
+    this.mapper = new ObjectMapper();
+    this.mapper.registerModule(new JavaTimeModule()); // Registramos el módulo para fechas
+  }
 
-    @GetMapping("/login")
-    public String showLoginForm() {
-        return "loginForm";
-    }
+  @GetMapping("/")
+  public String showIndex() {
+    return "index";
+  }
 
-    @GetMapping("/homepage")
-    public String showInicio() {
-        return "homepage";
-    }
+  @GetMapping("/register")
+  public String showRegistrationForm() {
+    return "registrationForm";
+  }
 
-    @GetMapping("/patient/{dni}")
-    public String showInicioPaciente(@PathVariable("dni") String dni, Model model) {
-        Patient patient = patientService.findPatientByDni(dni);
-        model.addAttribute("patient", patient);
-        return "patientDataView";
-    }
+  @GetMapping("/login")
+  public String showLoginForm() {
+    return "loginForm";
+  }
 
-    @GetMapping("/doctorHome")
-    public String showInicioDoctor() {
-        return "doctorHome";
-    }
+  @GetMapping("/homepage")
+  public String showInicio() {
+    return "homepage";
+  }
 
-    @GetMapping("/adminHome")
-    public String showInicioAdmin() {
-        return "adminHome";
-    }
+  @GetMapping("/patient/{dni}")
+  public String showInicioPaciente(@PathVariable("dni") String dni, Model model) {
+    Patient patient = patientService.findPatientByDni(dni);
+    model.addAttribute("patient", patient);
+    return "patientDataView";
+  }
 
+  @GetMapping("/doctorHome")
+  public String showInicioDoctor() {
+    return "doctorHome";
+  }
 
-    @GetMapping("/{patientId}/calendar")
-    public String showAppontmentCalendar (@PathVariable String patientId, Model model){
-        Patient patient = patientService.findPatientByDni(patientId);
-        List<Appointment> appointments = appointmentServiceP.getAppointmentsByPatientDNI(patientId);
-        model.addAttribute("patient", patient);
-        model.addAttribute("appointments", appointments);
-        return "patientAppointmentView";
-    }
+  @GetMapping("/adminHome")
+  public String showInicioAdmin() {
+    return "adminHome";
+  }
+
+  @GetMapping("/{patientId}/calendar")
+  public String showAppointmentCalendar(@PathVariable String patientId, Model model) throws JsonProcessingException {
+    Patient patient = patientService.findPatientByDni(patientId);
+    List<Appointment> appointments = appointmentServiceP.getAppointmentsByPatientDNI(patientId);
+
+    String appointmentsJson = mapper.writeValueAsString(appointments);
+
+    model.addAttribute("patient", patient);
+    model.addAttribute("appointmentsJson", appointmentsJson);
+    model.addAttribute("appointments", appointments);
+    return "patientAppointmentView";
+  }
 }
