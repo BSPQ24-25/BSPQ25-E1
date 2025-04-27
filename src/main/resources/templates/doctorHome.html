@@ -1,31 +1,94 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Doctor HomePage</title>
-  <link href="/css/styles.css" rel="stylesheet">
-</head>
-<body>
-    <div>
-        <h1>Welcome, Dr. <span id="name"></span></h1>
-        <div>
-            <p><strong>DNI:</strong> <span id="dni"></span></p>
-            <p><strong>Role:</strong> <span id="role"></span></p>
-            <!--<p><strong>Session token:</strong> <span id="token"></span></p>-->
+  <head>
+    <meta charset="UTF-8" />
+    <title>Doctor HomePage</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+    <link rel="stylesheet" th:href="@{/css/font-awesome.min.css}" />
+    <link rel="stylesheet" th:href="@{/css/animate.css}" />
+    <link rel="stylesheet" th:href="@{/css/owl.carousel.css}" />
+    <link rel="stylesheet" th:href="@{/css/owl.theme.default.min.css}" />
+
+    <!-- MAIN CSS -->
+    <link rel="stylesheet" th:href="@{/css/tooplate-style.css}" />
+  </head>
+  <body>
+
+    <header>
+      <div class="container">
+        <div class="row">
+          <div class="col-md-4 col-sm-5">
+            <p>[[#{app.title}]]</p>
+          </div>
+
+          <div class="col-md-8 col-sm-7 text-align-right">
+            <span class="phone-icon"
+              ><i class="fa fa-phone"></i>[[#{contact.phone}]]</span
+            >
+            <span class="date-icon"
+              ><i class="fa fa-calendar-plus-o"></i>[[#{opening.hours}]]</span
+            >
+            <span class="email-icon"
+              ><i class="fa fa-envelope-o"></i>
+              <a href="#">[[#{contact.email}]]</a></span
+            >
+          </div>
         </div>
+      </div>
+    </header>
+
+    <!-- MENU -->
+    <section class="navbar navbar-default navbar-static-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button
+            class="navbar-toggle"
+            data-toggle="collapse"
+            data-target=".navbar-collapse"
+          >
+            <span class="icon icon-bar"></span>
+            <span class="icon icon-bar"></span>
+            <span class="icon icon-bar"></span>
+          </button>
+
+          <!-- lOGO TEXT HERE -->
+          <a href="/" class="navbar-brand"
+            ><i class="fa fa-h-square"></i>ealth Center</a
+          >
+        </div>
+        <div>
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="/">Logout</a></li>
+            <li><a href="/">Home</a></li>
+            <li class="appointment-btn">
+              <a href="#" id="appointmentsLink">View Appointments</a>
+            </li>
+          </ul>
+        </div>
+    </section>
+
+    <div>
+      <h1>Welcome, Dr. <span id="name"></span></h1>
+      <div>
+        <p><strong>DNI:</strong> <span id="dni"></span></p>
+        <p><strong>Role:</strong> <span id="role"></span></p>
+        <!--<p><strong>Session token:</strong> <span id="token"></span></p>-->
+      </div>
     </div>
 
-
     <script>
-        const userInfo = JSON.parse(localStorage.getItem("userInfo"));
+      const userInfo = JSON.parse(localStorage.getItem("userInfo"));
 
-        if (userInfo) { //to get the values of the specific user
-            document.getElementById("name").textContent = userInfo.name;
-            document.getElementById("dni").textContent = userInfo.dni;
-            document.getElementById("role").textContent = userInfo.role;
-            document.getElementById("token").textContent = userInfo.token;
-        }
-
+      if (userInfo) {
+        //to get the values of the specific user
+        document.getElementById("name").textContent = userInfo.name;
+        document.getElementById("dni").textContent = userInfo.dni;
+        document.getElementById("role").textContent = userInfo.role;
+        document
+          .getElementById("appointmentsLink")
+          .setAttribute("href", "/doctor/" + userInfo.dni + "/calendar");
+      }
     </script>
-</body>
+  </body>
 </html>
+

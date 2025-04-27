@@ -1,153 +1,168 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Patient data view</title>
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Patient data view</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+    <link rel="stylesheet" th:href="@{/css/font-awesome.min.css}" />
+    <link rel="stylesheet" th:href="@{/css/animate.css}" />
+    <link rel="stylesheet" th:href="@{/css/owl.carousel.css}" />
+    <link rel="stylesheet" th:href="@{/css/owl.theme.default.min.css}" />
 
-  <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
-  <link rel="stylesheet" th:href="@{/css/font-awesome.min.css}">
-  <link rel="stylesheet" th:href="@{/css/animate.css}">
-  <link rel="stylesheet" th:href="@{/css/owl.carousel.css}">
-  <link rel="stylesheet" th:href="@{/css/owl.theme.default.min.css}">
+    <!-- MAIN CSS -->
+    <link rel="stylesheet" th:href="@{/css/tooplate-style.css}" />
+  </head>
 
-  <!-- MAIN CSS -->
-  <link rel="stylesheet" th:href="@{/css/tooplate-style.css}">
-</head>
-
-<body id="top" data-spy="scroll" data-target=".navbar-collapse" data-offset="50">
-
-  <!-- PRE LOADER -->
-  <section class="preloader">
-    <div class="spinner">
-
-      <span class="spinner-rotate"></span>
-
-    </div>
-  </section>
-
-  <header>
-    <div class="container">
-      <div class="row">
-
-        <div class="col-md-4 col-sm-5">
-          <p>[[#{app.title}]]</p>
-        </div>
-
-        <div class="col-md-8 col-sm-7 text-align-right">
-          <span class="phone-icon"><i class="fa fa-phone"></i>[[#{contact.phone}]]</span>
-          <span class="date-icon"><i class="fa fa-calendar-plus-o"></i>[[#{opening.hours}]]</span>
-          <span class="email-icon"><i class="fa fa-envelope-o"></i> <a href="#">[[#{contact.email}]]</a></span>
-        </div>
-
+  <body
+    id="top"
+    data-spy="scroll"
+    data-target=".navbar-collapse"
+    data-offset="50"
+  >
+    <!-- PRE LOADER -->
+    <section class="preloader">
+      <div class="spinner">
+        <span class="spinner-rotate"></span>
       </div>
-    </div>
-  </header>
+    </section>
 
-  <!-- MENU -->
-  <section class="navbar navbar-default navbar-static-top" role="navigation">
-    <div class="container">
-
-      <div class="navbar-header">
-        <button class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-          <span class="icon icon-bar"></span>
-          <span class="icon icon-bar"></span>
-          <span class="icon icon-bar"></span>
-        </button>
-
-        <!-- lOGO TEXT HERE -->
-        <a href="/" class="navbar-brand"><i class="fa fa-h-square"></i>ealth Center</a>
-      </div>
-
-      <!-- MENU LINKS -->
-      <div class="collapse navbar-collapse">
-        <ul class="nav navbar-nav navbar-right">
-          <li><a href="/" class="smoothScroll">[[#{userData.menu.logout}]]</a></li>
-          <li><a href="/" class="smoothScroll">[[#{userData.menu.home}]]</a></li>
-          <li class="appointment-btn"><a href="/">[[#{userData.menu.viewBtn}]]</a></li>
-        </ul>
-      </div>
-
-      <div class="language-switcher">
-        <a href="?lang=en">English</a> | 
-        <a href="?lang=es">Español</a> | 
-        <a href="?lang=fr">Français</a>
-      </div>
-
-    </div>
-  </section>
-
-  <section class="patient-data py-5">
-    <div class="row justify-content-center">
-      <div class="col-md-8">
-        <div class="card shadow">
-          <div class="card-header text-center">
-            <h2 class="mb-0">[[#{userData.title}]]</h2>
+    <header>
+      <div class="container">
+        <div class="row">
+          <div class="col-md-4 col-sm-5">
+            <p>[[#{app.title}]]</p>
           </div>
-          <div class="card-body">
-            <div class="row">
-              <!-- Primera columna -->
-              <div class="col-md-6 text-center">
-                <p>
-                  <i class="fa fa-id-card-o" aria-hidden="true"></i>
-                  <strong>[[#{userData.dni.label}]]</strong>
-                  <span th:text="${patient.dni}">DNI</span>
-                </p>
-                <p>
-                  <i class="fa fa-user" aria-hidden="true"></i>
-                  <strong>[[#{userData.name.label}]]</strong>
-                  <span th:text="${patient.name}">Name</span>
-                </p>
-                <p>
-                  <i class="fa fa-user" aria-hidden="true"></i>
-                  <strong>[[#{userData.surname.label}]]</strong>
-                  <span th:text="${patient.surname}">Surname</span>
-                </p>
-                <p>
-                  <i class="fa fa-calendar" aria-hidden="true"></i>
-                  <strong>[[#{userData.birthDate.label}]]</strong>
-                  <span th:text="${patient.birthDate}">Birthdate</span>
-                </p>
-              </div>
-              <!-- Segunda columna -->
-              <div class="col-md-6 text-center">
-                <p>
-                  <i class="fa fa-venus-mars" aria-hidden="true"></i>
-                  <strong>[[#{userData.gender.label}]]</strong>
-                  <span th:text="${patient.gender}">Gender</span>
-                </p>
-                <p>
-                  <i class="fa fa-phone" aria-hidden="true"></i>
-                  <strong>[[#{userData.phone.label}]]</strong>
-                  <span th:text="${patient.phone}">Phone</span>
-                </p>
-                <p>
-                  <i class="fa fa-envelope" aria-hidden="true"></i>
-                  <strong>[[#{userData.email.label}]]</strong>
-                  <span th:text="${patient.email}">Email</span>
-                </p>
+
+          <div class="col-md-8 col-sm-7 text-align-right">
+            <span class="phone-icon"
+              ><i class="fa fa-phone"></i>[[#{contact.phone}]]</span
+            >
+            <span class="date-icon"
+              ><i class="fa fa-calendar-plus-o"></i>[[#{opening.hours}]]</span
+            >
+            <span class="email-icon"
+              ><i class="fa fa-envelope-o"></i>
+              <a href="#">[[#{contact.email}]]</a></span
+            >
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- MENU -->
+    <section class="navbar navbar-default navbar-static-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button
+            class="navbar-toggle"
+            data-toggle="collapse"
+            data-target=".navbar-collapse"
+          >
+            <span class="icon icon-bar"></span>
+            <span class="icon icon-bar"></span>
+            <span class="icon icon-bar"></span>
+          </button>
+
+          <!-- lOGO TEXT HERE -->
+          <a href="/" class="navbar-brand"
+            ><i class="fa fa-h-square"></i>ealth Center</a
+          >
+        </div>
+
+        <!-- MENU LINKS -->
+        <div class="collapse navbar-collapse">
+          <ul class="nav navbar-nav navbar-right">
+            <li>
+              <a href="/" class="smoothScroll">[[#{userData.menu.logout}]]</a>
+            </li>
+            <li>
+              <a href="/" class="smoothScroll">[[#{userData.menu.home}]]</a>
+            </li>
+            <li class="appointment-btn">
+              <a th:href="@{/patient/{dni}/calendar(dni=${patient.dni})}"
+                >[[#{userData.menu.viewBtn}]]</a
+              >
+            </li>
+          </ul>
+        </div>
+
+        <div class="language-switcher">
+          <a href="?lang=en">English</a> | <a href="?lang=es">Español</a> |
+          <a href="?lang=fr">Français</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="patient-data py-5">
+      <div class="row justify-content-center">
+        <div class="col-md-8">
+          <div class="card shadow">
+            <div class="card-header text-center">
+              <h2 class="mb-0">[[#{userData.title}]]</h2>
+            </div>
+            <div class="card-body">
+              <div class="row">
+                <!-- Primera columna -->
+                <div class="col-md-6 text-center">
+                  <p>
+                    <i class="fa fa-id-card-o" aria-hidden="true"></i>
+                    <strong>[[#{userData.dni.label}]]</strong>
+                    <span th:text="${patient.dni}">DNI</span>
+                  </p>
+                  <p>
+                    <i class="fa fa-user" aria-hidden="true"></i>
+                    <strong>[[#{userData.name.label}]]</strong>
+                    <span th:text="${patient.name}">Name</span>
+                  </p>
+                  <p>
+                    <i class="fa fa-user" aria-hidden="true"></i>
+                    <strong>[[#{userData.surname.label}]]</strong>
+                    <span th:text="${patient.surname}">Surname</span>
+                  </p>
+                  <p>
+                    <i class="fa fa-calendar" aria-hidden="true"></i>
+                    <strong>[[#{userData.birthDate.label}]]</strong>
+                    <span th:text="${patient.birthDate}">Birthdate</span>
+                  </p>
+                </div>
+                <!-- Segunda columna -->
+                <div class="col-md-6 text-center">
+                  <p>
+                    <i class="fa fa-venus-mars" aria-hidden="true"></i>
+                    <strong>[[#{userData.gender.label}]]</strong>
+                    <span th:text="${patient.gender}">Gender</span>
+                  </p>
+                  <p>
+                    <i class="fa fa-phone" aria-hidden="true"></i>
+                    <strong>[[#{userData.phone.label}]]</strong>
+                    <span th:text="${patient.phone}">Phone</span>
+                  </p>
+                  <p>
+                    <i class="fa fa-envelope" aria-hidden="true"></i>
+                    <strong>[[#{userData.email.label}]]</strong>
+                    <span th:text="${patient.email}">Email</span>
+                  </p>
+                </div>
               </div>
             </div>
-          </div>
-          <div class="card-footer text-muted text-center">
-            <small>[[#{userData.footer.label}]]</small>
+            <div class="card-footer text-muted text-center">
+              <small>[[#{userData.footer.label}]]</small>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-
-  <!-- SCRIPTS -->
-  <script th:src="@{/js/jquery.js}"></script>
-  <script th:src="@{/js/bootstrap.min.js}"></script>
-  <script th:src="@{/js/jquery.sticky.js}"></script>
-  <script th:src="@{/js/jquery.stellar.min.js}"></script>
-  <script th:src="@{/js/wow.min.js}"></script>
-  <script th:src="@{/js/smoothscroll.js}"></script>
-  <script th:src="@{/js/owl.carousel.min.js}"></script>
-  <script th:src="@{/js/custom.js}"></script>
-</body>
-
+    <!-- SCRIPTS -->
+    <script th:src="@{/js/jquery.js}"></script>
+    <script th:src="@{/js/bootstrap.min.js}"></script>
+    <script th:src="@{/js/jquery.sticky.js}"></script>
+    <script th:src="@{/js/jquery.stellar.min.js}"></script>
+    <script th:src="@{/js/wow.min.js}"></script>
+    <script th:src="@{/js/smoothscroll.js}"></script>
+    <script th:src="@{/js/owl.carousel.min.js}"></script>
+    <script th:src="@{/js/custom.js}"></script>
+  </body>
 </html>
