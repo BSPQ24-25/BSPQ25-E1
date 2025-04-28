@@ -112,11 +112,11 @@
     </div>
 
     <h1 class="text-center">
-      Appointments for <span th:text="${patient.name}">Nombre Paciente</span>
+      [[#{pat.calendar.appointmentsFor}]] <span th:text="${patient.name}">Nombre Paciente</span>
     </h1>
 
     <div id="no-appointments" style="display: none">
-      No appointments booked.
+      [[#{pat.calendar.noAppointments}]]
     </div>
 
     <div id="calendar"></div>
@@ -133,7 +133,7 @@
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title" id="appointmentModalLabel">
-              Appointment Details
+              [[#{pat.calendar.modal.title}]]
             </h5>
             <button
               type="button"
@@ -145,7 +145,7 @@
           <div class="modal-body">
             <form id="appointmentForm">
               <div class="mb-3">
-                <label for="input-doctor" class="form-label">Doctor DNI</label>
+                <label for="input-doctor" class="form-label">[[#{pat.calendar.modal.title}]]</label>
                 <input
                   type="text"
                   class="form-control"
@@ -155,7 +155,7 @@
                 />
               </div>
               <div class="mb-3">
-                <label for="input-date" class="form-label">Date</label>
+                <label for="input-date" class="form-label">[[#{pat.calendar.form.date}]]</label>
                 <input
                   type="date"
                   class="form-control"
@@ -165,7 +165,7 @@
                 />
               </div>
               <div class="mb-3">
-                <label for="input-start" class="form-label">Start Time</label>
+                <label for="input-start" class="form-label">[[#{pat.calendar.form.startTime}]]</label>
                 <input
                   type="time"
                   class="form-control"
@@ -175,7 +175,7 @@
                 />
               </div>
               <div class="mb-3">
-                <label for="input-end" class="form-label">End Time</label>
+                <label for="input-end" class="form-label">[[#{pat.calendar.form.endTime}]]</label>
                 <input
                   type="time"
                   class="form-control"
@@ -185,7 +185,7 @@
                 />
               </div>
               <div class="mb-3">
-                <label for="input-purpose" class="form-label">Purpose</label>
+                <label for="input-purpose" class="form-label">[[#{pat.calendar.form.purpose}]]</label>
                 <textarea
                   class="form-control"
                   id="input-purpose"
@@ -194,7 +194,7 @@
               </div>
               <div class="mb-3">
                 <label for="input-observations" class="form-label"
-                  >Observations</label
+                  >[[#{pat.calendar.form.observations}]]</label
                 >
                 <textarea
                   class="form-control"
@@ -207,17 +207,17 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-primary" id="saveBtn">
-              Save
+              [[#{pat.calendar.button.save}]]
             </button>
             <button id="deleteButton" type="button" class="btn btn-danger">
-              Delete
+              [[#{pat.calendar.button.delete}]]
             </button>
             <button
               type="button"
               class="btn btn-secondary"
               data-bs-dismiss="modal"
             >
-              Close
+            [[#{pat.calendar.button.close}]]
             </button>
           </div>
         </div>
