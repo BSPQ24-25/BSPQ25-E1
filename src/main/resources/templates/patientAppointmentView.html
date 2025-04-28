@@ -90,6 +90,11 @@
       </div>
     </section>
 
+    <!-- Botón Nueva Cita -->
+    <div class="container mt-3">
+      <button id="newAppointmentBtn" class="btn btn-success">New Appointment</button>
+    </div>
+
     <h1 class="text-center">
       Appointments for <span th:text="${patient.name}">Nombre Paciente</span>
     </h1>
@@ -123,6 +128,16 @@
           </div>
           <div class="modal-body">
             <form id="appointmentForm">
+              <div class="mb-3">
+                <label for="input-doctor" class="form-label">Doctor DNI</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="input-doctor"
+                  name="doctorDni"
+                  required
+                />
+              </div>
               <div class="mb-3">
                 <label for="input-date" class="form-label">Date</label>
                 <input
@@ -212,6 +227,7 @@
           observations: apt.observations,
           patientName: apt.patient.name + " " + apt.patient.surname,
           doctorName: apt.doctor.name + " " + apt.doctor.surname,
+          doctorDni: apt.doctor.dni // Nuevo campo añadido
         };
       });
       /*]]>*/
@@ -236,7 +252,6 @@
             minute: "2-digit",
             hour12: false,
           },
-
           dayCellDidMount: function (info) {
             var a = info.el.querySelector(".fc-daygrid-day-number a");
             if (a) a.replaceWith(document.createTextNode(a.textContent));
@@ -245,7 +260,6 @@
             var a = info.el.querySelector(".fc-col-header-cell-cushion a");
             if (a) a.replaceWith(document.createTextNode(a.textContent));
           },
-
           eventClick: function (info) {
             var event = info.event;
             var apptId = event.id;
@@ -266,6 +280,8 @@
               event.extendedProps.purpose || "";
             document.getElementById("input-observations").value =
               event.extendedProps.observations || "";
+            document.getElementById("input-doctor").value =
+              event.extendedProps.doctorDni || ""; // Nuevo campo
             document.getElementById("form-error").classList.add("d-none");
 
             ["input-purpose", "input-observations"].forEach(function (id) {
@@ -276,6 +292,9 @@
             var bsModal = new bootstrap.Modal(modalEl);
             bsModal.show();
 
+            document.getElementById("deleteButton").style.display = "inline-block";
+            document.getElementById("appointmentModalLabel").textContent = "Edit Appointment";
+
             document.getElementById("saveBtn").onclick = function () {
               let startVal = document.getElementById("input-start").value;
               let endVal = document.getElementById("input-end").value;
@@ -283,13 +302,16 @@
                 date: document.getElementById("input-date").value,
                 startTime: startVal.length === 5 ? startVal + ":00" : startVal,
                 endTime: endVal.length === 5 ? endVal + ":00" : endVal,
+                doctorDni: document.getElementById("input-doctor").value // Nuevo campo
               };
+              
               if (!isPatient) {
                 payload.appointmentPurpose =
                   document.getElementById("input-purpose").value;
                 payload.observations =
                   document.getElementById("input-observations").value;
               }
+              
               fetch(baseUrl, {
                 method: "PUT",
                 headers: { "Content-Type": "application/json" },
@@ -304,7 +326,7 @@
                 })
                 .then((updated) => {
                   bsModal.hide();
-                  calendar.refetchEvents(); // 🔥 recarga eventos frescos
+                  calendar.refetchEvents();
                 })
                 .catch((err) => {
                   var errDiv = document.getElementById("form-error");
@@ -320,7 +342,7 @@
                 .then((response) => {
                   if (response.ok) {
                     bsModal.hide();
-                    calendar.refetchEvents(); // 🔥 recarga eventos frescos
+                    calendar.refetchEvents();
                   } else {
                     alert("Error al eliminar la cita.");
                   }
@@ -333,6 +355,62 @@
           },
         });
         calendar.render();
+
+        // Handler para nuevo appointment
+        document.getElementById("newAppointmentBtn").addEventListener("click", function() {
+          // Resetear formulario
+          document.getElementById("input-date").value = "";
+          document.getElementById("input-start").value = "";
+          document.getElementById("input-end").value = "";
+          document.getElementById("input-purpose").value = "";
+          document.getElementById("input-observations").value = "";
+          document.getElementById("input-doctor").value = "";
+          document.getElementById("form-error").classList.add("d-none");
+          
+          // Habilitar campos
+          ["input-purpose","input-observations"].forEach(function(id) {
+            document.getElementById(id).disabled = false;
+          });
+          
+          // Ocultar botón eliminar y cambiar título
+          document.getElementById("deleteButton").style.display = "none";
+          document.getElementById("appointmentModalLabel").textContent = "New Appointment";
+          
+          const patientDni = document.body.dataset.patientDni;
+          const baseUrl = `/api/patients/${patientDni}/appointments`;
+          const bsModal = new bootstrap.Modal(document.getElementById("appointmentModal"));
+          
+          // Configurar guardar
+          document.getElementById("saveBtn").onclick = function() {
+            const payload = {
+              date: document.getElementById("input-date").value,
+              startTime: document.getElementById("input-start").value.padEnd(8, ":00"),
+              endTime: document.getElementById("input-end").value.padEnd(8, ":00"),
+              appointmentPurpose: document.getElementById("input-purpose").value,
+              observations: document.getElementById("input-observations").value,
+              doctor: {
+                dni: document.getElementById("input-doctor").value
+              }
+            };
+            
+            fetch(baseUrl, {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify(payload)
+            })
+            .then(response => {
+              if (!response.ok) throw new Error("Error creating appointment");
+              calendar.refetchEvents();
+              bsModal.hide();
+            })
+            .catch(error => {
+              document.getElementById("form-error").textContent = error.message;
+              document.getElementById("form-error").classList.remove("d-none");
+            });
+          };
+          
+          bsModal.show();
+        });
       });
     </script>
 
