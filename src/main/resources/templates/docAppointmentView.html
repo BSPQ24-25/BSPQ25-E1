@@ -1,17 +1,15 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
+
 <head>
-  <meta charset="UTF-8"/>
+  <meta charset="UTF-8" >
   <title>Doctor's Appointments</title>
 
   <!-- FullCalendar CSS -->
-  <link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.css" rel="stylesheet"/>
+  <link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.css" rel="stylesheet" />
 
   <!-- Bootstrap 5 CSS (for the modal) -->
-  <link
-    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
-    rel="stylesheet"
-  />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
 
 
   <link rel="stylesheet" th:href="@{/css/font-awesome.min.css}">
@@ -20,8 +18,8 @@
   <link rel="stylesheet" th:href="@{/css/owl.theme.default.min.css}">
 
   <link rel="stylesheet" th:href="@{/css/tooplate-style.css}">
+  
   <style>
-
     /* Desactiva TODO enlace dentro del calendario */
     #calendar a {
       color: inherit !important;
@@ -31,11 +29,12 @@
     }
 
     /* Reactiva los enlaces de los eventos (pueden variar según tu versión de FullCalendar) */
-    #calendar .fc-daygrid-event, 
+    #calendar .fc-daygrid-event,
     #calendar .fc-daygrid-event a {
       pointer-events: auto !important;
       cursor: pointer !important;
     }
+
     /* Si tus eventos usan <div> en vez de <a>, aplica también a esos */
     #calendar .fc-daygrid-event {
       pointer-events: auto !important;
@@ -46,18 +45,30 @@
       font-family: Arial, sans-serif;
       margin: 20px;
     }
+
     #calendar {
       max-width: 900px;
       margin: 20px auto;
     }
+
     #no-appointments {
       text-align: center;
       color: #666;
       margin-top: 50px;
     }
+
+    .language-switcher select {
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
+  cursor: pointer;
+}
+    
   </style>
 
 </head>
+
 <body th:data-doctor-id="${doctorId}">
 
   <!-- PRE LOADER -->
@@ -90,68 +101,69 @@
   <!-- MENU -->
   <section class="navbar navbar-default navbar-static-top" role="navigation">
     <div class="container">
-        <a href="/" class="navbar-brand"><i class="fa fa-h-square"></i>ealth Center</a>
-      </div>
+      <a href="/" class="navbar-brand"><i class="fa fa-h-square"></i>ealth Center</a>
     </div>
+    </div>
+    <div class="language-switcher">
+      <select onchange="window.location.href = '?lang=' + this.value">
+        <option value="" selected disabled hidden>🌐 [[#{language.select}]]</option>
+        
+            <option value="en">&#x1F1FA;&#x1F1F8; English</option>
+            <option value="es">&#x1F1EA;&#x1F1F8; Español</option>
+            <option value="fr">&#x1F1EB;&#x1F1F7; Français</option>
+          
+      </select>
+    </div>
+
   </section>
 
   <!-- Contenedor que muestra si no hay citas -->
   <div id="no-appointments" style="display:none;">
-    No appointments booked.
+    [[#{calendar.noAppointments}]]
   </div>
 
   <div id="calendar"></div>
 
   <!-- Bootstrap Modal -->
-  <div
-    class="modal fade"
-    id="appointmentModal"
-    tabindex="-1"
-    aria-labelledby="appointmentModalLabel"
-    aria-hidden="true"
-  >
+  <div class="modal fade" id="appointmentModal" tabindex="-1" aria-labelledby="appointmentModalLabel"
+    aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="appointmentModalLabel">
-            Appointment Details
+            [[#{calendar.modal.title}]]
           </h5>
-          <button
-            type="button"
-            class="btn-close"
-            data-bs-dismiss="modal"
-            aria-label="Close"
-          ></button>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
           <form id="appointmentForm">
             <div class="mb-3">
-              <label for="input-date" class="form-label">Date</label>
+              <label for="input-date" class="form-label">[[#{calendar.form.date}]]</label>
               <input type="date" class="form-control" id="input-date" name="date" required>
             </div>
             <div class="mb-3">
-              <label for="input-start" class="form-label">Start Time</label>
+              <label for="input-start" class="form-label">[[#{calendar.form.startTime}]]</label>
               <input type="time" class="form-control" id="input-start" name="startTime" required>
             </div>
             <div class="mb-3">
-              <label for="input-end" class="form-label">End Time</label>
+              <label for="input-end" class="form-label">[[#{calendar.form.endTime}]]</label>
               <input type="time" class="form-control" id="input-end" name="endTime" required>
             </div>
             <div class="mb-3">
-              <label for="input-purpose" class="form-label">Purpose</label>
+              <label for="input-purpose" class="form-label">[[#{calendar.form.purpose}]]</label>
               <textarea class="form-control" id="input-purpose" name="appointmentPurpose"></textarea>
             </div>
             <div class="mb-3">
-              <label for="input-observations" class="form-label">Observations</label>
+              <label for="input-observations" class="form-label">[[#{calendar.form.observations}]]</label>
               <textarea class="form-control" id="input-observations" name="observations"></textarea>
             </div>
             <div id="form-error" class="alert alert-danger d-none"></div>
           </form>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-primary" id="saveBtn">Save</button>
-          <button id="deleteButton" type="button" class="btn btn-danger">Delete</button>
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" id="saveBtn">[[#{calendar.button.save}]]</button>
+          <button id="deleteButton" type="button" class="btn btn-danger">[[#{calendar.button.delete}]]</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">[[#{calendar.button.close}]]</button>
         </div>
       </div>
     </div>
@@ -167,22 +179,22 @@
 
   <script th:inline="javascript">
     /*<![CDATA[*/
-      // Aquí Thymeleaf reemplaza EL ARRAY JSON sin comillas extras:
-      var rawJson = /*[[${appointmentsJson}]]*/ [];
+    // Aquí Thymeleaf reemplaza EL ARRAY JSON sin comillas extras:
+    var rawJson = /*[[${appointmentsJson}]]*/[];
 
-      var rawAppointments = JSON.parse(rawJson);
-      var appointmentEvents = rawAppointments.map(function(apt) {
-          return {
-            id:           apt.appointmentId,
-            title:        apt.appointmentPurpose,
-            start:        apt.date + 'T' + apt.startTime,
-            end:          apt.date + 'T' + apt.endTime,
-            purpose:      apt.appointmentPurpose,
-            observations: apt.observations,
-            patientName: apt.patient.name + ' ' + apt.patient.surname,
-            doctorName:   apt.doctor.name  + ' ' + apt.doctor.surname
-          };
-      });
+    var rawAppointments = JSON.parse(rawJson);
+    var appointmentEvents = rawAppointments.map(function (apt) {
+      return {
+        id: apt.appointmentId,
+        title: apt.appointmentPurpose,
+        start: apt.date + 'T' + apt.startTime,
+        end: apt.date + 'T' + apt.endTime,
+        purpose: apt.appointmentPurpose,
+        observations: apt.observations,
+        patientName: apt.patient.name + ' ' + apt.patient.surname,
+        doctorName: apt.doctor.name + ' ' + apt.doctor.surname
+      };
+    });
 
     /*]]>*/
   </script>
@@ -210,37 +222,37 @@
           },
 
           // Quitar el <a> de los números de día
-          dayCellDidMount: function(info) {
+          dayCellDidMount: function (info) {
             var a = info.el.querySelector('.fc-daygrid-day-number a');
             if (a) a.replaceWith(document.createTextNode(a.textContent));
           },
           // Quitar el <a> de los encabezados (Mon, Tue, ...)
-          dayHeaderDidMount: function(info) {
+          dayHeaderDidMount: function (info) {
             var a = info.el.querySelector('.fc-col-header-cell-cushion a');
             if (a) a.replaceWith(document.createTextNode(a.textContent));
           },
 
           // Only this click opens the modal
 
-          eventClick: function(info) {
+          eventClick: function (info) {
             var event = info.event;
             var apptId = event.id;
             var bodyEl = document.body;
             var isPatient = !!bodyEl.dataset.patientDni;
             var baseUrl = isPatient
               ? '/api/patients/appointments/' + apptId
-              : '/api/doctors/appointments/'  + apptId;
+              : '/api/doctors/appointments/' + apptId;
 
             // 1) Prefill form
-            document.getElementById('input-date').value         = event.startStr.split('T')[0];
-            document.getElementById('input-start').value        = event.startStr.split('T')[1].substr(0,5);
-            document.getElementById('input-end').value          = event.endStr  .split('T')[1].substr(0,5);
-            document.getElementById('input-purpose').value      = event.extendedProps.purpose || '';
+            document.getElementById('input-date').value = event.startStr.split('T')[0];
+            document.getElementById('input-start').value = event.startStr.split('T')[1].substr(0, 5);
+            document.getElementById('input-end').value = event.endStr.split('T')[1].substr(0, 5);
+            document.getElementById('input-purpose').value = event.extendedProps.purpose || '';
             document.getElementById('input-observations').value = event.extendedProps.observations || '';
             document.getElementById('form-error').classList.add('d-none');
 
             // 2) Enable/disable fields
-            ['input-purpose','input-observations'].forEach(function(id) {
+            ['input-purpose', 'input-observations'].forEach(function (id) {
               document.getElementById(id).disabled = isPatient;
             });
 
@@ -250,77 +262,77 @@
             bsModal.show();
 
             // 4) Save handler
-            document.getElementById('saveBtn').onclick = function() {
+            document.getElementById('saveBtn').onclick = function () {
               let startVal = document.getElementById('input-start').value;
-              let endVal   = document.getElementById('input-end').value;
+              let endVal = document.getElementById('input-end').value;
 
               var payload = {};
               // always include date/time
-              payload.date      = document.getElementById('input-date').value;
+              payload.date = document.getElementById('input-date').value;
               payload.startTime = startVal.length === 5 ? startVal + ':00' : startVal;
-              payload.endTime   = endVal.length   === 5 ? endVal   + ':00' : endVal;
+              payload.endTime = endVal.length === 5 ? endVal + ':00' : endVal;
               // only if doctor, include purpose/obs
               if (!isPatient) {
                 payload.appointmentPurpose = document.getElementById('input-purpose').value;
-                payload.observations       = document.getElementById('input-observations').value;
+                payload.observations = document.getElementById('input-observations').value;
               }
               fetch(baseUrl, {
                 method: 'PUT',
-                headers: { 'Content-Type':'application/json' },
+                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(payload)
               })
-              .then(function(res){
-                if (!res.ok) {
-                  return res.json().then(function(err){
-                    throw err;
-                  });
-                }
-                return res.json();
-              })
-              .then(function(updated){
-                // Actualizar evento en pantalla
-                event.setStart(updated.date + 'T' + updated.startTime);
-                event.setEnd  (updated.date + 'T' + updated.endTime);
-                if (!isPatient) {
-                  event.setProp('title', updated.appointmentPurpose);
-                  event.setExtendedProp('purpose', updated.appointmentPurpose);
-                  event.setExtendedProp('observations', updated.observations);
-                }
-                bsModal.hide();
-              })
-              .catch(function(err){
-                // Mostrar mensaje de validación
-                var errDiv = document.getElementById('form-error');
-                var msg = err.message || 'Validation error';
-                errDiv.textContent = msg;
-                errDiv.classList.remove('d-none');
-              });
+                .then(function (res) {
+                  if (!res.ok) {
+                    return res.json().then(function (err) {
+                      throw err;
+                    });
+                  }
+                  return res.json();
+                })
+                .then(function (updated) {
+                  // Actualizar evento en pantalla
+                  event.setStart(updated.date + 'T' + updated.startTime);
+                  event.setEnd(updated.date + 'T' + updated.endTime);
+                  if (!isPatient) {
+                    event.setProp('title', updated.appointmentPurpose);
+                    event.setExtendedProp('purpose', updated.appointmentPurpose);
+                    event.setExtendedProp('observations', updated.observations);
+                  }
+                  bsModal.hide();
+                })
+                .catch(function (err) {
+                  // Mostrar mensaje de validación
+                  var errDiv = document.getElementById('form-error');
+                  var msg = err.message || 'Validation error';
+                  errDiv.textContent = msg;
+                  errDiv.classList.remove('d-none');
+                });
 
               document.getElementById('deleteButton').onclick = function () {
                 if (!confirm('¿Estás seguro de que quieres eliminar esta cita?')) {
                   return;
                 }
-                
+
                 fetch(`/api/patients/appointments/${info.event.id}`, {
                   method: 'DELETE'
                 })
-                .then(response => {
-                  if (response.ok) {
-                    info.event.remove(); // Elimina la cita del calendario
-                    var appointmentModalEl = document.getElementById('appointmentModal');
-                    var modal = bootstrap.Modal.getInstance(appointmentModalEl);
-                    modal.hide();
-                  } else {
-                    alert('Error al eliminar la cita.');
-                  }
-                })
-                .catch(error => {
-                  console.error('Error:', error);
-                  alert('Ocurrió un error al intentar eliminar la cita.');
-                });
+                  .then(response => {
+                    if (response.ok) {
+                      info.event.remove(); // Elimina la cita del calendario
+                      var appointmentModalEl = document.getElementById('appointmentModal');
+                      var modal = bootstrap.Modal.getInstance(appointmentModalEl);
+                      modal.hide();
+                    } else {
+                      alert('Error al eliminar la cita.');
+                    }
+                  })
+                  .catch(error => {
+                    console.error('Error:', error);
+                    alert('Ocurrió un error al intentar eliminar la cita.');
+                  });
               };
             };
-          
+
           }
         }
       );
@@ -341,4 +353,5 @@
   <script th:src="@{/js/custom.js}"></script>
 
 </body>
+
 </html>
