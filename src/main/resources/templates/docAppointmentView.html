@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
+
 <head>
-  <meta charset="UTF-8"/>
+  <meta charset="UTF-8" >
   <title>Doctor's Appointments</title>
 
   <!-- FullCalendar CSS -->
-  <link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.css" rel="stylesheet"/>
+  <link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.css" rel="stylesheet" />
 
   <!-- Bootstrap 5 CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
@@ -15,6 +16,7 @@
   <link rel="stylesheet" th:href="@{/css/owl.carousel.css}">
   <link rel="stylesheet" th:href="@{/css/owl.theme.default.min.css}">
   <link rel="stylesheet" th:href="@{/css/tooplate-style.css}">
+  
   <style>
     /* Desactiva TODO enlace dentro del calendario */
     #calendar a {
@@ -40,17 +42,29 @@
       font-family: Arial, sans-serif;
       margin: 20px;
     }
+
     #calendar {
       max-width: 900px;
       margin: 20px auto;
     }
+
     #no-appointments {
       text-align: center;
       color: #666;
       margin-top: 50px;
     }
+
+    .language-switcher select {
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
+  cursor: pointer;
+}
+    
   </style>
 </head>
+
 <body th:data-doctor-id="${doctorId}">
 
   <!-- PRE LOADER -->
@@ -80,6 +94,18 @@
     <div class="container">
       <a href="/" class="navbar-brand"><i class="fa fa-h-square"></i>ealth Center</a>
     </div>
+    </div>
+    <div class="language-switcher">
+      <select onchange="window.location.href = '?lang=' + this.value">
+        <option value="" selected disabled hidden>🌐 [[#{language.select}]]</option>
+        
+            <option value="en">&#x1F1FA;&#x1F1F8; English</option>
+            <option value="es">&#x1F1EA;&#x1F1F8; Español</option>
+            <option value="fr">&#x1F1EB;&#x1F1F7; Français</option>
+          
+      </select>
+    </div>
+
   </section>
 
   <!-- Botón Nueva Cita -->
@@ -88,17 +114,20 @@
   </div>
 
   <div id="no-appointments" style="display:none;">
-    No appointments booked.
+    [[#{calendar.noAppointments}]]
   </div>
 
   <div id="calendar"></div>
 
   <!-- Bootstrap Modal -->
-  <div class="modal fade" id="appointmentModal" tabindex="-1" aria-labelledby="appointmentModalLabel" aria-hidden="true">
+  <div class="modal fade" id="appointmentModal" tabindex="-1" aria-labelledby="appointmentModalLabel"
+    aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="appointmentModalLabel">Appointment Details</h5>
+          <h5 class="modal-title" id="appointmentModalLabel">
+            [[#{calendar.modal.title}]]
+          </h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
@@ -115,31 +144,32 @@
             </div>
             <div class="mb-3">
               <label for="input-date" class="form-label">Date</label>
+              <label for="input-date" class="form-label">[[#{calendar.form.date}]]</label>
               <input type="date" class="form-control" id="input-date" name="date" required>
             </div>
             <div class="mb-3">
-              <label for="input-start" class="form-label">Start Time</label>
+              <label for="input-start" class="form-label">[[#{calendar.form.startTime}]]</label>
               <input type="time" class="form-control" id="input-start" name="startTime" required>
             </div>
             <div class="mb-3">
-              <label for="input-end" class="form-label">End Time</label>
+              <label for="input-end" class="form-label">[[#{calendar.form.endTime}]]</label>
               <input type="time" class="form-control" id="input-end" name="endTime" required>
             </div>
             <div class="mb-3">
-              <label for="input-purpose" class="form-label">Purpose</label>
+              <label for="input-purpose" class="form-label">[[#{calendar.form.purpose}]]</label>
               <textarea class="form-control" id="input-purpose" name="appointmentPurpose"></textarea>
             </div>
             <div class="mb-3">
-              <label for="input-observations" class="form-label">Observations</label>
+              <label for="input-observations" class="form-label">[[#{calendar.form.observations}]]</label>
               <textarea class="form-control" id="input-observations" name="observations"></textarea>
             </div>
             <div id="form-error" class="alert alert-danger d-none"></div>
           </form>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-primary" id="saveBtn">Save</button>
-          <button id="deleteButton" type="button" class="btn btn-danger">Delete</button>
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" id="saveBtn">[[#{calendar.button.save}]]</button>
+          <button id="deleteButton" type="button" class="btn btn-danger">[[#{calendar.button.delete}]]</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">[[#{calendar.button.close}]]</button>
         </div>
       </div>
     </div>
@@ -215,7 +245,6 @@
           document.getElementById('input-observations').value = event.extendedProps.observations || '';
           document.getElementById('input-patient').value = event.extendedProps.patientDni || '';
           document.getElementById('form-error').classList.add('d-none');
-
           ['input-purpose','input-observations'].forEach(function(id) {
             document.getElementById(id).disabled = isPatient;
           });
@@ -266,7 +295,6 @@
               errDiv.classList.remove('d-none');
             });
           };
-
           document.getElementById('deleteButton').onclick = function () {
             if (!confirm('¿Estás seguro de que quieres eliminar esta cita?')) return;
             
