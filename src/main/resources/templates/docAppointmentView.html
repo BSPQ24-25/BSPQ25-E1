@@ -1,16 +1,12 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
-
 <head>
   <meta charset="UTF-8">
   <title th:text="#{calendar.title}">Doctor's Appointments</title>
-
   <!-- FullCalendar CSS -->
   <link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.css" rel="stylesheet" />
-
   <!-- Bootstrap 5 CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
-
   <link rel="stylesheet" th:href="@{/css/font-awesome.min.css}">
   <link rel="stylesheet" th:href="@{/css/animate.css}">
   <link rel="stylesheet" th:href="@{/css/owl.carousel.css}">
@@ -25,35 +21,40 @@
       pointer-events: none !important;
       cursor: default !important;
     }
-
     /* Reactiva los enlaces de los eventos */
     #calendar .fc-daygrid-event, 
     #calendar .fc-daygrid-event a {
       pointer-events: auto !important;
       cursor: pointer !important;
     }
-
     #calendar .fc-daygrid-event {
       pointer-events: auto !important;
       cursor: pointer !important;
     }
-
+    /* Style for past days in calendar */
+    .fc-day-past {
+      background-color: #f8f9fa !important;
+    }
+    /* Style for past events */
+    .past-event {
+      background-color: #e9ecef !important;
+      border-color: #dee2e6 !important;
+      color: #6c757d !important;
+      opacity: 0.9;
+    }
     body {
       font-family: Arial, sans-serif;
       margin: 20px;
     }
-
     #calendar {
       max-width: 900px;
       margin: 20px auto;
     }
-
     #no-appointments {
       text-align: center;
       color: #666;
       margin-top: 50px;
     }
-
     .language-switcher select {
       padding: 8px 12px;
       border: 1px solid #ddd;
@@ -61,18 +62,23 @@
       font-size: 14px;
       cursor: pointer;
     }
+    /* Conflict Alert Modal */
+    #conflictAlert .modal-content {
+      border-left: 5px solid #dc3545;
+    }
+    #conflictAlert .modal-header {
+      background-color: #f8d7da;
+      color: #721c24;
+    }
   </style>
 </head>
-
 <body th:data-doctor-id="${doctorId}">
-
   <!-- PRE LOADER -->
   <section class="preloader">
     <div class="spinner">
       <span class="spinner-rotate"></span>
     </div>
   </section>
-
   <header>
     <div class="container">
       <div class="row">
@@ -87,7 +93,6 @@
       </div>
     </div>
   </header>
-
   <!-- MENU -->
   <section class="navbar navbar-default navbar-static-top" role="navigation">
     <div class="container">
@@ -111,18 +116,14 @@
       </div>
     </div>
   </section>
-
   <!-- Botón Nueva Cita -->
   <div class="container mt-3">
     <button id="newAppointmentBtn" class="btn btn-success" th:text="#{calendar.button.newAppointment}">New Appointment</button>
   </div>
-
   <div id="no-appointments" style="display:none;">
     [[#{calendar.noAppointments}]]
   </div>
-
   <div id="calendar"></div>
-
   <!-- Bootstrap Modal -->
   <div class="modal fade" id="appointmentModal" tabindex="-1" aria-labelledby="appointmentModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -176,7 +177,58 @@
       </div>
     </div>
   </div>
-
+  
+  <!-- Conflict Alert Modal -->
+  <div class="modal fade" id="conflictAlert" tabindex="-1" aria-labelledby="conflictAlertLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="conflictAlertLabel">
+            <i class="fa fa-exclamation-triangle me-2"></i>
+            <span th:text="#{calendar.conflict.title}">Time Conflict Detected</span>
+          </h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <p id="conflictMessage" th:text="#{calendar.conflict.message}">
+            You already have an appointment at that time. Please select another time slot.
+          </p>
+          <p id="conflictDetails" class="fw-bold"></p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" th:text="#{calendar.button.close}">
+            Close
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Past Date Alert Modal -->
+  <div class="modal fade" id="pastDateAlert" tabindex="-1" aria-labelledby="pastDateAlertLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header bg-warning text-dark">
+          <h5 class="modal-title" id="pastDateAlertLabel">
+            <i class="fa fa-clock-o me-2"></i>
+            <span th:text="#{calendar.pastDate.title}">Past Date Warning</span>
+          </h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <p id="pastDateMessage" th:text="#{calendar.pastDate.message}">
+            Appointments in the past cannot be modified or rescheduled.
+          </p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" th:text="#{calendar.button.close}">
+            Close
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
   <!-- FullCalendar JS -->
   <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/locales-all.min.js"></script>
@@ -184,12 +236,18 @@
   <script src="https://unpkg.com/tooltip.js@1"></script>
   <!-- Bootstrap 5 JS bundle -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-
   <script th:inline="javascript">
     /*<![CDATA[*/
       var rawJson = /*[[${appointmentsJson}]]*/ [];
       var rawAppointments = JSON.parse(rawJson);
+      var today = new Date();
+      today.setHours(0, 0, 0, 0);
+      
       var appointmentEvents = rawAppointments.map(function(apt) {
+          var eventDate = new Date(apt.date);
+          eventDate.setHours(0, 0, 0, 0);
+          var isPastEvent = eventDate < today;
+          
           return {
             id:           apt.appointmentId,
             title:        apt.appointmentPurpose,
@@ -197,15 +255,16 @@
             end:          apt.date + 'T' + apt.endTime,
             purpose:      apt.appointmentPurpose,
             observations: apt.observations,
-            patientDni: apt.patient.dni,
-            patientName: apt.patient.name + ' ' + apt.patient.surname,
-            doctorName:   apt.doctor.name  + ' ' + apt.doctor.surname
+            patientDni:   apt.patient.dni,
+            patientName:  apt.patient.name + ' ' + apt.patient.surname,
+            doctorName:   apt.doctor.name  + ' ' + apt.doctor.surname,
+            isPast:       isPastEvent,
+            className:    isPastEvent ? 'past-event' : ''
           };
       });
       var currentLocale = /*[[${#locale.language}]]*/ 'en';
     /*]]>*/
   </script>
-
   <script>
     document.addEventListener('DOMContentLoaded', function () {
       var calendar = new FullCalendar.Calendar(document.getElementById('calendar'), {
@@ -232,15 +291,52 @@
           var a = info.el.querySelector('.fc-col-header-cell-cushion a');
           if (a) a.replaceWith(document.createTextNode(a.textContent));
         },
+        eventDrop: function(info) {
+          // Check if event is in the past
+          if (isPastEvent(info.event)) {
+            info.revert(); // Revert the event to its original position
+            showPastDateAlert();
+            return;
+          }
+          
+          // Handle drag-and-drop time conflict
+          if (hasTimeConflict(info.event, info.event.id)) {
+            info.revert(); // Revert the event to its original position
+            showConflictAlert();
+            return;
+          }
+          
+          // If no conflict, update the appointment
+          updateAppointmentAfterDrop(info.event);
+        },
+        eventResize: function(info) {
+          // Check if event is in the past
+          if (isPastEvent(info.event)) {
+            info.revert(); // Revert the event to its original position
+            showPastDateAlert();
+            return;
+          }
+          
+          // Handle resize time conflict
+          if (hasTimeConflict(info.event, info.event.id)) {
+            info.revert(); // Revert the event to its original position
+            showConflictAlert();
+            return;
+          }
+          
+          // If no conflict, update the appointment
+          updateAppointmentAfterDrop(info.event);
+        },
         eventClick: function(info) {
           var event = info.event;
           var apptId = event.id;
           var bodyEl = document.body;
           var isPatient = !!bodyEl.dataset.patientDni;
+          var isPastEvent = event.extendedProps.isPast;
           var baseUrl = isPatient
             ? '/api/patients/appointments/' + apptId
             : '/api/doctors/appointments/'  + apptId;
-
+          
           document.getElementById('input-date').value = event.startStr.split('T')[0];
           document.getElementById('input-start').value = event.startStr.split('T')[1].substr(0,5);
           document.getElementById('input-end').value = event.endStr.split('T')[1].substr(0,5);
@@ -248,78 +344,223 @@
           document.getElementById('input-observations').value = event.extendedProps.observations || '';
           document.getElementById('input-patient').value = event.extendedProps.patientDni || '';
           document.getElementById('form-error').classList.add('d-none');
-          ['input-purpose','input-observations'].forEach(function(id) {
-            document.getElementById(id).disabled = isPatient;
+          
+          // Disable all form fields for past events
+          var formFields = ['input-date', 'input-start', 'input-end', 'input-purpose', 'input-observations', 'input-patient'];
+          
+          formFields.forEach(function(id) {
+            var inputEl = document.getElementById(id);
+            // Disable for past events or if patient view
+            inputEl.disabled = isPastEvent || (isPatient && (id === 'input-purpose' || id === 'input-observations'));
           });
-
+          
           var modalEl = document.getElementById('appointmentModal');
           var bsModal = new bootstrap.Modal(modalEl);
           bsModal.show();
-
-          document.getElementById('deleteButton').style.display = 'inline-block';
-          document.getElementById('appointmentModalLabel').textContent = /*[[#{calendar.modal.editTitle}]]*/ 'Edit Appointment';
-
-          document.getElementById('saveBtn').onclick = function() {
-            let startVal = document.getElementById('input-start').value;
-            let endVal = document.getElementById('input-end').value;
-            var payload = {
-              date: document.getElementById('input-date').value,
-              startTime: startVal.length === 5 ? startVal + ':00' : startVal,
-              endTime: endVal.length === 5 ? endVal + ':00' : endVal
+          
+          // Hide save and delete buttons for past events
+          document.getElementById('saveBtn').style.display = isPastEvent ? 'none' : 'inline-block';
+          document.getElementById('deleteButton').style.display = isPastEvent ? 'none' : 'inline-block';
+          
+          // Update modal title - "View Appointment" for past events
+          document.getElementById('appointmentModalLabel').textContent = isPastEvent ? 
+            /*[[#{calendar.modal.viewTitle}]]*/ 'View Appointment' : 
+            /*[[#{calendar.modal.editTitle}]]*/ 'Edit Appointment';
+            
+          // Save button handler - only for future events
+          if (!isPastEvent) {
+            document.getElementById('saveBtn').onclick = function() {
+              let startVal = document.getElementById('input-start').value;
+              let endVal = document.getElementById('input-end').value;
+              var dateVal = document.getElementById('input-date').value;
+              
+              // Check if the appointment is in the past
+              const selectedDateTime = new Date(dateVal + 'T' + startVal);
+              const now = new Date();
+              
+              if (selectedDateTime < now) {
+                showPastDateAlert();
+                return;
+              }
+              
+              // Check for time conflicts before saving
+              if (checkTimeConflict(dateVal, startVal, endVal, apptId)) {
+                showConflictAlert();
+                return;
+              }
+              
+              var payload = {
+                date: dateVal,
+                startTime: startVal.length === 5 ? startVal + ':00' : startVal,
+                endTime: endVal.length === 5 ? endVal + ':00' : endVal
+              };
+              
+              if (!isPatient) {
+                payload.appointmentPurpose = document.getElementById('input-purpose').value;
+                payload.observations = document.getElementById('input-observations').value;
+              }
+              
+              fetch(baseUrl, {
+                method: 'PUT',
+                headers: { 'Content-Type':'application/json' },
+                body: JSON.stringify(payload)
+              })
+              .then(function(res){
+                if (!res.ok) return res.json().then(function(err){ throw err; });
+                return res.json();
+              })
+              .then(function(updated){
+                event.setStart(updated.date + 'T' + updated.startTime);
+                event.setEnd(updated.date + 'T' + updated.endTime);
+                if (!isPatient) {
+                  event.setProp('title', updated.appointmentPurpose);
+                  event.setExtendedProp('purpose', updated.appointmentPurpose);
+                  event.setExtendedProp('observations', updated.observations);
+                }
+                bsModal.hide();
+              })
+              .catch(function(err){
+                var errDiv = document.getElementById('form-error');
+                errDiv.textContent = err.message || /*[[#{calendar.error.general}]]*/ 'Validation error';
+                errDiv.classList.remove('d-none');
+              });
             };
             
-            if (!isPatient) {
-              payload.appointmentPurpose = document.getElementById('input-purpose').value;
-              payload.observations = document.getElementById('input-observations').value;
-            }
-            
-            fetch(baseUrl, {
-              method: 'PUT',
-              headers: { 'Content-Type':'application/json' },
-              body: JSON.stringify(payload)
-            })
-            .then(function(res){
-              if (!res.ok) return res.json().then(function(err){ throw err; });
-              return res.json();
-            })
-            .then(function(updated){
-              event.setStart(updated.date + 'T' + updated.startTime);
-              event.setEnd(updated.date + 'T' + updated.endTime);
-              if (!isPatient) {
-                event.setProp('title', updated.appointmentPurpose);
-                event.setExtendedProp('purpose', updated.appointmentPurpose);
-                event.setExtendedProp('observations', updated.observations);
-              }
-              bsModal.hide();
-            })
-            .catch(function(err){
-              var errDiv = document.getElementById('form-error');
-              errDiv.textContent = err.message || /*[[#{calendar.error.general}]]*/ 'Validation error';
-              errDiv.classList.remove('d-none');
-            });
-          };
-          
-          document.getElementById('deleteButton').onclick = function () {
-            if (!confirm(/*[[#{calendar.confirm.delete}]]*/ '¿Estás seguro de que quieres eliminar esta cita?')) return;
-            
-            fetch(baseUrl, { method: 'DELETE' })
-            .then(response => {
-              if (response.ok) {
-                info.event.remove();
-                bsModal.hide();
-              } else {
-                alert(/*[[#{calendar.error.delete}]]*/ 'Error al eliminar la cita.');
-              }
-            })
-            .catch(error => {
-              console.error('Error:', error);
-              alert(/*[[#{calendar.error.general}]]*/ 'Ocurrió un error al intentar eliminar la cita.');
-            });
-          };
-        }
+            document.getElementById('deleteButton').onclick = function () {
+              if (!confirm(/*[[#{calendar.confirm.delete}]]*/ '¿Estás seguro de que quieres eliminar esta cita?')) return;
+              
+              fetch(baseUrl, { method: 'DELETE' })
+              .then(response => {
+                if (response.ok) {
+                  info.event.remove();
+                  bsModal.hide();
+                } else {
+                  alert(/*[[#{calendar.error.delete}]]*/ 'Error al eliminar la cita.');
+                }
+              })
+              .catch(error => {
+                console.error('Error:', error);
+                alert(/*[[#{calendar.error.general}]]*/ 'Ocurrió un error al intentar eliminar la cita.');
+              });
+            };
+          }
+        },
+        editable: true // Enable drag and drop
       });
+      
       calendar.render();
-
+      
+      // New function to update appointment after drag & drop
+      function updateAppointmentAfterDrop(event) {
+        const apptId = event.id;
+        const dateStr = event.startStr.split('T')[0];
+        const startTimeStr = event.startStr.split('T')[1].substr(0,8);
+        const endTimeStr = event.endStr.split('T')[1].substr(0,8);
+        
+        const bodyEl = document.body;
+        const isPatient = !!bodyEl.dataset.patientDni;
+        const baseUrl = isPatient
+          ? '/api/patients/appointments/' + apptId
+          : '/api/doctors/appointments/'  + apptId;
+        
+        const payload = {
+          date: dateStr,
+          startTime: startTimeStr,
+          endTime: endTimeStr
+        };
+        
+        // Add purpose and observations if doctor view
+        if (!isPatient) {
+          payload.appointmentPurpose = event.extendedProps.purpose || '';
+          payload.observations = event.extendedProps.observations || '';
+        }
+        
+        fetch(baseUrl, {
+          method: 'PUT',
+          headers: { 'Content-Type':'application/json' },
+          body: JSON.stringify(payload)
+        })
+        .then(function(res){
+          if (!res.ok) {
+            event.revert(); // Revert if server says no
+            return res.json().then(function(err){ throw err; });
+          }
+          return res.json();
+        })
+        .catch(function(err){
+          console.error('Error updating appointment:', err);
+          alert(/*[[#{calendar.error.general}]]*/ 'Error al actualizar la cita.');
+        });
+      }
+      
+      // Function to check for time conflicts
+      function checkTimeConflict(date, startTime, endTime, currentAppointmentId) {
+        // Format times to match event format
+        if (startTime.length === 5) startTime += ':00';
+        if (endTime.length === 5) endTime += ':00';
+        
+        const start = new Date(date + 'T' + startTime);
+        const end = new Date(date + 'T' + endTime);
+        
+        // Check against all events
+        for (const event of window.appointmentEvents) {
+          // Skip comparing with the same appointment
+          if (event.id === currentAppointmentId) continue;
+          
+          // Only check events on the same day
+          if (event.start.split('T')[0] !== date) continue;
+          
+          const eventStart = new Date(event.start);
+          const eventEnd = new Date(event.end);
+          
+          // Check if there's an overlap
+          if ((start < eventEnd && end > eventStart)) {
+            // Store conflicting appointment details for message
+            window.conflictingAppointment = {
+              time: eventStart.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) + 
+                    ' - ' + 
+                    eventEnd.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}),
+              purpose: event.purpose || 'Appointment'
+            };
+            return true;
+          }
+        }
+        return false;
+      }
+      
+      // Function to check conflicts for drag & drop events
+      function hasTimeConflict(event, currentId) {
+        const dateStr = event.startStr.split('T')[0];
+        const startTime = event.startStr.split('T')[1];
+        const endTime = event.endStr.split('T')[1];
+        
+        return checkTimeConflict(dateStr, startTime, endTime, currentId);
+      }
+      
+      // Function to show conflict alert
+      function showConflictAlert() {
+        const conflictDetails = window.conflictingAppointment 
+          ? `Conflicting appointment: ${window.conflictingAppointment.time} - ${window.conflictingAppointment.purpose}`
+          : '';
+          
+        document.getElementById('conflictDetails').textContent = conflictDetails;
+        const conflictModal = new bootstrap.Modal(document.getElementById('conflictAlert'));
+        conflictModal.show();
+      }
+      
+      // Function to show past date alert
+      function showPastDateAlert() {
+        const pastDateModal = new bootstrap.Modal(document.getElementById('pastDateAlert'));
+        pastDateModal.show();
+      }
+      
+      // Function to check if event is in the past
+      function isPastEvent(event) {
+        const eventDate = new Date(event.startStr);
+        const now = new Date();
+        return eventDate < now;
+      }
+      
       // Nuevo Appointment Handler
       document.getElementById('newAppointmentBtn').addEventListener('click', function() {
         document.getElementById('input-date').value = '';
@@ -330,10 +571,12 @@
         document.getElementById('input-patient').value = '';
         document.getElementById('form-error').classList.add('d-none');
         
-        ['input-purpose','input-observations'].forEach(function(id) {
+        // Enable all fields for new appointments
+        ['input-date', 'input-start', 'input-end', 'input-purpose', 'input-observations', 'input-patient'].forEach(function(id) {
           document.getElementById(id).disabled = false;
         });
         
+        document.getElementById('saveBtn').style.display = 'inline-block';
         document.getElementById('deleteButton').style.display = 'none';
         document.getElementById('appointmentModalLabel').textContent = /*[[#{calendar.modal.newTitle}]]*/ 'New Appointment';
         
@@ -342,10 +585,30 @@
         const bsModal = new bootstrap.Modal(document.getElementById('appointmentModal'));
         
         document.getElementById('saveBtn').onclick = function() {
+          const startVal = document.getElementById('input-start').value;
+          const endVal = document.getElementById('input-end').value;
+          const dateVal = document.getElementById('input-date').value;
+          
+          // Validate the date is not in the past
+          const selectedDate = new Date(dateVal);
+          const selectedDateTime = new Date(dateVal + 'T' + startVal);
+          const now = new Date();
+          
+          if (selectedDateTime < now) {
+            showPastDateAlert();
+            return;
+          }
+          
+          // Check for time conflicts before saving
+          if (checkTimeConflict(dateVal, startVal, endVal, null)) {
+            showConflictAlert();
+            return;
+          }
+          
           const payload = {
-            date: document.getElementById('input-date').value,
-            startTime: document.getElementById('input-start').value.padEnd(8, ':00'),
-            endTime: document.getElementById('input-end').value.padEnd(8, ':00'),
+            date: dateVal,
+            startTime: startVal.length === 5 ? startVal + ':00' : startVal,
+            endTime: endVal.length === 5 ? endVal + ':00' : endVal,
             appointmentPurpose: document.getElementById('input-purpose').value,
             observations: document.getElementById('input-observations').value,
             patient: {
@@ -359,7 +622,12 @@
             body: JSON.stringify(payload)
           })
           .then(response => {
-            if (!response.ok) throw new Error(/*[[#{calendar.error.general}]]*/ 'Error creating appointment');
+            if (!response.ok) {
+              return response.json().then(err => { throw new Error(err.message || /*[[#{calendar.error.general}]]*/ 'Error creating appointment'); });
+            }
+            return response.json();
+          })
+          .then(data => {
             calendar.refetchEvents();
             bsModal.hide();
           })
@@ -373,7 +641,6 @@
       });
     });
   </script>
-
   <!-- SCRIPTS -->
   <script th:src="@{/js/jquery.js}"></script>
   <script th:src="@{/js/bootstrap.min.js}"></script>
@@ -383,6 +650,5 @@
   <script th:src="@{/js/smoothscroll.js}"></script>
   <script th:src="@{/js/owl.carousel.min.js}"></script>
   <script th:src="@{/js/custom.js}"></script>
-
 </body>
 </html>

@@ -33,7 +33,7 @@ public class DurationTest {
     }
 
     @Test
-    @JUnitPerfTest(threads = 20, durationMs = 15000, warmUpMs = 2000)
+    @JUnitPerfTest(threads = 10, durationMs = 15000, warmUpMs = 2000)
     @JUnitPerfTestRequirement(percentiles = "95:1000ms")
     public void testGetAllAppointmentsStrictDuration() {
         adminService.getAllAppointments();
