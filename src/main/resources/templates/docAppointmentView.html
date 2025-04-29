@@ -2,8 +2,8 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 
 <head>
-  <meta charset="UTF-8" >
-  <title>Doctor's Appointments</title>
+  <meta charset="UTF-8">
+  <title th:text="#{calendar.title}">Doctor's Appointments</title>
 
   <!-- FullCalendar CSS -->
   <link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.css" rel="stylesheet" />
@@ -55,13 +55,12 @@
     }
 
     .language-switcher select {
-  padding: 8px 12px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  font-size: 14px;
-  cursor: pointer;
-}
-    
+      padding: 8px 12px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 14px;
+      cursor: pointer;
+    }
   </style>
 </head>
 
@@ -88,36 +87,34 @@
       </div>
     </div>
   </header>
-<!-- MENU -->
-<section class="navbar navbar-default navbar-static-top" role="navigation">
-  <div class="container">
-    <div class="row w-100 align-items-center">
-      <div class="col-md-6">
-        <a href="/" class="navbar-brand"><i class="fa fa-h-square"></i>ealth Center</a>
-      </div>
-      <div class="col-md-6 text-end">
-        <div class="language-switcher">
-          <a href="?lang=en">
-            <img src="/images/flag-en.png" alt="" style="width:24px;height:16px; display:inline-block;">
-          </a>
-          <a href="?lang=es">
-            <img src="/images/flag-es.png" alt="" style="width:24px;height:16px; display:inline-block;">
-          </a>
-          <a href="?lang=fr">
-            <img src="/images/flag-fr.png" alt="" style="width:24px;height:16px; display:inline-block;">
-          </a>
+
+  <!-- MENU -->
+  <section class="navbar navbar-default navbar-static-top" role="navigation">
+    <div class="container">
+      <div class="row w-100 align-items-center">
+        <div class="col-md-6">
+          <a href="/" class="navbar-brand"><i class="fa fa-h-square"></i>ealth Center</a>
+        </div>
+        <div class="col-md-6 text-end">
+          <div class="language-switcher">
+            <a href="?lang=en">
+              <img src="/images/flag-en.png" alt="" style="width:24px;height:16px; display:inline-block;">
+            </a>
+            <a href="?lang=es">
+              <img src="/images/flag-es.png" alt="" style="width:24px;height:16px; display:inline-block;">
+            </a>
+            <a href="?lang=fr">
+              <img src="/images/flag-fr.png" alt="" style="width:24px;height:16px; display:inline-block;">
+            </a>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-</section>
-
-
-
+  </section>
 
   <!-- Botón Nueva Cita -->
   <div class="container mt-3">
-    <button id="newAppointmentBtn" class="btn btn-success">New Appointment</button>
+    <button id="newAppointmentBtn" class="btn btn-success" th:text="#{calendar.button.newAppointment}">New Appointment</button>
   </div>
 
   <div id="no-appointments" style="display:none;">
@@ -127,8 +124,7 @@
   <div id="calendar"></div>
 
   <!-- Bootstrap Modal -->
-  <div class="modal fade" id="appointmentModal" tabindex="-1" aria-labelledby="appointmentModalLabel"
-    aria-hidden="true">
+  <div class="modal fade" id="appointmentModal" tabindex="-1" aria-labelledby="appointmentModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
@@ -140,7 +136,7 @@
         <div class="modal-body">
           <form id="appointmentForm">
             <div class="mb-3">
-              <label for="input-patient" class="form-label">Patient DNI</label>
+              <label for="input-patient" class="form-label">DNI</label>
               <input
                 type="text"
                 class="form-control"
@@ -150,7 +146,6 @@
               />
             </div>
             <div class="mb-3">
-              <label for="input-date" class="form-label">Date</label>
               <label for="input-date" class="form-label">[[#{calendar.form.date}]]</label>
               <input type="date" class="form-control" id="input-date" name="date" required>
             </div>
@@ -207,13 +202,14 @@
             doctorName:   apt.doctor.name  + ' ' + apt.doctor.surname
           };
       });
+      var currentLocale = /*[[${#locale.language}]]*/ 'en';
     /*]]>*/
   </script>
 
   <script>
     document.addEventListener('DOMContentLoaded', function () {
       var calendar = new FullCalendar.Calendar(document.getElementById('calendar'), {
-        locale: 'en',
+        locale: currentLocale,
         initialView: 'dayGridMonth',
         headerToolbar: {
           left: 'prev,next today',
@@ -261,7 +257,7 @@
           bsModal.show();
 
           document.getElementById('deleteButton').style.display = 'inline-block';
-          document.getElementById('appointmentModalLabel').textContent = 'Edit Appointment';
+          document.getElementById('appointmentModalLabel').textContent = /*[[#{calendar.modal.editTitle}]]*/ 'Edit Appointment';
 
           document.getElementById('saveBtn').onclick = function() {
             let startVal = document.getElementById('input-start').value;
@@ -298,12 +294,13 @@
             })
             .catch(function(err){
               var errDiv = document.getElementById('form-error');
-              errDiv.textContent = err.message || 'Validation error';
+              errDiv.textContent = err.message || /*[[#{calendar.error.general}]]*/ 'Validation error';
               errDiv.classList.remove('d-none');
             });
           };
+          
           document.getElementById('deleteButton').onclick = function () {
-            if (!confirm('¿Estás seguro de que quieres eliminar esta cita?')) return;
+            if (!confirm(/*[[#{calendar.confirm.delete}]]*/ '¿Estás seguro de que quieres eliminar esta cita?')) return;
             
             fetch(baseUrl, { method: 'DELETE' })
             .then(response => {
@@ -311,12 +308,12 @@
                 info.event.remove();
                 bsModal.hide();
               } else {
-                alert('Error al eliminar la cita.');
+                alert(/*[[#{calendar.error.delete}]]*/ 'Error al eliminar la cita.');
               }
             })
             .catch(error => {
               console.error('Error:', error);
-              alert('Ocurrió un error al intentar eliminar la cita.');
+              alert(/*[[#{calendar.error.general}]]*/ 'Ocurrió un error al intentar eliminar la cita.');
             });
           };
         }
@@ -338,7 +335,7 @@
         });
         
         document.getElementById('deleteButton').style.display = 'none';
-        document.getElementById('appointmentModalLabel').textContent = 'New Appointment';
+        document.getElementById('appointmentModalLabel').textContent = /*[[#{calendar.modal.newTitle}]]*/ 'New Appointment';
         
         const doctorId = document.body.dataset.doctorId;
         const baseUrl = `/api/doctors/${doctorId}/appointments`;
@@ -362,7 +359,7 @@
             body: JSON.stringify(payload)
           })
           .then(response => {
-            if (!response.ok) throw new Error('Error creating appointment');
+            if (!response.ok) throw new Error(/*[[#{calendar.error.general}]]*/ 'Error creating appointment');
             calendar.refetchEvents();
             bsModal.hide();
           })
