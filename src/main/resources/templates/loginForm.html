@@ -61,7 +61,7 @@
         const userInfo = JSON.parse(localStorage.getItem("userInfo"));
         
         if (userInfo.role === "DOCTOR") {
-          window.location.href = "/doctorHome";
+          window.location.href = "/doctor/" + dni + "/calendar";
         } else if (userInfo.role === "PATIENT") {
           window.location.href = "/patient/"+ dni +"/calendar";
         } else { //ADMIN
