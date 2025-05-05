@@ -3,11 +3,15 @@ package com.hospital.portal.service;
 import java.time.LocalDate;
 import java.util.Optional;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.hospital.portal.model.Patient;
 import com.hospital.portal.repository.PatientRepository;
+
+
 
 @Service
 public class RegisterService {
@@ -15,6 +19,8 @@ public class RegisterService {
     private PatientRepository patientRepository;
     @Autowired
     private PasswordService passwordService;
+    private static final Logger logger = LogManager.getLogger(RegisterService.class);
+
 
     public String generateIncrementalPatientId() {
         // Find the last patient to get the maximum current patient ID
@@ -35,6 +41,8 @@ public class RegisterService {
 
     public String registerPatient(String dni, String name, String surname, String phone, String mail,
             LocalDate birthDate, String gender, String password) {
+                logger.info("Registering patient with DNI: {}", dni);
+
 
         if (patientRepository.existsByDni(dni) || patientRepository.existsByMail(mail)) {
             return "DNI or email are already registered!";

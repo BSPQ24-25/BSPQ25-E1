@@ -1,16 +1,22 @@
 package com.hospital.portal.service;
 
-import com.hospital.portal.model.Patient;
-import com.hospital.portal.model.Appointment;
-import com.hospital.portal.repository.AppointmentRepository;
-import com.hospital.portal.repository.PatientRepository;
-import org.springframework.stereotype.Service;
-
 import java.time.LocalDate;
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.springframework.stereotype.Service;
+
+import com.hospital.portal.model.Appointment;
+import com.hospital.portal.model.Patient;
+import com.hospital.portal.repository.AppointmentRepository;
+import com.hospital.portal.repository.PatientRepository;
+
+
 @Service
 public class PatientAppointmentService {
+    private static final Logger logger = LogManager.getLogger(PatientAppointmentService.class);
+
     
     private final AppointmentRepository appointmentRepository;
     private final PatientRepository patientRepository;  
@@ -21,18 +27,24 @@ public class PatientAppointmentService {
     }
 
     public List<Appointment> getAppointmentsByPatientDNI(String patientDNI) {
+        logger.info("Obtaining Appointments forDNI: {}", patientDNI);
+
         return appointmentRepository.findByPatientDni(patientDNI);
     }
 
     public List<Appointment> getAppointmentByPatientDniAndDoctorSpecialtyName(String patientDni, String specialty_name) {
+        logger.info("Obtaining Appointments for specialty and DNI: {}", patientDni);
         return appointmentRepository.findByPatientDniAndDoctorSpecialtyName(patientDni, specialty_name);
     }
 
     public List<Appointment> getAppointmentsByDate(String patientDNI, LocalDate dateTime) {
+        logger.info("Obtaining Appointments by date and DNI: {}", patientDNI);
         return appointmentRepository.findByPatientDniAndDate(patientDNI, dateTime);
     }
     
     public Appointment addAppointmentPatient(String pateintDNI, Appointment appointment) {
+        logger.info("Adding Appointments to DNI: {}", pateintDNI);
+
         Patient patient = patientRepository.findByDni(pateintDNI).orElseThrow(() -> new IllegalArgumentException("Patient not found with DNI: " + pateintDNI));
 
         Appointment newAppointment = new Appointment();
@@ -54,6 +66,8 @@ public class PatientAppointmentService {
     }
 
     public Appointment modifyAppointment(String id, Appointment modifiedAppointment){
+        logger.info("Modifying Appointments to id: {}", id);
+
         Appointment appointment = appointmentRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Appointment not found with ID: " + id));
         
         if (modifiedAppointment.getDate() != null) {
@@ -85,6 +99,8 @@ public class PatientAppointmentService {
     }
     
     public void deleteAppointmentPatient(String id) {
+        logger.info("Deleting Appointments to id: {}", id);
+
         appointmentRepository.deleteById(id);
     }
 

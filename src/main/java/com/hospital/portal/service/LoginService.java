@@ -6,6 +6,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,6 +26,8 @@ import io.jsonwebtoken.security.Keys;
 public class LoginService {
 
     private static final Key SECRET_KEY = Keys.secretKeyFor(SignatureAlgorithm.HS256);
+    private static final Logger logger = LogManager.getLogger(LoginService.class);
+
  
     @Autowired
     private AdminRepository adminRepository;
@@ -35,8 +39,11 @@ public class LoginService {
     private PasswordService passwordService;
 
     public Map<String, Object> login(String dni, String password) {
+        logger.info("Find by ID with DNI: {}", dni);
+
         Optional<Admin> admin = adminRepository.findById(dni);
         if (admin.isPresent() && passwordService.verifyPassword(password, admin.get().getPassword())) {
+
             return getUserInfo(admin.get().getDni(), admin.get().getName(), "ADMIN");
         }
 
@@ -54,6 +61,8 @@ public class LoginService {
     }
 
     private Map<String, Object> getUserInfo(String dni, String name, String role) {
+        logger.info("Get user info DNI: {}", dni);
+
         Map<String, Object> userInfo = new HashMap<>();
         userInfo.put("dni", dni);
         userInfo.put("name", name);
