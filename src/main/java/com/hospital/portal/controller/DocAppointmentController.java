@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.hospital.portal.model.Appointment;
+import com.hospital.portal.model.Doctor;
+import com.hospital.portal.model.Patient;
 import com.hospital.portal.service.DocAppointmentService;
 
 
@@ -31,6 +33,19 @@ public class DocAppointmentController {
     public DocAppointmentController(DocAppointmentService docAppointmentService) {
         this.docAppointmentService = docAppointmentService;
     }
+    
+    @GetMapping("/doctors")
+    public List<Doctor> getAllDoctors() {
+        logger.info("Entering into Controller getAllDoctors");
+        return docAppointmentService.getAllDoctors();
+    }
+    
+    @GetMapping("/patients")
+    public List<Patient> getAllPatients() {
+        logger.info("Entering into Controller getAllPatients");
+        return docAppointmentService.getAllPatients();
+    }
+
 
     @GetMapping("/{dni}/appointments")
     public List<Appointment> getAppointmentsByDoctor(@PathVariable String dni) {

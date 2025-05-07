@@ -11,8 +11,10 @@ import org.springframework.stereotype.Service;
 
 import com.hospital.portal.model.Appointment;
 import com.hospital.portal.model.Doctor;
+import com.hospital.portal.model.Patient;
 import com.hospital.portal.repository.AppointmentRepository;
 import com.hospital.portal.repository.DoctorRepository;
+import com.hospital.portal.repository.PatientRepository;
 
 @Service
 public class DocAppointmentService {
@@ -21,10 +23,22 @@ public class DocAppointmentService {
 
     private final AppointmentRepository appointmentRepository;
     private final DoctorRepository doctorRepository;
+    private final PatientRepository patientRepository;
 
-    public DocAppointmentService(AppointmentRepository appointmentRepository, DoctorRepository doctorRepository) {
+    public DocAppointmentService(AppointmentRepository appointmentRepository, DoctorRepository doctorRepository, PatientRepository patientRepository) {
         this.appointmentRepository = appointmentRepository;
         this.doctorRepository = doctorRepository;
+        this.patientRepository = patientRepository;
+    }
+    
+    public List<Doctor> getAllDoctors() {
+        logger.info("Fetching all doctors from repository");
+        return doctorRepository.findAll();
+    }
+    
+    public List<Patient> getAllPatients() {
+        logger.info("Fetching all patients from repository");
+        return patientRepository.findAll();
     }
 
     public List<Appointment> getAppointmentsByDoctor(String dni) {
