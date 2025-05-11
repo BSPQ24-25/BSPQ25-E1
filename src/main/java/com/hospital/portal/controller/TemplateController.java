@@ -67,7 +67,7 @@ public class TemplateController {
     return "doctorHome";
   }
 
-  @GetMapping("/adminHome")
+  @GetMapping("/admin")
   public String showInicioAdmin() {
     return "adminHome";
   }
