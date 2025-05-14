@@ -1,0 +1,16 @@
+<project name="Spring Boot Library Site">
+  <skin>
+    <groupId>org.apache.maven.skins</groupId>
+    <artifactId>maven-fluido-skin</artifactId>
+    <version>1.10.0</version>
+  </skin>
+  <body>
+    <menu ref="reports"/>
+    <menu name="Performance Reports">
+      <item name="Performance Page" href="performance.html"/>
+      <item name="Direct HTML Report Throughput" href="../reports/throughput-perf-report.html"/>
+      <item name="Direct HTML Report Duration" href="../reports/duration-perf-report.html"/>
+
+    </menu>
+  </body>
+</project>
