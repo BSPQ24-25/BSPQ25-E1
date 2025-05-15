@@ -1,14 +1,17 @@
 package com.hospital.portal.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import java.util.Map;
 
-import com.hospital.portal.service.LoginService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Map;
+import com.hospital.portal.service.LoginService;
 
 @RestController
 @RequestMapping("/login")
@@ -42,7 +45,7 @@ public class LoginController {
             logger.info("Log in user with DNI: {}", dni);
             return ResponseEntity.ok(Map.of("role", userInfo.get("role"), "dni", userInfo.get("dni"), "name", userInfo.get("name"), "token", userInfo.get("token")));
         } catch (Exception e) {
-            logger.error("Error during log in", e);
+            //logger.error("Error during log in", e);
             return ResponseEntity.status(500).body("Login failed: " + e.getMessage());
         }
     }
