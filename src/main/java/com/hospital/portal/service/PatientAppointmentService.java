@@ -26,6 +26,12 @@ public class PatientAppointmentService {
         this.patientRepository = patientRepository; 
     }
 
+    public List<Patient> getAllPatients() {
+      logger.info("Feching all patients from repository");
+
+      return patientRepository.findAll();
+    }
+
     public List<Appointment> getAppointmentsByPatientDNI(String patientDNI) {
         logger.info("Obtaining Appointments forDNI: {}", patientDNI);
 
