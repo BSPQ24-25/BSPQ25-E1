@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>LoginService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">healthcare-portal</a> &gt; <a href="index.source.html" class="el_package">com.hospital.portal.service</a> &gt; <span class="el_source">LoginService.java</span></div><h1>LoginService.java</h1><pre class="source lang-java linenums">package com.hospital.portal.service;
+
+import java.security.Key;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Optional;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.hospital.portal.model.Admin;
+import com.hospital.portal.model.Doctor;
+import com.hospital.portal.model.Patient;
+import com.hospital.portal.repository.AdminRepository;
+import com.hospital.portal.repository.DoctorRepository;
+import com.hospital.portal.repository.PatientRepository;
+
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.security.Keys;
+
+@Service
+<span class="fc" id="L26">public class LoginService {</span>
+
+<span class="fc" id="L28">    private static final Key SECRET_KEY = Keys.secretKeyFor(SignatureAlgorithm.HS256);</span>
+<span class="fc" id="L29">    private static final Logger logger = LogManager.getLogger(LoginService.class);</span>
+
+ 
+    @Autowired
+    private AdminRepository adminRepository;
+    @Autowired
+    private DoctorRepository doctorRepository;
+    @Autowired
+    private PatientRepository patientRepository;
+    @Autowired
+    private PasswordService passwordService;
+
+    public Map&lt;String, Object&gt; login(String dni, String password) {
+<span class="fc" id="L42">        logger.info(&quot;Find by ID with DNI: {}&quot;, dni);</span>
+
+<span class="fc" id="L44">        Optional&lt;Admin&gt; admin = adminRepository.findById(dni);</span>
+<span class="fc bfc" id="L45" title="All 4 branches covered.">        if (admin.isPresent() &amp;&amp; passwordService.verifyPassword(password, admin.get().getPassword())) {</span>
+
+<span class="fc" id="L47">            return getUserInfo(admin.get().getDni(), admin.get().getName(), &quot;ADMIN&quot;);</span>
+        }
+
+<span class="fc" id="L50">        Optional&lt;Doctor&gt; doctor = doctorRepository.findById(dni);</span>
+<span class="pc bpc" id="L51" title="1 of 4 branches missed.">        if (doctor.isPresent() &amp;&amp; passwordService.verifyPassword(password, doctor.get().getPassword())) {</span>
+<span class="fc" id="L52">            return getUserInfo(doctor.get().getDni(), doctor.get().getName(), &quot;DOCTOR&quot;);</span>
+        }
+
+<span class="fc" id="L55">        Optional&lt;Patient&gt; patient = patientRepository.findById(dni);</span>
+<span class="pc bpc" id="L56" title="1 of 4 branches missed.">        if (patient.isPresent() &amp;&amp; passwordService.verifyPassword(password, patient.get().getPassword())) {</span>
+<span class="fc" id="L57">            return getUserInfo(patient.get().getDni(), patient.get().getName(), &quot;PATIENT&quot;);</span>
+        }
+
+<span class="fc" id="L60">        return Map.of(&quot;role&quot;, &quot;INVALID_CREDENTIALS&quot;);</span>
+    }
+
+    private Map&lt;String, Object&gt; getUserInfo(String dni, String name, String role) {
+<span class="fc" id="L64">        logger.info(&quot;Get user info DNI: {}&quot;, dni);</span>
+
+<span class="fc" id="L66">        Map&lt;String, Object&gt; userInfo = new HashMap&lt;&gt;();</span>
+<span class="fc" id="L67">        userInfo.put(&quot;dni&quot;, dni);</span>
+<span class="fc" id="L68">        userInfo.put(&quot;name&quot;, name);</span>
+<span class="fc" id="L69">        userInfo.put(&quot;role&quot;, role);</span>
+
+<span class="fc" id="L71">        String token = generateToken(dni, role);</span>
+<span class="fc" id="L72">        userInfo.put(&quot;token&quot;, token);</span>
+
+<span class="fc" id="L74">        return userInfo;</span>
+    }
+
+
+    
+    private String generateToken(String dni, String role) {
+
+<span class="fc" id="L81">        return Jwts.builder()</span>
+<span class="fc" id="L82">                .setSubject(dni)  </span>
+<span class="fc" id="L83">                .claim(&quot;role&quot;, role) </span>
+<span class="fc" id="L84">                .setIssuedAt(new Date())  </span>
+<span class="fc" id="L85">                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60))//1 hour </span>
+<span class="fc" id="L86">                .signWith(SECRET_KEY, SignatureAlgorithm.HS256)</span>
+<span class="fc" id="L87">                .compact();</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

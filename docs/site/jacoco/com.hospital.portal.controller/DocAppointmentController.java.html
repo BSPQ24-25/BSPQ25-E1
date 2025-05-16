@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>DocAppointmentController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">healthcare-portal</a> &gt; <a href="index.source.html" class="el_package">com.hospital.portal.controller</a> &gt; <span class="el_source">DocAppointmentController.java</span></div><h1>DocAppointmentController.java</h1><pre class="source lang-java linenums">package com.hospital.portal.controller;
+
+import java.time.LocalDate;
+import java.util.List;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.hospital.portal.model.Appointment;
+import com.hospital.portal.model.Doctor;
+import com.hospital.portal.model.Patient;
+import com.hospital.portal.service.DocAppointmentService;
+
+
+@RestController
+@RequestMapping(&quot;/api/doctors&quot;)
+public class DocAppointmentController {
+
+<span class="fc" id="L28">    private static final Logger logger = LogManager.getLogger(DocAppointmentController.class);</span>
+
+
+    private final DocAppointmentService docAppointmentService;
+
+<span class="fc" id="L33">    public DocAppointmentController(DocAppointmentService docAppointmentService) {</span>
+<span class="fc" id="L34">        this.docAppointmentService = docAppointmentService;</span>
+<span class="fc" id="L35">    }</span>
+    
+    @GetMapping(&quot;/doctors&quot;)
+    public List&lt;Doctor&gt; getAllDoctors() {
+<span class="nc" id="L39">        logger.info(&quot;Entering into Controller getAllDoctors&quot;);</span>
+<span class="nc" id="L40">        return docAppointmentService.getAllDoctors();</span>
+    }
+    
+    @GetMapping(&quot;/patients&quot;)
+    public List&lt;Patient&gt; getAllPatients() {
+<span class="nc" id="L45">        logger.info(&quot;Entering into Controller getAllPatients&quot;);</span>
+<span class="nc" id="L46">        return docAppointmentService.getAllPatients();</span>
+    }
+
+
+    @GetMapping(&quot;/{dni}/appointments&quot;)
+    public List&lt;Appointment&gt; getAppointmentsByDoctor(@PathVariable String dni) {
+<span class="fc" id="L52">        logger.info(&quot;Entering into Controller getAppointmentsByDoctor with DNI {}&quot;,dni);</span>
+
+<span class="fc" id="L54">        return docAppointmentService.getAppointmentsByDoctor(dni);</span>
+    }
+
+    @PostMapping(&quot;/{dni}/appointments&quot;)
+    public Appointment createAppointment(@PathVariable String dni, @RequestBody Appointment appointment) {
+<span class="fc" id="L59">        logger.info(&quot;Entering into Controller createAppointment with DNI {}&quot;,dni);</span>
+
+<span class="fc" id="L61">        return docAppointmentService.createAppointment(dni, appointment);</span>
+    }
+
+    @PutMapping(&quot;/appointments/{appointmentId}&quot;)
+    public Appointment updateAppointment(@PathVariable String appointmentId, @RequestBody Appointment appointment) {
+<span class="fc" id="L66">        logger.info(&quot;Entering into Controller updateAppointment with appointment id {}&quot;,appointmentId);</span>
+
+<span class="fc" id="L68">        return docAppointmentService.updateAppointment(appointmentId, appointment);</span>
+    }
+
+    @DeleteMapping(&quot;/appointments/{appointmentId}&quot;)
+    public void deleteAppointment(@PathVariable String appointmentId) {
+<span class="fc" id="L73">        logger.info(&quot;Entering into Controller deleteAppointment with appointment id {}&quot;,appointmentId);</span>
+<span class="fc" id="L74">        docAppointmentService.deleteAppointment(appointmentId);</span>
+<span class="fc" id="L75">    }</span>
+    
+    @GetMapping(&quot;/{dni}/appointments/filter&quot;)
+    public List&lt;Appointment&gt; getAppointmentsByDoctorAndDateRange(@PathVariable String dni, @RequestParam(&quot;startDate&quot;) LocalDate startDate, @RequestParam(&quot;endDate&quot;) LocalDate endDate) {
+<span class="nc" id="L79">        logger.info(&quot;Entering into Controller getAppointmentsByDoctorAndDateRange with DNI {}&quot;,dni);</span>
+<span class="nc" id="L80">        return docAppointmentService.getAppointmentsByDoctorAndDateRange(dni, startDate, endDate);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

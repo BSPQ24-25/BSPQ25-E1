@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>PatientAppointmentService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">healthcare-portal</a> &gt; <a href="index.source.html" class="el_package">com.hospital.portal.service</a> &gt; <span class="el_source">PatientAppointmentService.java</span></div><h1>PatientAppointmentService.java</h1><pre class="source lang-java linenums">package com.hospital.portal.service;
+
+import java.time.LocalDate;
+import java.util.List;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.springframework.stereotype.Service;
+
+import com.hospital.portal.model.Appointment;
+import com.hospital.portal.model.Patient;
+import com.hospital.portal.repository.AppointmentRepository;
+import com.hospital.portal.repository.PatientRepository;
+
+
+@Service
+public class PatientAppointmentService {
+<span class="fc" id="L18">    private static final Logger logger = LogManager.getLogger(PatientAppointmentService.class);</span>
+
+    
+    private final AppointmentRepository appointmentRepository;
+    private final PatientRepository patientRepository;  
+
+<span class="fc" id="L24">    public PatientAppointmentService(AppointmentRepository appointmentRepository, PatientRepository patientRepository){</span>
+<span class="fc" id="L25">        this.appointmentRepository = appointmentRepository;</span>
+<span class="fc" id="L26">        this.patientRepository = patientRepository; </span>
+<span class="fc" id="L27">    }</span>
+
+    public List&lt;Patient&gt; getAllPatients() {
+<span class="nc" id="L30">      logger.info(&quot;Feching all patients from repository&quot;);</span>
+
+<span class="nc" id="L32">      return patientRepository.findAll();</span>
+    }
+
+    public List&lt;Appointment&gt; getAppointmentsByPatientDNI(String patientDNI) {
+<span class="fc" id="L36">        logger.info(&quot;Obtaining Appointments forDNI: {}&quot;, patientDNI);</span>
+
+<span class="fc" id="L38">        return appointmentRepository.findByPatientDni(patientDNI);</span>
+    }
+
+    public List&lt;Appointment&gt; getAppointmentByPatientDniAndDoctorSpecialtyName(String patientDni, String specialty_name) {
+<span class="fc" id="L42">        logger.info(&quot;Obtaining Appointments for specialty and DNI: {}&quot;, patientDni);</span>
+<span class="fc" id="L43">        return appointmentRepository.findByPatientDniAndDoctorSpecialtyName(patientDni, specialty_name);</span>
+    }
+
+    public List&lt;Appointment&gt; getAppointmentsByDate(String patientDNI, LocalDate dateTime) {
+<span class="fc" id="L47">        logger.info(&quot;Obtaining Appointments by date and DNI: {}&quot;, patientDNI);</span>
+<span class="fc" id="L48">        return appointmentRepository.findByPatientDniAndDate(patientDNI, dateTime);</span>
+    }
+    
+    public Appointment addAppointmentPatient(String pateintDNI, Appointment appointment) {
+<span class="fc" id="L52">        logger.info(&quot;Adding Appointments to DNI: {}&quot;, pateintDNI);</span>
+
+<span class="fc" id="L54">        Patient patient = patientRepository.findByDni(pateintDNI).orElseThrow(() -&gt; new IllegalArgumentException(&quot;Patient not found with DNI: &quot; + pateintDNI));</span>
+
+<span class="fc" id="L56">        Appointment newAppointment = new Appointment();</span>
+<span class="fc" id="L57">        newAppointment.setDate(appointment.getDate());</span>
+<span class="fc" id="L58">        newAppointment.setStartTime(appointment.getStartTime());</span>
+<span class="fc" id="L59">        newAppointment.setEndTime(appointment.getEndTime());</span>
+<span class="fc" id="L60">        newAppointment.setDoctor(appointment.getDoctor());</span>
+<span class="fc" id="L61">        newAppointment.setPatient(patient);</span>
+<span class="fc" id="L62">        newAppointment.setAppointmentPurpose(appointment.getAppointmentPurpose());</span>
+<span class="fc" id="L63">        newAppointment.setObservations(appointment.getObservations());</span>
+<span class="fc" id="L64">        newAppointment.setAppointmentId(generateAppointmentId());</span>
+
+<span class="fc" id="L66">        return appointmentRepository.save(newAppointment);</span>
+
+    }
+
+    private String generateAppointmentId() {
+<span class="fc" id="L71">        return &quot;APP&quot; + System.currentTimeMillis(); </span>
+    }
+
+    public Appointment modifyAppointment(String id, Appointment modifiedAppointment){
+<span class="fc" id="L75">        logger.info(&quot;Modifying Appointments to id: {}&quot;, id);</span>
+
+<span class="fc" id="L77">        Appointment appointment = appointmentRepository.findById(id).orElseThrow(() -&gt; new IllegalArgumentException(&quot;Appointment not found with ID: &quot; + id));</span>
+        
+<span class="pc bpc" id="L79" title="1 of 2 branches missed.">        if (modifiedAppointment.getDate() != null) {</span>
+<span class="nc" id="L80">            appointment.setDate(modifiedAppointment.getDate());</span>
+        }
+        
+<span class="pc bpc" id="L83" title="1 of 2 branches missed.">        if (modifiedAppointment.getStartTime() != null) {</span>
+<span class="nc" id="L84">            appointment.setStartTime(modifiedAppointment.getStartTime());</span>
+        }
+        
+<span class="pc bpc" id="L87" title="1 of 2 branches missed.">        if (modifiedAppointment.getEndTime() != null) {</span>
+<span class="nc" id="L88">            appointment.setEndTime(modifiedAppointment.getEndTime());</span>
+        }
+        
+<span class="pc bpc" id="L91" title="1 of 2 branches missed.">        if (modifiedAppointment.getDoctor() != null) {</span>
+<span class="nc" id="L92">            appointment.setDoctor(modifiedAppointment.getDoctor());</span>
+        }
+        
+<span class="pc bpc" id="L95" title="1 of 2 branches missed.">        if (modifiedAppointment.getAppointmentPurpose() != null) {</span>
+<span class="fc" id="L96">            appointment.setAppointmentPurpose(modifiedAppointment.getAppointmentPurpose());</span>
+        }
+
+<span class="pc bpc" id="L99" title="1 of 2 branches missed.">        if (modifiedAppointment.getObservations() != null) {</span>
+<span class="fc" id="L100">            appointment.setObservations(modifiedAppointment.getObservations());</span>
+        }
+
+<span class="fc" id="L103">        return appointmentRepository.save(appointment);</span>
+
+    }
+    
+    public void deleteAppointmentPatient(String id) {
+<span class="fc" id="L108">        logger.info(&quot;Deleting Appointments to id: {}&quot;, id);</span>
+
+<span class="fc" id="L110">        appointmentRepository.deleteById(id);</span>
+<span class="fc" id="L111">    }</span>
+
+    
+}
+
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

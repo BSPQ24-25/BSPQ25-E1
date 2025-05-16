@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Admin.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">healthcare-portal</a> &gt; <a href="index.source.html" class="el_package">com.hospital.portal.model</a> &gt; <span class="el_source">Admin.java</span></div><h1>Admin.java</h1><pre class="source lang-java linenums">package com.hospital.portal.model;
+
+import java.time.LocalDate;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
+import jakarta.persistence.Column;
+
+@Entity
+@Table(name = &quot;admins&quot;)
+public class Admin extends User {
+    @Column(nullable = false)
+    private String workerId;
+
+    // Default constructor
+<span class="fc" id="L16">    public Admin() {}</span>
+
+    // Constructor with parameters
+    public Admin(String dni, String name, String surname, LocalDate birthDate, String gender, String phone, String mail, String password, String workerId) {
+<span class="fc" id="L20">        super(dni, name, surname, birthDate, gender, phone, mail, password);  // Call to the parent constructor</span>
+<span class="fc" id="L21">        this.workerId = workerId;</span>
+<span class="fc" id="L22">    }</span>
+
+    // Getter and Setter for workerId
+    public String getWorkerId() {
+<span class="fc" id="L26">        return workerId;</span>
+    }
+
+    public void setWorkerId(String workerId) {
+<span class="fc" id="L30">        this.workerId = workerId;</span>
+<span class="fc" id="L31">    }</span>
+
+    // Overridden toString method to include the new attribute &quot;workerId&quot;
+    @Override
+    public String toString() {
+<span class="nc" id="L36">        return super.toString() +  // Call the toString method from the parent class (User)</span>
+               &quot;, workerId='&quot; + workerId + '\'' +  // Add the new attribute to the string representation
+               '}';
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

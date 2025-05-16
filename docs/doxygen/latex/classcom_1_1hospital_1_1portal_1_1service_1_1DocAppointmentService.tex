@@ -1,0 +1,80 @@
+\doxysection{com.\+hospital.\+portal.\+service.\+Doc\+Appointment\+Service Class Reference}
+\hypertarget{classcom_1_1hospital_1_1portal_1_1service_1_1DocAppointmentService}{}\label{classcom_1_1hospital_1_1portal_1_1service_1_1DocAppointmentService}\index{com.hospital.portal.service.DocAppointmentService@{com.hospital.portal.service.DocAppointmentService}}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classcom_1_1hospital_1_1portal_1_1service_1_1DocAppointmentService_af8df980d06968ff793bf35ce91d0102d}{Doc\+Appointment\+Service}} (Appointment\+Repository appointment\+Repository, Doctor\+Repository doctor\+Repository, Patient\+Repository patient\+Repository)
+\item 
+List$<$ Doctor $>$ \mbox{\hyperlink{classcom_1_1hospital_1_1portal_1_1service_1_1DocAppointmentService_a708283074d6adec63fb903ccb7b65b70}{get\+All\+Doctors}} ()
+\item 
+List$<$ Patient $>$ \mbox{\hyperlink{classcom_1_1hospital_1_1portal_1_1service_1_1DocAppointmentService_ab4349b2442cf5337f9834088f324e30a}{get\+All\+Patients}} ()
+\item 
+List$<$ Appointment $>$ \mbox{\hyperlink{classcom_1_1hospital_1_1portal_1_1service_1_1DocAppointmentService_a4f9cf6b407e73c7798428ef1f8911752}{get\+Appointments\+By\+Doctor}} (String dni)
+\item 
+Appointment \mbox{\hyperlink{classcom_1_1hospital_1_1portal_1_1service_1_1DocAppointmentService_a587b78fe181fe71de719861a5b4484ad}{create\+Appointment}} (String dni, Appointment appointment\+Request)
+\item 
+Appointment \mbox{\hyperlink{classcom_1_1hospital_1_1portal_1_1service_1_1DocAppointmentService_a2915886055902a0f76f9860641162a9a}{update\+Appointment}} (String id, Appointment new\+Appointment\+Data)
+\item 
+void \mbox{\hyperlink{classcom_1_1hospital_1_1portal_1_1service_1_1DocAppointmentService_a4d570ce0ab8ef4afb0fb2918ec23c3bf}{delete\+Appointment}} (String id)
+\item 
+List$<$ Appointment $>$ \mbox{\hyperlink{classcom_1_1hospital_1_1portal_1_1service_1_1DocAppointmentService_a75291d9bebc9974a196435646b32ede3}{get\+Appointments\+By\+Doctor\+And\+Date\+Range}} (String dni, Local\+Date start\+Date, Local\+Date end\+Date)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classcom_1_1hospital_1_1portal_1_1service_1_1DocAppointmentService_af8df980d06968ff793bf35ce91d0102d}\label{classcom_1_1hospital_1_1portal_1_1service_1_1DocAppointmentService_af8df980d06968ff793bf35ce91d0102d} 
+\index{com.hospital.portal.service.DocAppointmentService@{com.hospital.portal.service.DocAppointmentService}!DocAppointmentService@{DocAppointmentService}}
+\index{DocAppointmentService@{DocAppointmentService}!com.hospital.portal.service.DocAppointmentService@{com.hospital.portal.service.DocAppointmentService}}
+\doxysubsubsection{\texorpdfstring{DocAppointmentService()}{DocAppointmentService()}}
+{\footnotesize\ttfamily com.\+hospital.\+portal.\+service.\+Doc\+Appointment\+Service.\+Doc\+Appointment\+Service (\begin{DoxyParamCaption}\item[{Appointment\+Repository}]{appointment\+Repository,  }\item[{Doctor\+Repository}]{doctor\+Repository,  }\item[{Patient\+Repository}]{patient\+Repository }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classcom_1_1hospital_1_1portal_1_1service_1_1DocAppointmentService_a587b78fe181fe71de719861a5b4484ad}\label{classcom_1_1hospital_1_1portal_1_1service_1_1DocAppointmentService_a587b78fe181fe71de719861a5b4484ad} 
+\index{com.hospital.portal.service.DocAppointmentService@{com.hospital.portal.service.DocAppointmentService}!createAppointment@{createAppointment}}
+\index{createAppointment@{createAppointment}!com.hospital.portal.service.DocAppointmentService@{com.hospital.portal.service.DocAppointmentService}}
+\doxysubsubsection{\texorpdfstring{createAppointment()}{createAppointment()}}
+{\footnotesize\ttfamily Appointment com.\+hospital.\+portal.\+service.\+Doc\+Appointment\+Service.\+create\+Appointment (\begin{DoxyParamCaption}\item[{String}]{dni,  }\item[{Appointment}]{appointment\+Request }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\Hypertarget{classcom_1_1hospital_1_1portal_1_1service_1_1DocAppointmentService_a4d570ce0ab8ef4afb0fb2918ec23c3bf}\label{classcom_1_1hospital_1_1portal_1_1service_1_1DocAppointmentService_a4d570ce0ab8ef4afb0fb2918ec23c3bf} 
+\index{com.hospital.portal.service.DocAppointmentService@{com.hospital.portal.service.DocAppointmentService}!deleteAppointment@{deleteAppointment}}
+\index{deleteAppointment@{deleteAppointment}!com.hospital.portal.service.DocAppointmentService@{com.hospital.portal.service.DocAppointmentService}}
+\doxysubsubsection{\texorpdfstring{deleteAppointment()}{deleteAppointment()}}
+{\footnotesize\ttfamily void com.\+hospital.\+portal.\+service.\+Doc\+Appointment\+Service.\+delete\+Appointment (\begin{DoxyParamCaption}\item[{String}]{id }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\Hypertarget{classcom_1_1hospital_1_1portal_1_1service_1_1DocAppointmentService_a708283074d6adec63fb903ccb7b65b70}\label{classcom_1_1hospital_1_1portal_1_1service_1_1DocAppointmentService_a708283074d6adec63fb903ccb7b65b70} 
+\index{com.hospital.portal.service.DocAppointmentService@{com.hospital.portal.service.DocAppointmentService}!getAllDoctors@{getAllDoctors}}
+\index{getAllDoctors@{getAllDoctors}!com.hospital.portal.service.DocAppointmentService@{com.hospital.portal.service.DocAppointmentService}}
+\doxysubsubsection{\texorpdfstring{getAllDoctors()}{getAllDoctors()}}
+{\footnotesize\ttfamily List$<$ Doctor $>$ com.\+hospital.\+portal.\+service.\+Doc\+Appointment\+Service.\+get\+All\+Doctors (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\Hypertarget{classcom_1_1hospital_1_1portal_1_1service_1_1DocAppointmentService_ab4349b2442cf5337f9834088f324e30a}\label{classcom_1_1hospital_1_1portal_1_1service_1_1DocAppointmentService_ab4349b2442cf5337f9834088f324e30a} 
+\index{com.hospital.portal.service.DocAppointmentService@{com.hospital.portal.service.DocAppointmentService}!getAllPatients@{getAllPatients}}
+\index{getAllPatients@{getAllPatients}!com.hospital.portal.service.DocAppointmentService@{com.hospital.portal.service.DocAppointmentService}}
+\doxysubsubsection{\texorpdfstring{getAllPatients()}{getAllPatients()}}
+{\footnotesize\ttfamily List$<$ Patient $>$ com.\+hospital.\+portal.\+service.\+Doc\+Appointment\+Service.\+get\+All\+Patients (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\Hypertarget{classcom_1_1hospital_1_1portal_1_1service_1_1DocAppointmentService_a4f9cf6b407e73c7798428ef1f8911752}\label{classcom_1_1hospital_1_1portal_1_1service_1_1DocAppointmentService_a4f9cf6b407e73c7798428ef1f8911752} 
+\index{com.hospital.portal.service.DocAppointmentService@{com.hospital.portal.service.DocAppointmentService}!getAppointmentsByDoctor@{getAppointmentsByDoctor}}
+\index{getAppointmentsByDoctor@{getAppointmentsByDoctor}!com.hospital.portal.service.DocAppointmentService@{com.hospital.portal.service.DocAppointmentService}}
+\doxysubsubsection{\texorpdfstring{getAppointmentsByDoctor()}{getAppointmentsByDoctor()}}
+{\footnotesize\ttfamily List$<$ Appointment $>$ com.\+hospital.\+portal.\+service.\+Doc\+Appointment\+Service.\+get\+Appointments\+By\+Doctor (\begin{DoxyParamCaption}\item[{String}]{dni }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\Hypertarget{classcom_1_1hospital_1_1portal_1_1service_1_1DocAppointmentService_a75291d9bebc9974a196435646b32ede3}\label{classcom_1_1hospital_1_1portal_1_1service_1_1DocAppointmentService_a75291d9bebc9974a196435646b32ede3} 
+\index{com.hospital.portal.service.DocAppointmentService@{com.hospital.portal.service.DocAppointmentService}!getAppointmentsByDoctorAndDateRange@{getAppointmentsByDoctorAndDateRange}}
+\index{getAppointmentsByDoctorAndDateRange@{getAppointmentsByDoctorAndDateRange}!com.hospital.portal.service.DocAppointmentService@{com.hospital.portal.service.DocAppointmentService}}
+\doxysubsubsection{\texorpdfstring{getAppointmentsByDoctorAndDateRange()}{getAppointmentsByDoctorAndDateRange()}}
+{\footnotesize\ttfamily List$<$ Appointment $>$ com.\+hospital.\+portal.\+service.\+Doc\+Appointment\+Service.\+get\+Appointments\+By\+Doctor\+And\+Date\+Range (\begin{DoxyParamCaption}\item[{String}]{dni,  }\item[{Local\+Date}]{start\+Date,  }\item[{Local\+Date}]{end\+Date }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\Hypertarget{classcom_1_1hospital_1_1portal_1_1service_1_1DocAppointmentService_a2915886055902a0f76f9860641162a9a}\label{classcom_1_1hospital_1_1portal_1_1service_1_1DocAppointmentService_a2915886055902a0f76f9860641162a9a} 
+\index{com.hospital.portal.service.DocAppointmentService@{com.hospital.portal.service.DocAppointmentService}!updateAppointment@{updateAppointment}}
+\index{updateAppointment@{updateAppointment}!com.hospital.portal.service.DocAppointmentService@{com.hospital.portal.service.DocAppointmentService}}
+\doxysubsubsection{\texorpdfstring{updateAppointment()}{updateAppointment()}}
+{\footnotesize\ttfamily Appointment com.\+hospital.\+portal.\+service.\+Doc\+Appointment\+Service.\+update\+Appointment (\begin{DoxyParamCaption}\item[{String}]{id,  }\item[{Appointment}]{new\+Appointment\+Data }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/main/java/com/hospital/portal/service/\mbox{\hyperlink{DocAppointmentService_8java}{Doc\+Appointment\+Service.\+java}}\end{DoxyCompactItemize}
