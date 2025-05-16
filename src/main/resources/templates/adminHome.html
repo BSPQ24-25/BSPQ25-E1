@@ -1,31 +1,510 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Doctor HomePage</title>
-  <link href="/css/styles.css" rel="stylesheet">
+  <title>Admin Dashboard</title>
+
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
+
+  <!-- Standard app CSS -->
+  <link rel="stylesheet" th:href="@{/css/font-awesome.min.css}">
+  <link rel="stylesheet" th:href="@{/css/animate.css}">
+  <link rel="stylesheet" th:href="@{/css/owl.carousel.css}">
+  <link rel="stylesheet" th:href="@{/css/owl.theme.default.min.css}">
+  <link rel="stylesheet" th:href="@{/css/tooplate-style.css}">
+
+  <style>
+    body { font-family: Arial, sans-serif; margin: 0; padding: 0; }
+    .container { padding-top: 20px; }
+    .nav-tabs { margin-bottom: 20px; }
+    .nav-link.active { background-color: #0d6efd; color: #fff; }
+    table { width: 100%; }
+    th, td { vertical-align: middle; }
+    .modal .form-label { font-weight: 500; }
+  </style>
 </head>
 <body>
-    <div>
-        <h1>Welcome, Admin <span id="name"></span></h1>
-        <div>
-            <p><strong>DNI:</strong> <span id="dni"></span></p>
-            <p><strong>Role:</strong> <span id="role"></span></p>
-            <!--<p><strong>Session token:</strong> <span id="token"></span></p>-->
+
+  <!-- PRE LOADER -->
+  <section class="preloader">
+    <div class="spinner"><span class="spinner-rotate"></span></div>
+  </section>
+
+  <!-- HEADER -->
+  <header>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4 col-sm-5"><p>[[#{app.title}]]</p></div>
+        <div class="col-md-8 col-sm-7 text-end">
+          <span class="phone-icon"><i class="fa fa-phone"></i>[[#{contact.phone}]]</span>
+          <span class="date-icon"><i class="fa fa-calendar-plus-o"></i>[[#{opening.hours}]]</span>
+          <span class="email-icon"><i class="fa fa-envelope-o"></i>
+            <a href="#">[[#{contact.email}]]</a>
+          </span>
         </div>
+      </div>
     </div>
+  </header>
 
+  <!-- NAVBAR -->
+  <section class="navbar navbar-default navbar-static-top">
+    <div class="container">
+      <div class="row w-100 align-items-center">
+        <div class="col-md-6">
+          <a href="/" class="navbar-brand"><i class="fa fa-h-square"></i>ealth Center</a>
+        </div>
+        <div class="col-md-6 text-end">
+          <a href="?lang=en"><img src="/images/flag-en.png" alt="English" style="width:24px;height:16px;"></a>
+          <a href="?lang=es"><img src="/images/flag-es.png" alt="Español" style="width:24px;height:16px;"></a>
+          <a href="?lang=fr"><img src="/images/flag-fr.png" alt="Français" style="width:24px;height:16px;"></a>
+        </div>
+      </div>
+    </div>
+  </section>
 
-    <script>
-        const userInfo = JSON.parse(localStorage.getItem("userInfo"));
+  <!-- Page Title & Tabs -->
+  <div class="container">
+    <h1 class="mb-4">Admin Dashboard</h1>
 
-        if (userInfo) { //to get the values of the specific user
-            document.getElementById("name").textContent = userInfo.name;
-            document.getElementById("dni").textContent = userInfo.dni;
-            document.getElementById("role").textContent = userInfo.role;
-            document.getElementById("token").textContent = userInfo.token;
-        }
+    <!-- TABS -->
+    <ul class="nav nav-tabs" id="adminTabs" role="tablist">
+      <li class="nav-item">
+        <button class="nav-link active" id="tab-appointments" data-bs-toggle="tab" data-bs-target="#content-appointments" type="button" role="tab">Appointments</button>
+      </li>
+      <li class="nav-item">
+        <button class="nav-link" id="tab-patients" data-bs-toggle="tab" data-bs-target="#content-patients" type="button" role="tab">Patients</button>
+      </li>
+      <li class="nav-item">
+        <button class="nav-link" id="tab-doctors" data-bs-toggle="tab" data-bs-target="#content-doctors" type="button" role="tab">Doctors</button>
+      </li>
+    </ul>
 
-    </script>
+    <div class="tab-content">
+      <!-- APPOINTMENTS TAB -->
+      <div class="tab-pane fade show active" id="content-appointments" role="tabpanel">
+        <div class="d-flex justify-content-end mb-2">
+          <button id="newApptBtn" class="btn btn-success">New Appointment</button>
+        </div>
+        <table class="table table-striped" id="appointmentsTable">
+          <thead>
+            <tr>
+              <th>ID</th><th>Patient</th><th>Doctor</th><th>Date</th><th>Start</th><th>End</th><th>Actions</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+
+      <!-- PATIENTS TAB -->
+      <div class="tab-pane fade" id="content-patients" role="tabpanel">
+        <div class="d-flex justify-content-end mb-2">
+          <button id="newPatientBtn" class="btn btn-primary">New Patient</button>
+        </div>
+        <table class="table table-striped" id="patientsTable">
+          <thead>
+            <tr>
+              <th>DNI</th><th>Name</th><th>Surname</th><th>Birth Date</th><th>Gender</th><th>Phone</th><th>Email</th><th>Actions</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+
+      <!-- DOCTORS TAB -->
+      <div class="tab-pane fade" id="content-doctors" role="tabpanel">
+        <div class="d-flex justify-content-end mb-2">
+          <button id="newDoctorBtn" class="btn btn-primary">New Doctor</button>
+        </div>
+        <table class="table table-striped" id="doctorsTable">
+          <thead>
+            <tr><th>DNI</th><th>Name</th><th>Surname</th><th>Actions</th></tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- APPOINTMENT MODAL -->
+  <div class="modal fade" id="appointmentModal" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Appointment</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <form id="apptForm">
+            <div class="mb-3">
+              <label for="appt-patient" class="form-label">Patient</label>
+              <select id="appt-patient" class="form-select" required></select>
+            </div>
+            <div class="mb-3">
+              <label for="appt-doctor" class="form-label">Doctor</label>
+              <select id="appt-doctor" class="form-select" required></select>
+            </div>
+            <div class="mb-3">
+              <label for="appt-date" class="form-label">Date</label>
+              <input type="date" id="appt-date" class="form-control" required>
+            </div>
+            <div class="mb-3">
+              <label for="appt-start" class="form-label">Start Time</label>
+              <input type="time" id="appt-start" class="form-control" required>
+            </div>
+            <div class="mb-3">
+              <label for="appt-end" class="form-label">End Time</label>
+              <input type="time" id="appt-end" class="form-control" required>
+            </div>
+            <div id="appt-error" class="alert alert-danger d-none"></div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button id="saveApptBtn" class="btn btn-primary">Save</button>
+          <button id="deleteApptBtn" class="btn btn-danger">Delete</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PATIENT MODAL -->
+  <div class="modal fade" id="patientModal" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Patient</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <form id="patientForm">
+            <div class="mb-3"><label for="pat-dni" class="form-label">DNI</label><input type="text" id="pat-dni" class="form-control" required></div>
+            <div class="mb-3"><label for="pat-name" class="form-label">Name</label><input type="text" id="pat-name" class="form-control" required></div>
+            <div class="mb-3"><label for="pat-surname" class="form-label">Surname</label><input type="text" id="pat-surname" class="form-control" required></div>
+            <div class="mb-3"><label for="pat-birth" class="form-label">Birth Date</label><input type="date" id="pat-birth" class="form-control" required></div>
+            <div class="mb-3">
+              <label for="pat-gender" class="form-label">Gender</label>
+              <select id="pat-gender" class="form-select" required>
+                <option value="Male">Male</option><option value="Female">Female</option>
+              </select>
+            </div>
+            <div class="mb-3"><label for="pat-phone" class="form-label">Phone</label><input type="text" id="pat-phone" class="form-control" required></div>
+            <div class="mb-3"><label for="pat-email" class="form-label">Email</label><input type="email" id="pat-email" class="form-control" required></div>
+            <div id="pat-error" class="alert alert-danger d-none"></div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button id="savePatientBtn" class="btn btn-primary">Save</button>
+          <button id="deletePatientBtn" class="btn btn-danger">Delete</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DOCTOR MODAL -->
+  <div class="modal fade" id="doctorModal" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Doctor</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <form id="doctorForm">
+            <div class="mb-3"><label for="doc-dni" class="form-label">DNI</label><input type="text" id="doc-dni" class="form-control" required></div>
+            <div class="mb-3"><label for="doc-name" class="form-label">Name</label><input type="text" id="doc-name" class="form-control" required></div>
+            <div class="mb-3"><label for="doc-surname" class="form-label">Surname</label><input type="text" id="doc-surname" class="form-control" required></div>
+            <div id="doc-error" class="alert alert-danger d-none"></div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button id="saveDoctorBtn" class="btn btn-primary">Save</button>
+          <button id="deleteDoctorBtn" class="btn btn-danger">Delete</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- JS Libraries -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="/js/jquery.js"></script>
+  <script src="/js/custom.js"></script>
+
+  <script th:inline="javascript">
+  /*<![CDATA[*/
+    const apptApi     = /*[[ @{/api/admin/appointments} ]]*/ '/api/admin/appointments';
+    const patientsApi = /*[[ @{/api/admin/patients} ]]*/ '/api/admin/patients';
+    const doctorsApi  = /*[[ @{/api/admin/doctors} ]]*/ '/api/admin/doctors';
+
+    let appointmentsList = [], patientsList = [], doctorsList = [], currentId;
+
+    document.addEventListener('DOMContentLoaded', () => {
+      loadPatients();
+      loadDoctors();
+      loadAppointments();
+      bindNewButtons();
+    });
+
+    function loadPatients() {
+      fetch(patientsApi)
+        .then(r => r.json())
+        .then(list => {
+          patientsList = list;
+          const tbody = document.querySelector('#patientsTable tbody');
+          tbody.innerHTML = '';
+          list.forEach(p => {
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+              <td>${p.dni}</td>
+              <td>${p.name}</td>
+              <td>${p.surname}</td>
+              <td>${p.birthDate}</td>
+              <td>${p.gender}</td>
+              <td>${p.phone}</td>
+              <td>${p.email}</td>
+              <td>
+                <button class="btn btn-sm btn-primary edit-pat" data-dni="${p.dni}">Edit</button>
+                <button class="btn btn-sm btn-danger del-pat" data-dni="${p.dni}">Delete</button>
+              </td>`;
+            tbody.append(tr);
+          });
+          document.querySelectorAll('.edit-pat').forEach(btn => btn.onclick = editPatient);
+          document.querySelectorAll('.del-pat').forEach(btn => deletePatient);
+        })
+        .catch(e => console.error('Error loading patients:', e));
+    }
+
+    function loadDoctors() {
+      fetch(doctorsApi)
+        .then(r => r.json())
+        .then(list => {
+          doctorsList = list;
+          const tbody = document.querySelector('#doctorsTable tbody');
+          tbody.innerHTML = '';
+          list.forEach(d => {
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+              <td>${d.dni}</td>
+              <td>${d.name}</td>
+              <td>${d.surname}</td>
+              <td>
+                <button class="btn btn-sm btn-primary edit-doc" data-dni="${d.dni}">Edit</button>
+                <button class="btn btn-sm btn-danger del-doc" data-dni="${d.dni}">Delete</button>
+              </td>`;
+            tbody.append(tr);
+          });
+          document.querySelectorAll('.edit-doc').forEach(btn => btn.onclick = editDoctor);
+          document.querySelectorAll('.del-doc').forEach(btn => deleteDoctor);
+        })
+        .catch(e => console.error('Error loading doctors:', e));
+    }
+
+    function loadAppointments() {
+      fetch(apptApi)
+        .then(r => r.json())
+        .then(list => {
+          appointmentsList = list;
+          const tbody = document.querySelector('#appointmentsTable tbody');
+          tbody.innerHTML = '';
+          list.forEach(a => {
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+              <td>${a.appointmentId}</td>
+              <td>${a.patient.name} ${a.patient.surname}</td>
+              <td>${a.doctor.name} ${a.doctor.surname}</td>
+              <td>${a.date}</td>
+              <td>${a.startTime}</td>
+              <td>${a.endTime}</td>
+              <td>
+                <button class="btn btn-sm btn-primary edit-appt" data-id="${a.appointmentId}">Edit</button>
+                <button class="btn btn-sm btn-danger del-appt" data-id="${a.appointmentId}">Delete</button>
+              </td>`;
+            tbody.append(tr);
+          });
+          document.querySelectorAll('.edit-appt').forEach(btn => btn.onclick = editAppointment);
+          document.querySelectorAll('.del-appt').forEach(btn => deleteAppointment);
+        })
+        .catch(e => console.error('Error loading appointments:', e));
+    }
+
+    function bindNewButtons() {
+      document.getElementById('newPatientBtn').onclick = () => openPatientModal();
+      document.getElementById('newDoctorBtn').onclick  = () => openDoctorModal();
+      document.getElementById('newApptBtn').onclick    = () => openAppointmentModal();
+    }
+
+    // Patient Handlers
+    function openPatientModal(dni = null) {
+      currentId = dni;
+      const modalEl = document.getElementById('patientModal');
+      const m = new bootstrap.Modal(modalEl);
+      document.getElementById('pat-error').classList.add('d-none');
+      if (dni) {
+        const p = patientsList.find(x => x.dni === dni);
+        ['pat-dni','pat-name','pat-surname','pat-birth','pat-gender','pat-phone','pat-email']
+          .forEach(id => document.getElementById(id).value = p[id.replace('pat-','')]);
+        document.getElementById('deletePatientBtn').style.display = 'inline-block';
+      } else {
+        ['pat-dni','pat-name','pat-surname','pat-birth','pat-gender','pat-phone','pat-email']
+          .forEach(id => document.getElementById(id).value = '');
+        document.getElementById('deletePatientBtn').style.display = 'none';
+      }
+      m.show();
+      document.getElementById('savePatientBtn').onclick   = savePatient;
+      document.getElementById('deletePatientBtn').onclick = deletePatient;
+    }
+    function editPatient() { openPatientModal(this.dataset.dni); }
+    function savePatient() {
+      const payload = {
+        dni: document.getElementById('pat-dni').value,
+        name: document.getElementById('pat-name').value,
+        surname: document.getElementById('pat-surname').value,
+        birthDate: document.getElementById('pat-birth').value,
+        gender: document.getElementById('pat-gender').value,
+        phone: document.getElementById('pat-phone').value,
+        email: document.getElementById('pat-email').value
+      };
+      const url = currentId ? patientsApi + '/' + currentId : patientsApi;
+      const method = currentId ? 'PUT' : 'POST';
+      fetch(url, {
+        method, headers: {'Content-Type':'application/json'},
+        body: JSON.stringify(payload)
+      })
+      .then(r => { if (!r.ok) throw new Error(r.statusText); return r.json(); })
+      .then(() => { loadPatients(); bootstrap.Modal.getInstance(document.getElementById('patientModal')).hide(); })
+      .catch(e => {
+        console.error('Error saving patient:', e);
+        const d = document.getElementById('pat-error');
+        d.textContent = e.message; d.classList.remove('d-none');
+      });
+    }
+    function deletePatient() {
+      if (!confirm('Delete this patient?')) return;
+      fetch(patientsApi + '/' + currentId, { method:'DELETE' })
+        .then(r => { if (!r.ok) throw new Error(r.statusText); })
+        .then(() => { loadPatients(); bootstrap.Modal.getInstance(document.getElementById('patientModal')).hide(); })
+        .catch(e => alert('Error deleting patient'));
+    }
+
+    // Doctor Handlers
+    function openDoctorModal(dni = null) {
+      currentId = dni;
+      const m = new bootstrap.Modal(document.getElementById('doctorModal'));
+      document.getElementById('doc-error').classList.add('d-none');
+      if (dni) {
+        const d = doctorsList.find(x => x.dni === dni);
+        ['doc-dni','doc-name','doc-surname']
+          .forEach(id => document.getElementById(id).value = d[id.replace('doc-','')]);
+        document.getElementById('deleteDoctorBtn').style.display = 'inline-block';
+      } else {
+        ['doc-dni','doc-name','doc-surname']
+          .forEach(id => document.getElementById(id).value = '');
+        document.getElementById('deleteDoctorBtn').style.display = 'none';
+      }
+      m.show();
+      document.getElementById('saveDoctorBtn').onclick   = saveDoctor;
+      document.getElementById('deleteDoctorBtn').onclick = deleteDoctor;
+    }
+    function editDoctor() { openDoctorModal(this.dataset.dni); }
+    function saveDoctor() {
+      const payload = {
+        dni: document.getElementById('doc-dni').value,
+        name: document.getElementById('doc-name').value,
+        surname: document.getElementById('doc-surname').value
+      };
+      const url = currentId ? doctorsApi + '/' + currentId : doctorsApi;
+      const method = currentId ? 'PUT' : 'POST';
+      fetch(url, {
+        method, headers: {'Content-Type':'application/json'},
+        body: JSON.stringify(payload)
+      })
+      .then(r => { if (!r.ok) throw new Error(r.statusText); return r.json(); })
+      .then(() => { loadDoctors(); bootstrap.Modal.getInstance(document.getElementById('doctorModal')).hide(); })
+      .catch(e => {
+        console.error('Error saving doctor:', e);
+        const d = document.getElementById('doc-error');
+        d.textContent = e.message; d.classList.remove('d-none');
+      });
+    }
+    function deleteDoctor() {
+      if (!confirm('Delete this doctor?')) return;
+      fetch(doctorsApi + '/' + currentId, { method:'DELETE' })
+        .then(r => { if (!r.ok) throw new Error(r.statusText); })
+        .then(() => { loadDoctors(); bootstrap.Modal.getInstance(document.getElementById('doctorModal')).hide(); })
+        .catch(e => alert('Error deleting doctor'));
+    }
+
+    // Appointment Handlers
+    function openAppointmentModal(evtBtn = null) {
+      currentId = evtBtn?.dataset.id || null;
+      const m = new bootstrap.Modal(document.getElementById('appointmentModal'));
+      document.getElementById('appt-error').classList.add('d-none');
+      populateApptSelects();
+      if (currentId) {
+        const a = appointmentsList.find(x => x.appointmentId == currentId);
+        document.getElementById('appt-patient').value = a.patient.dni;
+        document.getElementById('appt-doctor').value  = a.doctor.dni;
+        document.getElementById('appt-date').value    = a.date;
+        document.getElementById('appt-start').value   = a.startTime.substr(0,5);
+        document.getElementById('appt-end').value     = a.endTime.substr(0,5);
+        document.getElementById('deleteApptBtn').style.display = 'inline-block';
+      } else {
+        ['appt-patient','appt-doctor','appt-date','appt-start','appt-end']
+          .forEach(id => document.getElementById(id).value = '');
+        document.getElementById('deleteApptBtn').style.display = 'none';
+      }
+      m.show();
+      document.getElementById('saveApptBtn').onclick   = saveAppointment;
+      document.getElementById('deleteApptBtn').onclick = deleteAppointment;
+    }
+    function editAppointment() { openAppointmentModal(this); }
+    function populateApptSelects() {
+      const ps = document.getElementById('appt-patient'),
+            ds = document.getElementById('appt-doctor');
+      ps.innerHTML = '<option value="" disabled selected>Choose patient</option>';
+      ds.innerHTML = '<option value="" disabled selected>Choose doctor</option>';
+      patientsList.forEach(p => {
+        const o = document.createElement('option');
+        o.value = p.dni; o.textContent = p.name + ' ' + p.surname; ps.append(o);
+      });
+      doctorsList.forEach(d => {
+        const o = document.createElement('option');
+        o.value = d.dni; o.textContent = d.name + ' ' + d.surname; ds.append(o);
+      });
+    }
+    function saveAppointment() {
+      const payload = {
+        patient: { dni: document.getElementById('appt-patient').value },
+        doctor:  { dni: document.getElementById('appt-doctor').value },
+        date:    document.getElementById('appt-date').value,
+        startTime: document.getElementById('appt-start').value.padEnd(8,':00'),
+        endTime:   document.getElementById('appt-end').value.padEnd(8,':00')
+      };
+      const url = currentId ? `${apptApi}/${currentId}` : apptApi;
+      const method = currentId ? 'PUT' : 'POST';
+      fetch(url, {
+        method, headers: {'Content-Type':'application/json'},
+        body: JSON.stringify(payload)
+      })
+      .then(r => { if (!r.ok) throw new Error(r.statusText); return r.json(); })
+      .then(() => { loadAppointments(); bootstrap.Modal.getInstance(document.getElementById('appointmentModal')).hide(); })
+      .catch(e => {
+        console.error('Error saving appointment:', e);
+        const d = document.getElementById('appt-error');
+        d.textContent = e.message; d.classList.remove('d-none');
+      });
+    }
+    function deleteAppointment() {
+      if (!confirm('Delete this appointment?')) return;
+      fetch(`${apptApi}/${currentId}`, { method:'DELETE' })
+        .then(r => { if (!r.ok) throw new Error(r.statusText); })
+        .then(() => { loadAppointments(); bootstrap.Modal.getInstance(document.getElementById('appointmentModal')).hide(); })
+        .catch(e => alert('Error deleting appointment'));
+    }
+  /*]]>*/
+  </script>
+
 </body>
 </html>

@@ -1,0 +1,25 @@
+services:
+  spring-app:
+    build: .
+    container_name: spring-boot-app
+    restart: unless-stopped
+    ports:
+      - "7777:7777"
+    environment:
+      SPRING_PROFILES_ACTIVE: dev
+      SUPABASE_URL: https://kngkbphqkyfrzzygpzig.supabase.co 
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update 
+      SPRING_JPA_SHOW_SQL: "true" 
+
+#Service to execute the tests
+  # maven_test: 
+  #   image: maven:3.9.4-eclipse-temurin-17
+  #   working_dir: /app
+  #   volumes:
+  #     - .:/app
+  #   command: mvn test
+
+#To execute test: docker-compose run --rm maven_test
+#to create the container: docker-compose up --build
+#to start the app: docker-compose up
+

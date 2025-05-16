@@ -51,11 +51,11 @@
       }
       /* Style for past appointment events */
       .past-event {
-      background-color: #e9ecef !important;
-      border-color: #dee2e6 !important;
-      color: #6c757d !important;
-      opacity: 0.9;
-    }
+        background-color: #e9ecef !important;
+        border-color: #dee2e6 !important;
+        color: #6c757d !important;
+        opacity: 0.9;
+      }
     </style>
   </head>
   <body th:data-patient-dni="${patient.dni}">
@@ -86,35 +86,52 @@
         </div>
       </div>
     </header>
-<!-- MENU -->
-<section class="navbar navbar-default navbar-static-top" role="navigation">
-  <div class="container">
-    <div class="row w-100 align-items-center">
-      <div class="col-md-6">
-        <a href="/" class="navbar-brand"><i class="fa fa-h-square"></i>ealth Center</a>
-      </div>
-      <div class="col-md-6 text-end">
-        <div class="language-switcher">
-          <a href="?lang=en">
-            <img src="/images/flag-en.png" alt="English" style="width:24px;height:16px; display:inline-block;">
-          </a>
-          <a href="?lang=es">
-            <img src="/images/flag-es.png" alt="Español" style="width:24px;height:16px; display:inline-block;">
-          </a>
-          <a href="?lang=fr">
-            <img src="/images/flag-fr.png" alt="Français" style="width:24px;height:16px; display:inline-block;">
-          </a>
+    <!-- MENU -->
+    <section class="navbar navbar-default navbar-static-top" role="navigation">
+      <div class="container">
+        <div class="row w-100 align-items-center">
+          <div class="col-md-6">
+            <a href="/" class="navbar-brand"
+              ><i class="fa fa-h-square"></i>ealth Center</a
+            >
+          </div>
+          <div class="col-md-6 text-end">
+            <div class="language-switcher">
+              <a href="?lang=en">
+                <img
+                  src="/images/flag-en.png"
+                  alt="English"
+                  style="width:24px;height:16px; display:inline-block;"
+                />
+              </a>
+              <a href="?lang=es">
+                <img
+                  src="/images/flag-es.png"
+                  alt="Español"
+                  style="width:24px;height:16px; display:inline-block;"
+                />
+              </a>
+              <a href="?lang=fr">
+                <img
+                  src="/images/flag-fr.png"
+                  alt="Français"
+                  style="width:24px;height:16px; display:inline-block;"
+                />
+              </a>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-  </div>
-</section>
+    </section>
     <!-- Botón Nueva Cita -->
     <div class="container mt-3">
-      <button id="newAppointmentBtn" class="btn btn-success">New Appointment</button>
+      <button id="newAppointmentBtn" class="btn btn-success">
+        New Appointment
+      </button>
     </div>
     <h1 class="text-center">
-      [[#{pat.calendar.appointmentsFor}]] <span th:text="${patient.name}">Nombre Paciente</span>
+      [[#{pat.calendar.appointmentsFor}]]
+      <span th:text="${patient.name}">Nombre Paciente</span>
     </h1>
     <div id="no-appointments" style="display: none">
       [[#{pat.calendar.noAppointments}]]
@@ -143,18 +160,27 @@
           </div>
           <div class="modal-body">
             <form id="appointmentForm">
+              <!-- Doctor select  -->
               <div class="mb-3">
-                <label for="input-doctor" class="form-label">[[#{pat.calendar.modal.title}]]</label>
-                <input
-                  type="text"
-                  class="form-control"
+                <label for="input-doctor" class="form-label">
+                  Choose
+                </label>
+                <select
+                  class="form-select"
                   id="input-doctor"
                   name="doctorDni"
                   required
-                />
+                >
+                  <option value="" disabled selected>
+                    Choose a doctor
+                  </option>
+                </select>
               </div>
+              <!-- Fecha -->
               <div class="mb-3">
-                <label for="input-date" class="form-label">[[#{pat.calendar.form.date}]]</label>
+                <label for="input-date" class="form-label">
+                  [[#{pat.calendar.form.date}]]
+                </label>
                 <input
                   type="date"
                   class="form-control"
@@ -163,8 +189,11 @@
                   required
                 />
               </div>
+              <!-- Hora inicio -->
               <div class="mb-3">
-                <label for="input-start" class="form-label">[[#{pat.calendar.form.startTime}]]</label>
+                <label for="input-start" class="form-label">
+                  [[#{pat.calendar.form.startTime}]]
+                </label>
                 <input
                   type="time"
                   class="form-control"
@@ -173,8 +202,11 @@
                   required
                 />
               </div>
+              <!-- Hora fin -->
               <div class="mb-3">
-                <label for="input-end" class="form-label">[[#{pat.calendar.form.endTime}]]</label>
+                <label for="input-end" class="form-label">
+                  [[#{pat.calendar.form.endTime}]]
+                </label>
                 <input
                   type="time"
                   class="form-control"
@@ -183,18 +215,22 @@
                   required
                 />
               </div>
+              <!-- Propósito -->
               <div class="mb-3">
-                <label for="input-purpose" class="form-label">[[#{pat.calendar.form.purpose}]]</label>
+                <label for="input-purpose" class="form-label">
+                  [[#{pat.calendar.form.purpose}]]
+                </label>
                 <textarea
                   class="form-control"
                   id="input-purpose"
                   name="appointmentPurpose"
                 ></textarea>
               </div>
+              <!-- Observaciones -->
               <div class="mb-3">
-                <label for="input-observations" class="form-label"
-                  >[[#{pat.calendar.form.observations}]]</label
-                >
+                <label for="input-observations" class="form-label">
+                  [[#{pat.calendar.form.observations}]]
+                </label>
                 <textarea
                   class="form-control"
                   id="input-observations"
@@ -208,7 +244,11 @@
             <button type="button" class="btn btn-primary" id="saveBtn">
               [[#{pat.calendar.button.save}]]
             </button>
-            <button id="deleteButton" type="button" class="btn btn-danger">
+            <button
+              id="deleteButton"
+              type="button"
+              class="btn btn-danger"
+            >
               [[#{pat.calendar.button.delete}]]
             </button>
             <button
@@ -216,7 +256,7 @@
               class="btn btn-secondary"
               data-bs-dismiss="modal"
             >
-            [[#{pat.calendar.button.close}]]
+              [[#{pat.calendar.button.close}]]
             </button>
           </div>
         </div>
@@ -240,17 +280,37 @@
           observations: apt.observations,
           patientName: apt.patient.name + " " + apt.patient.surname,
           doctorName: apt.doctor.name + " " + apt.doctor.surname,
-          doctorDni: apt.doctor.dni // Nuevo campo añadido
+          doctorDni: apt.doctor.dni
         };
       });
       /*]]>*/
     </script>
     <script>
       document.addEventListener("DOMContentLoaded", function () {
-        // Get current date for past date checks
+        // --- cargar lista de doctores ---
+        const doctorSelect = document.getElementById("input-doctor");
+        fetch("/api/doctors/doctors")
+          .then((res) => {
+            if (!res.ok) throw new Error("Failed to fetch doctors");
+            return res.json();
+          })
+          .then((doctors) => {
+            doctors.forEach((doc) => {
+              const opt = document.createElement("option");
+              opt.value = doc.dni;
+              opt.textContent = doc.name + " " + doc.surname;
+              doctorSelect.appendChild(opt);
+            });
+          })
+          .catch((err) => {
+            console.error("Error loading doctors:", err);
+          });
+        // --------------------------------------------
+
+        // Inicialización de FullCalendar
         const today = new Date();
         today.setHours(0, 0, 0, 0);
-        
+
         var calendarEl = document.getElementById("calendar");
         var calendar = new FullCalendar.Calendar(calendarEl, {
           locale: "en",
@@ -268,15 +328,10 @@
             minute: "2-digit",
             hour12: false,
           },
-          // Add colors to past events
-          eventClassNames: function(info) {
+          eventClassNames: function (info) {
             const eventDate = new Date(info.event.start);
             eventDate.setHours(0, 0, 0, 0);
-            
-            if (eventDate < today) {
-              return ['past-event'];
-            }
-            return [];
+            return eventDate < today ? ["past-event"] : [];
           },
           dayCellDidMount: function (info) {
             var a = info.el.querySelector(".fc-daygrid-day-number a");
@@ -293,12 +348,12 @@
             var baseUrl = isPatient
               ? "/api/patients/appointments/" + apptId
               : "/api/doctors/appointments/" + apptId;
-              
-            // Check if event is in the past
+
             const eventDate = new Date(event.start);
             eventDate.setHours(0, 0, 0, 0);
             const isPastEvent = eventDate < today;
-              
+
+            // Rellenar formulario
             document.getElementById("input-date").value =
               event.startStr.split("T")[0];
             document.getElementById("input-start").value = event.startStr
@@ -307,73 +362,75 @@
             document.getElementById("input-end").value = event.endStr
               .split("T")[1]
               .substr(0, 5);
+            doctorSelect.value = event.extendedProps.doctorDni || "";
             document.getElementById("input-purpose").value =
               event.extendedProps.purpose || "";
             document.getElementById("input-observations").value =
               event.extendedProps.observations || "";
-            document.getElementById("input-doctor").value =
-              event.extendedProps.doctorDni || "";
-              
+
             document.getElementById("form-error").classList.add("d-none");
-            
-            // Disable all fields for past dates
-            const allInputFields = ["input-date", "input-start", "input-end", "input-doctor", "input-purpose", "input-observations"];
-            
+
+            const allFields = [
+              "input-date",
+              "input-start",
+              "input-end",
+              "input-doctor",
+              "input-purpose",
+              "input-observations",
+            ];
+
             if (isPastEvent) {
-              // For past dates, make all fields read-only
-              allInputFields.forEach(function(id) {
-                document.getElementById(id).disabled = true;
-              });
-              
-              // Hide save and delete buttons for past dates
+              // Bloquear y ocultar botones
+              allFields.forEach((id) =>
+                document.getElementById(id).setAttribute("disabled", true)
+              );
               document.getElementById("saveBtn").style.display = "none";
               document.getElementById("deleteButton").style.display = "none";
-              
-              document.getElementById("appointmentModalLabel").textContent = "View Appointment (Past Date)";
+              document.getElementById(
+                "appointmentModalLabel"
+              ).textContent = "View Appointment (Past Date)";
             } else {
-              // For current/future dates
-              // First enable all fields
-              allInputFields.forEach(function(id) {
-                document.getElementById(id).disabled = false;
-              });
-              
-              // Then apply patient restrictions if needed
+              // Habilitar
+              allFields.forEach((id) =>
+                document.getElementById(id).removeAttribute("disabled")
+              );
               if (isPatient) {
-                ["input-purpose", "input-observations"].forEach(function(id) {
-                  document.getElementById(id).disabled = true;
-                });
+                ["input-purpose", "input-observations"].forEach((id) =>
+                  document.getElementById(id).setAttribute("disabled", true)
+                );
               }
-              
-              // Show buttons
               document.getElementById("saveBtn").style.display = "inline-block";
-              document.getElementById("deleteButton").style.display = "inline-block";
-              document.getElementById("appointmentModalLabel").textContent = "Edit Appointment";
+              document.getElementById(
+                "deleteButton"
+              ).style.display = "inline-block";
+              document.getElementById(
+                "appointmentModalLabel"
+              ).textContent = "Edit Appointment";
             }
-            
-            var modalEl = document.getElementById("appointmentModal");
-            var bsModal = new bootstrap.Modal(modalEl);
+
+            var bsModal = new bootstrap.Modal(
+              document.getElementById("appointmentModal")
+            );
             bsModal.show();
-            
+
+            // Guardar
             document.getElementById("saveBtn").onclick = function () {
-              // Don't allow saving for past events
               if (isPastEvent) return;
-              
               let startVal = document.getElementById("input-start").value;
               let endVal = document.getElementById("input-end").value;
               var payload = {
                 date: document.getElementById("input-date").value,
-                startTime: startVal.length === 5 ? startVal + ":00" : startVal,
+                startTime:
+                  startVal.length === 5 ? startVal + ":00" : startVal,
                 endTime: endVal.length === 5 ? endVal + ":00" : endVal,
-                doctorDni: document.getElementById("input-doctor").value
+                doctorDni: doctorSelect.value,
               };
-              
               if (!isPatient) {
                 payload.appointmentPurpose =
                   document.getElementById("input-purpose").value;
                 payload.observations =
                   document.getElementById("input-observations").value;
               }
-              
               fetch(baseUrl, {
                 method: "PUT",
                 headers: { "Content-Type": "application/json" },
@@ -386,7 +443,7 @@
                     });
                   return res.json();
                 })
-                .then((updated) => {
+                .then(() => {
                   bsModal.hide();
                   calendar.refetchEvents();
                 })
@@ -396,11 +453,10 @@
                   errDiv.classList.remove("d-none");
                 });
             };
-            
+
+            // Eliminar
             document.getElementById("deleteButton").onclick = function () {
-              // Don't allow deletion for past events
               if (isPastEvent) return;
-              
               if (!confirm("¿Estás seguro de que quieres eliminar esta cita?"))
                 return;
               fetch(baseUrl, { method: "DELETE" })
@@ -412,81 +468,102 @@
                     alert("Error al eliminar la cita.");
                   }
                 })
-                .catch((error) => {
-                  console.error("Error:", error);
+                .catch(() => {
                   alert("Ocurrió un error al intentar eliminar la cita.");
                 });
             };
           },
         });
         calendar.render();
-        
-        // Handler para nuevo appointment
-        document.getElementById("newAppointmentBtn").addEventListener("click", function() {
-          // Resetear formulario
-          document.getElementById("input-date").value = "";
-          document.getElementById("input-start").value = "";
-          document.getElementById("input-end").value = "";
-          document.getElementById("input-purpose").value = "";
-          document.getElementById("input-observations").value = "";
-          document.getElementById("input-doctor").value = "";
-          document.getElementById("form-error").classList.add("d-none");
-          
-          // Habilitar campos
-          ["input-date", "input-start", "input-end", "input-doctor", "input-purpose", "input-observations"].forEach(function(id) {
-            document.getElementById(id).disabled = false;
-          });
-          
-          // Ocultar botón eliminar y cambiar título
-          document.getElementById("deleteButton").style.display = "none";
-          document.getElementById("saveBtn").style.display = "inline-block";
-          document.getElementById("appointmentModalLabel").textContent = "New Appointment";
-          
-          const patientDni = document.body.dataset.patientDni;
-          const baseUrl = `/api/patients/${patientDni}/appointments`;
-          const bsModal = new bootstrap.Modal(document.getElementById("appointmentModal"));
-          
-          // Configurar guardar
-          document.getElementById("saveBtn").onclick = function() {
-            // Check if appointment date is in the past
-            const selectedDate = new Date(document.getElementById("input-date").value);
-            selectedDate.setHours(0, 0, 0, 0);
-            
-            if (selectedDate < today) {
-              document.getElementById("form-error").textContent = "Cannot create appointments for past dates";
-              document.getElementById("form-error").classList.remove("d-none");
-              return;
-            }
-            
-            const payload = {
-              date: document.getElementById("input-date").value,
-              startTime: document.getElementById("input-start").value.padEnd(8, ":00"),
-              endTime: document.getElementById("input-end").value.padEnd(8, ":00"),
-              appointmentPurpose: document.getElementById("input-purpose").value,
-              observations: document.getElementById("input-observations").value,
-              doctor: {
-                dni: document.getElementById("input-doctor").value
+
+        // Nuevo appointment
+        document
+          .getElementById("newAppointmentBtn")
+          .addEventListener("click", function () {
+            // Resetear formulario
+            [
+              "input-date",
+              "input-start",
+              "input-end",
+              "input-purpose",
+              "input-observations",
+            ].forEach((id) => (document.getElementById(id).value = ""));
+            doctorSelect.value = ""; // MODIFICADO
+            document.getElementById("form-error").classList.add("d-none");
+            // Habilitar campos
+            [
+              "input-date",
+              "input-start",
+              "input-end",
+              "input-doctor",
+              "input-purpose",
+              "input-observations",
+            ].forEach((id) =>
+              document.getElementById(id).removeAttribute("disabled")
+            );
+            document.getElementById("deleteButton").style.display = "none";
+            document.getElementById("saveBtn").style.display = "inline-block";
+            document.getElementById(
+              "appointmentModalLabel"
+            ).textContent = "New Appointment";
+
+            const patientDni = document.body.dataset.patientDni;
+            const baseUrl = `/api/patients/${patientDni}/appointments`;
+            var bsModal = new bootstrap.Modal(
+              document.getElementById("appointmentModal")
+            );
+
+            document.getElementById("saveBtn").onclick = function () {
+              const selectedDate = new Date(
+                document.getElementById("input-date").value
+              );
+              selectedDate.setHours(0, 0, 0, 0);
+              if (selectedDate < today) {
+                document.getElementById("form-error").textContent =
+                  "Cannot create appointments for past dates";
+                document
+                  .getElementById("form-error")
+                  .classList.remove("d-none");
+                return;
               }
+              const payload = {
+                date: document.getElementById("input-date").value,
+                startTime: document
+                  .getElementById("input-start")
+                  .value.padEnd(8, ":00"),
+                endTime: document
+                  .getElementById("input-end")
+                  .value.padEnd(8, ":00"),
+                appointmentPurpose: document.getElementById(
+                  "input-purpose"
+                ).value,
+                observations: document.getElementById(
+                  "input-observations"
+                ).value,
+                doctor: {
+                  dni: doctorSelect.value, // MODIFICADO
+                },
+              };
+              fetch(baseUrl, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(payload),
+              })
+                .then((response) => {
+                  if (!response.ok) throw new Error("Error creating appointment");
+                  calendar.refetchEvents();
+                  bsModal.hide();
+                })
+                .catch((error) => {
+                  document.getElementById("form-error").textContent =
+                    error.message;
+                  document
+                    .getElementById("form-error")
+                    .classList.remove("d-none");
+                });
             };
-            
-            fetch(baseUrl, {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify(payload)
-            })
-            .then(response => {
-              if (!response.ok) throw new Error("Error creating appointment");
-              calendar.refetchEvents();
-              bsModal.hide();
-            })
-            .catch(error => {
-              document.getElementById("form-error").textContent = error.message;
-              document.getElementById("form-error").classList.remove("d-none");
-            });
-          };
-          
-          bsModal.show();
-        });
+            bsModal.show();
+          });
       });
     </script>
     <!-- SCRIPTS -->

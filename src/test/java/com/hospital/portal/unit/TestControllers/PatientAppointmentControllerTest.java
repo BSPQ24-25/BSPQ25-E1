@@ -116,4 +116,4 @@ class PatientAppointmentControllerTest {
 
         verify(patientAppointmentService, times(1)).deleteAppointmentPatient(id);
     }
-}
+
