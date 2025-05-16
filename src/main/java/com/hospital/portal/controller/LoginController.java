@@ -45,7 +45,6 @@ public class LoginController {
             logger.info("Log in user with DNI: {}", dni);
             return ResponseEntity.ok(Map.of("role", userInfo.get("role"), "dni", userInfo.get("dni"), "name", userInfo.get("name"), "token", userInfo.get("token")));
         } catch (Exception e) {
-            //logger.error("Error during log in", e);
             return ResponseEntity.status(500).body("Login failed: " + e.getMessage());
         }
     }

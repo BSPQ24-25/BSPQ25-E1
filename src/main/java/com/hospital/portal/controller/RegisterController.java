@@ -47,7 +47,6 @@ public class RegisterController {
 
             return ResponseEntity.ok(result);
         } catch (Exception e) {
-            //logger.error("Error during registration", e);
             return ResponseEntity.badRequest().body("Registration failed: " + e.getMessage());
             
         }

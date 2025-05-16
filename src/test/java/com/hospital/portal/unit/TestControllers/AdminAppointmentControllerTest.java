@@ -115,6 +115,3 @@ class AdminAppointmentControllerTest {
         verify(adminAppointmentService, times(1)).getAllAppointments();
     }
 }
-
-
-// mvn jacoco:report
