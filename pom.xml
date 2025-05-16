@@ -289,8 +289,11 @@
 							<outputDirectory>${basedir}/docs/doxygen</outputDirectory> <!-- 🔥 target doxygen folder -->
 							<resources>
 								<resource>
-									<directory>${project.build.directory}/doxygen/html</directory> <!-- source -->
-									<filtering>false</filtering>
+									<directory>${project.build.directory}/doxygen</directory>
+                                    <includes>
+                                        <include>html/**</include>
+                                        <include>latex/**</include>
+                                    </includes>
 								</resource>
 							</resources>
 						</configuration>

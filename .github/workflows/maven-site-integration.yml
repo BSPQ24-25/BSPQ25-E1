@@ -47,6 +47,14 @@ jobs:
       - name: Ensure that the performance reports are also moved into the target\site\reports folder
         run: mvn -Pperformance resources:copy-resources@copy-perf-report
 
+      - name: Copy site output to docs/site and docs/doxygen folder to docs/doxygen
+        run: |
+          mkdir -p docs
+          mkdir -p docs/site
+          mkdir -p docs/doxygen
+          cp -r target/site/* docs/site/
+          cp -r target/doxygen/* docs/doxygen/
+          
       - name: Commit and push docs
         run: |
           git config --global user.name "github-actions"
