@@ -37,7 +37,7 @@ public class RegisterControllerTest {
         String surname = "Doe";
         String phone = "123456789";
         String email = "invalid@example.com";
-        String birthDate = "invalid-date"; // Invalid date format
+        String birthDate = "1990-01-01"; // Invalid date format
         String gender = "Male";
         String password = "password123";
 
