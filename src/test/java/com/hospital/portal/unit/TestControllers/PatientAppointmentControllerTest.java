@@ -1,24 +1,25 @@
 package com.hospital.portal.unit.TestControllers;
 
-import com.hospital.portal.controller.PatientAppointmentController;
-import com.hospital.portal.model.Appointment;
-import com.hospital.portal.service.PatientAppointmentService;
-
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-
-import static org.mockito.Mockito.*;
-import static org.junit.jupiter.api.Assertions.*;
-
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
-
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Arrays;
 import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+import org.mockito.junit.jupiter.MockitoExtension;
+
+import com.hospital.portal.controller.PatientAppointmentController;
+import com.hospital.portal.model.Appointment;
+import com.hospital.portal.service.PatientAppointmentService;
 
 @ExtendWith(MockitoExtension.class)
 class PatientAppointmentControllerTest {
@@ -116,4 +117,5 @@ class PatientAppointmentControllerTest {
 
         verify(patientAppointmentService, times(1)).deleteAppointmentPatient(id);
     }
+}
 

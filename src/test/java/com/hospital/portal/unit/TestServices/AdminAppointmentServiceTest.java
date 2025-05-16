@@ -162,3 +162,4 @@ class AdminAppointmentServiceTest {
         assertTrue(ex.getMessage().contains("Patient not found"));
     }
 
+}

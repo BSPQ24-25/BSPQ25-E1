@@ -147,3 +147,4 @@ class PatientAppointmentServiceTest {
         verify(appointmentRepository).deleteById("APP123");
     }
 
+}
