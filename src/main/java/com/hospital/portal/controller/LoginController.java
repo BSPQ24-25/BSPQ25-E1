@@ -21,11 +21,19 @@ public class LoginController {
     private static final Logger logger = LogManager.getLogger(LoginController.class);
 
 
-    
+    /** 
+     * @brief Constructor of the LoginController class
+    */
     public LoginController(LoginService loginService) {
         this.loginService = loginService;
     }
 
+    /** 
+     * @brief Function to log into the Healthcare application
+     * @param DNI of the patient/doctor/admin that wants to log in (has to be registered)
+     * @param Password associated to the DNI
+     * @return Status of the Login: if it was successful or not (invalid credentials, something failed)
+    */
     @PostMapping
     public ResponseEntity<?> login(
         @RequestParam("dni") String dni, 

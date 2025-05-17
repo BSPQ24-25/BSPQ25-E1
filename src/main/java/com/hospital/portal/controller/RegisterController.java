@@ -19,11 +19,25 @@ public class RegisterController {
     private final RegisterService registerService;
     private static final Logger logger = LogManager.getLogger(RegisterController.class);
 
-
+    /** 
+     * @brief Constructor of the RegisterController class
+    */
     public RegisterController(RegisterService registerService) {
         this.registerService = registerService;
     }
 
+    /**
+     * @brief Registers into the database a new patient
+     * @param DNI of the new patient
+     * @param Name of the new patient
+     * @param Surname of the new patient
+     * @param Phone number of the new patient
+     * @param email address of the new patient
+     * @param birthdate of the new patient
+     * @param Gender of the new patient
+     * @param Password of the account of the new patient
+     * @return Status of the Registration: if it was successful or not (already existing user, something failed)
+    */
     @PostMapping
     public ResponseEntity<?> registerPatient(
             @RequestParam("dni") String dni,
