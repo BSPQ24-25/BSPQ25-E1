@@ -4,9 +4,9 @@
 \begin{DoxyCompactItemize}
 \item 
 String \mbox{\hyperlink{classcom_1_1hospital_1_1portal_1_1service_1_1RegisterService_a3313b2db2ec26f1c4406f61cf39c408e}{generate\+Incremental\+Patient\+Id}} ()
-\item 
+\begin{DoxyCompactList}\small\item\em Increments the ID of a patient each time a new one is created. \end{DoxyCompactList}\item 
 String \mbox{\hyperlink{classcom_1_1hospital_1_1portal_1_1service_1_1RegisterService_a8fd5a40f77467ec05198ef85427e81a5}{register\+Patient}} (String dni, String name, String surname, String phone, String mail, Local\+Date birth\+Date, String gender, String password)
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Registers into the database a new patient. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Member Function Documentation}
@@ -16,12 +16,45 @@ String \mbox{\hyperlink{classcom_1_1hospital_1_1portal_1_1service_1_1RegisterSer
 \doxysubsubsection{\texorpdfstring{generateIncrementalPatientId()}{generateIncrementalPatientId()}}
 {\footnotesize\ttfamily String com.\+hospital.\+portal.\+service.\+Register\+Service.\+generate\+Incremental\+Patient\+Id (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
+
+
+Increments the ID of a patient each time a new one is created. 
+
+\begin{DoxyReturn}{Returns}
+String of the ID 
+\end{DoxyReturn}
 \Hypertarget{classcom_1_1hospital_1_1portal_1_1service_1_1RegisterService_a8fd5a40f77467ec05198ef85427e81a5}\label{classcom_1_1hospital_1_1portal_1_1service_1_1RegisterService_a8fd5a40f77467ec05198ef85427e81a5} 
 \index{com.hospital.portal.service.RegisterService@{com.hospital.portal.service.RegisterService}!registerPatient@{registerPatient}}
 \index{registerPatient@{registerPatient}!com.hospital.portal.service.RegisterService@{com.hospital.portal.service.RegisterService}}
 \doxysubsubsection{\texorpdfstring{registerPatient()}{registerPatient()}}
 {\footnotesize\ttfamily String com.\+hospital.\+portal.\+service.\+Register\+Service.\+register\+Patient (\begin{DoxyParamCaption}\item[{String}]{dni,  }\item[{String}]{name,  }\item[{String}]{surname,  }\item[{String}]{phone,  }\item[{String}]{mail,  }\item[{Local\+Date}]{birth\+Date,  }\item[{String}]{gender,  }\item[{String}]{password }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
+
+
+Registers into the database a new patient. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em DNI} & of the new patient \\
+\hline
+{\em Name} & of the new patient \\
+\hline
+{\em Surname} & of the new patient \\
+\hline
+{\em Phone} & number of the new patient \\
+\hline
+{\em email} & address of the new patient \\
+\hline
+{\em birthdate} & of the new patient \\
+\hline
+{\em Gender} & of the new patient \\
+\hline
+{\em Password} & of the account of the new patient \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Status of the Registration\+: if it was successful or not (already existing user, something failed) 
+\end{DoxyReturn}
 
 
 The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}

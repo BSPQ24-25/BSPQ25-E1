@@ -21,105 +21,149 @@ public class AdminAppointmentService {
     private final DoctorRepository doctorRepository;
     private final PatientRepository patientRepository;
 
+    /**
+     * @brief Constructor of the AdminAppointmentService
+     *
+     * @param AppointmentRepository
+     * @param DoctorRepository
+     * @param PatientRepository
+     * 
+    */
     public AdminAppointmentService(AppointmentRepository appointmentRepository,
                                    DoctorRepository doctorRepository,
-<span class="fc" id="L26">                                   PatientRepository patientRepository) {</span>
-<span class="fc" id="L27">        this.appointmentRepository = appointmentRepository;</span>
-<span class="fc" id="L28">        this.doctorRepository = doctorRepository;</span>
-<span class="fc" id="L29">        this.patientRepository = patientRepository;</span>
-<span class="fc" id="L30">    }</span>
+<span class="fc" id="L34">                                   PatientRepository patientRepository) {</span>
+<span class="fc" id="L35">        this.appointmentRepository = appointmentRepository;</span>
+<span class="fc" id="L36">        this.doctorRepository = doctorRepository;</span>
+<span class="fc" id="L37">        this.patientRepository = patientRepository;</span>
+<span class="fc" id="L38">    }</span>
 
+    /**
+     * @brief Creates the appointment as admin
+     * 
+     * @param An appointment request received from the controller
+     * @return A new appointment or an error (doctor or patient not found)
+    */
     public Appointment createAppointment(Appointment appointmentRequest) {
-<span class="fc" id="L33">        logger.info(&quot;Creating appointment as admin&quot;);</span>
+<span class="fc" id="L47">        logger.info(&quot;Creating appointment as admin&quot;);</span>
 
-<span class="fc" id="L35">        Doctor doctor = doctorRepository.findByDni(appointmentRequest.getDoctor().getDni())</span>
-<span class="fc" id="L36">                .orElseThrow(() -&gt; {</span>
-<span class="fc" id="L37">                    logger.error(&quot;Doctor not found with DNI: {}&quot;, appointmentRequest.getDoctor().getDni());</span>
-<span class="fc" id="L38">                    return new IllegalArgumentException(&quot;Doctor not found with DNI: &quot; + appointmentRequest.getDoctor().getDni());</span>
+<span class="fc" id="L49">        Doctor doctor = doctorRepository.findByDni(appointmentRequest.getDoctor().getDni())</span>
+<span class="fc" id="L50">                .orElseThrow(() -&gt; {</span>
+<span class="fc" id="L51">                    logger.error(&quot;Doctor not found with DNI: {}&quot;, appointmentRequest.getDoctor().getDni());</span>
+<span class="fc" id="L52">                    return new IllegalArgumentException(&quot;Doctor not found with DNI: &quot; + appointmentRequest.getDoctor().getDni());</span>
                 });
 
-<span class="fc" id="L41">        Patient patient = patientRepository.findByDni(appointmentRequest.getPatient().getDni())</span>
-<span class="fc" id="L42">                .orElseThrow(() -&gt; {</span>
-<span class="fc" id="L43">                    logger.error(&quot;Patient not found with DNI: {}&quot;, appointmentRequest.getPatient().getDni());</span>
-<span class="fc" id="L44">                    return new IllegalArgumentException(&quot;Patient not found with DNI: &quot; + appointmentRequest.getPatient().getDni());</span>
+<span class="fc" id="L55">        Patient patient = patientRepository.findByDni(appointmentRequest.getPatient().getDni())</span>
+<span class="fc" id="L56">                .orElseThrow(() -&gt; {</span>
+<span class="fc" id="L57">                    logger.error(&quot;Patient not found with DNI: {}&quot;, appointmentRequest.getPatient().getDni());</span>
+<span class="fc" id="L58">                    return new IllegalArgumentException(&quot;Patient not found with DNI: &quot; + appointmentRequest.getPatient().getDni());</span>
                 });
 
-<span class="fc" id="L47">        Appointment newAppointment = new Appointment();</span>
-<span class="fc" id="L48">        newAppointment.setDoctor(doctor);</span>
-<span class="fc" id="L49">        newAppointment.setPatient(patient);</span>
-<span class="fc" id="L50">        newAppointment.setDate(appointmentRequest.getDate());</span>
-<span class="fc" id="L51">        newAppointment.setStartTime(appointmentRequest.getStartTime());</span>
-<span class="fc" id="L52">        newAppointment.setEndTime(appointmentRequest.getEndTime());</span>
-<span class="fc" id="L53">        newAppointment.setAppointmentPurpose(appointmentRequest.getAppointmentPurpose());</span>
-<span class="fc" id="L54">        newAppointment.setObservations(appointmentRequest.getObservations());</span>
-<span class="fc" id="L55">        newAppointment.setAppointmentId(generateAppointmentId());</span>
+<span class="fc" id="L61">        Appointment newAppointment = new Appointment();</span>
+<span class="fc" id="L62">        newAppointment.setDoctor(doctor);</span>
+<span class="fc" id="L63">        newAppointment.setPatient(patient);</span>
+<span class="fc" id="L64">        newAppointment.setDate(appointmentRequest.getDate());</span>
+<span class="fc" id="L65">        newAppointment.setStartTime(appointmentRequest.getStartTime());</span>
+<span class="fc" id="L66">        newAppointment.setEndTime(appointmentRequest.getEndTime());</span>
+<span class="fc" id="L67">        newAppointment.setAppointmentPurpose(appointmentRequest.getAppointmentPurpose());</span>
+<span class="fc" id="L68">        newAppointment.setObservations(appointmentRequest.getObservations());</span>
+<span class="fc" id="L69">        newAppointment.setAppointmentId(generateAppointmentId());</span>
 
-<span class="fc" id="L57">        logger.info(&quot;Saving new appointment with ID {}&quot;, newAppointment.getAppointmentId());</span>
-<span class="fc" id="L58">        return appointmentRepository.save(newAppointment);</span>
+<span class="fc" id="L71">        logger.info(&quot;Saving new appointment with ID {}&quot;, newAppointment.getAppointmentId());</span>
+<span class="fc" id="L72">        return appointmentRepository.save(newAppointment);</span>
     }
 
-
+    /**
+     * @brief Updates the appointment with new data as admin
+     * @param Id of the appointment to be updated
+     * @param An appointment with the updated data
+     * @return The updated appointment or error (apppointment, doctor or patient not found). Saves the changed appointment
+    */
     public Appointment updateAppointment(String id, Appointment updatedData) {
-<span class="fc" id="L63">        logger.info(&quot;Updating appointment with ID {}&quot;, id);</span>
+<span class="fc" id="L82">        logger.info(&quot;Updating appointment with ID {}&quot;, id);</span>
 
-<span class="fc" id="L65">        Appointment existing = appointmentRepository.findById(id)</span>
-<span class="fc" id="L66">                .orElseThrow(() -&gt; {</span>
-<span class="fc" id="L67">                    logger.error(&quot;Appointment not found with ID {}&quot;, id);</span>
-<span class="fc" id="L68">                    return new RuntimeException(&quot;Appointment not found&quot;);</span>
+<span class="fc" id="L84">        Appointment existing = appointmentRepository.findById(id)</span>
+<span class="fc" id="L85">                .orElseThrow(() -&gt; {</span>
+<span class="fc" id="L86">                    logger.error(&quot;Appointment not found with ID {}&quot;, id);</span>
+<span class="fc" id="L87">                    return new RuntimeException(&quot;Appointment not found&quot;);</span>
                 });
 
-<span class="pc bpc" id="L71" title="1 of 2 branches missed.">        if (updatedData.getDate() != null) existing.setDate(updatedData.getDate());</span>
-<span class="pc bpc" id="L72" title="1 of 2 branches missed.">        if (updatedData.getStartTime() != null) existing.setStartTime(updatedData.getStartTime());</span>
-<span class="pc bpc" id="L73" title="1 of 2 branches missed.">        if (updatedData.getEndTime() != null) existing.setEndTime(updatedData.getEndTime());</span>
-<span class="pc bpc" id="L74" title="1 of 2 branches missed.">        if (updatedData.getAppointmentPurpose() != null) existing.setAppointmentPurpose(updatedData.getAppointmentPurpose());</span>
-<span class="pc bpc" id="L75" title="1 of 2 branches missed.">        if (updatedData.getObservations() != null) existing.setObservations(updatedData.getObservations());</span>
+<span class="pc bpc" id="L90" title="1 of 2 branches missed.">        if (updatedData.getDate() != null) existing.setDate(updatedData.getDate());</span>
+<span class="pc bpc" id="L91" title="1 of 2 branches missed.">        if (updatedData.getStartTime() != null) existing.setStartTime(updatedData.getStartTime());</span>
+<span class="pc bpc" id="L92" title="1 of 2 branches missed.">        if (updatedData.getEndTime() != null) existing.setEndTime(updatedData.getEndTime());</span>
+<span class="pc bpc" id="L93" title="1 of 2 branches missed.">        if (updatedData.getAppointmentPurpose() != null) existing.setAppointmentPurpose(updatedData.getAppointmentPurpose());</span>
+<span class="pc bpc" id="L94" title="1 of 2 branches missed.">        if (updatedData.getObservations() != null) existing.setObservations(updatedData.getObservations());</span>
 
-<span class="pc bpc" id="L77" title="1 of 2 branches missed.">        if (updatedData.getDoctor() != null) {</span>
-<span class="fc" id="L78">            Doctor doctor = doctorRepository.findByDni(updatedData.getDoctor().getDni())</span>
-<span class="fc" id="L79">                    .orElseThrow(() -&gt; {</span>
-<span class="nc" id="L80">                        logger.error(&quot;Doctor not found with DNI: {}&quot;, updatedData.getDoctor().getDni());</span>
-<span class="nc" id="L81">                        return new IllegalArgumentException(&quot;Doctor not found with DNI: &quot; + updatedData.getDoctor().getDni());</span>
+<span class="pc bpc" id="L96" title="1 of 2 branches missed.">        if (updatedData.getDoctor() != null) {</span>
+<span class="fc" id="L97">            Doctor doctor = doctorRepository.findByDni(updatedData.getDoctor().getDni())</span>
+<span class="fc" id="L98">                    .orElseThrow(() -&gt; {</span>
+<span class="nc" id="L99">                        logger.error(&quot;Doctor not found with DNI: {}&quot;, updatedData.getDoctor().getDni());</span>
+<span class="nc" id="L100">                        return new IllegalArgumentException(&quot;Doctor not found with DNI: &quot; + updatedData.getDoctor().getDni());</span>
                     });
-<span class="fc" id="L83">            existing.setDoctor(doctor);</span>
+<span class="fc" id="L102">            existing.setDoctor(doctor);</span>
         }
 
-<span class="pc bpc" id="L86" title="1 of 2 branches missed.">        if (updatedData.getPatient() != null) {</span>
-<span class="fc" id="L87">            Patient patient = patientRepository.findByDni(updatedData.getPatient().getDni())</span>
-<span class="fc" id="L88">                    .orElseThrow(() -&gt; {</span>
-<span class="nc" id="L89">                        logger.error(&quot;Patient not found with DNI: {}&quot;, updatedData.getPatient().getDni());</span>
-<span class="nc" id="L90">                        return new IllegalArgumentException(&quot;Patient not found with DNI: &quot; + updatedData.getPatient().getDni());</span>
+<span class="pc bpc" id="L105" title="1 of 2 branches missed.">        if (updatedData.getPatient() != null) {</span>
+<span class="fc" id="L106">            Patient patient = patientRepository.findByDni(updatedData.getPatient().getDni())</span>
+<span class="fc" id="L107">                    .orElseThrow(() -&gt; {</span>
+<span class="nc" id="L108">                        logger.error(&quot;Patient not found with DNI: {}&quot;, updatedData.getPatient().getDni());</span>
+<span class="nc" id="L109">                        return new IllegalArgumentException(&quot;Patient not found with DNI: &quot; + updatedData.getPatient().getDni());</span>
                     });
-<span class="fc" id="L92">            existing.setPatient(patient);</span>
+<span class="fc" id="L111">            existing.setPatient(patient);</span>
         }
 
-<span class="fc" id="L95">        logger.info(&quot;Saving updated appointment with ID {}&quot;, existing.getAppointmentId());</span>
-<span class="fc" id="L96">        return appointmentRepository.save(existing);</span>
+<span class="fc" id="L114">        logger.info(&quot;Saving updated appointment with ID {}&quot;, existing.getAppointmentId());</span>
+<span class="fc" id="L115">        return appointmentRepository.save(existing);</span>
     }
 
+    /**
+     * @brief Delete an appointment as admin
+     * 
+     * @param Id of the appointment to be deleted
+    */
     public void deleteAppointment(String id) {
-<span class="fc" id="L100">        logger.info(&quot;Deleting appointment with ID {}&quot;, id);</span>
-<span class="fc" id="L101">        appointmentRepository.deleteById(id);</span>
-<span class="fc" id="L102">    }</span>
+<span class="fc" id="L124">        logger.info(&quot;Deleting appointment with ID {}&quot;, id);</span>
+<span class="fc" id="L125">        appointmentRepository.deleteById(id);</span>
+<span class="fc" id="L126">    }</span>
 
+    /**
+     * @brief Looks for all the doctors as admin
+     *
+     * @return List of all the doctors
+    */
     public List&lt;Doctor&gt; getAllDoctors() {
-<span class="fc" id="L105">        logger.info(&quot;Fetching all doctors from repository (admin)&quot;);</span>
-<span class="fc" id="L106">        return doctorRepository.findAll();</span>
+<span class="fc" id="L134">        logger.info(&quot;Fetching all doctors from repository (admin)&quot;);</span>
+<span class="fc" id="L135">        return doctorRepository.findAll();</span>
     }
 
+    /**
+     * @brief Looks for all the patients as admin
+     *
+     * @return List of all the patients
+    */
     public List&lt;Patient&gt; getAllPatients() {
-<span class="fc" id="L110">        logger.info(&quot;Fetching all patients from repository (admin)&quot;);</span>
-<span class="fc" id="L111">        return patientRepository.findAll();</span>
+<span class="fc" id="L144">        logger.info(&quot;Fetching all patients from repository (admin)&quot;);</span>
+<span class="fc" id="L145">        return patientRepository.findAll();</span>
     }
     
+    /**
+     * @brief Looks for all the existing appointments as admin
+     *
+     * @return List of all the appointments
+    */
     public List&lt;Appointment&gt; getAllAppointments() {
-<span class="fc" id="L115">        logger.info(&quot;Fetching all appointments from repository (admin)&quot;);</span>
-<span class="fc" id="L116">        return appointmentRepository.findAll();</span>
+<span class="fc" id="L154">        logger.info(&quot;Fetching all appointments from repository (admin)&quot;);</span>
+<span class="fc" id="L155">        return appointmentRepository.findAll();</span>
     }
 
+    /**
+     * @brief Generated an id for the appointment usign the current time the appointment is created
+     *
+     * @return String of the generated appointment ID
+    */
     private String generateAppointmentId() {
-<span class="fc" id="L120">        String id = &quot;APP&quot; + System.currentTimeMillis();</span>
-<span class="fc" id="L121">        logger.debug(&quot;Generated new appointment ID: {}&quot;, id);</span>
-<span class="fc" id="L122">        return id;</span>
+<span class="fc" id="L164">        String id = &quot;APP&quot; + System.currentTimeMillis();</span>
+<span class="fc" id="L165">        logger.debug(&quot;Generated new appointment ID: {}&quot;, id);</span>
+<span class="fc" id="L166">        return id;</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>
