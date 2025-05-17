@@ -22,6 +22,11 @@ public class RegisterService {
     private static final Logger logger = LogManager.getLogger(RegisterService.class);
 
 
+    /**
+     * @brief Increments the ID of a patient each time a new one is created
+     * 
+     * @return String of the ID
+    */
     public String generateIncrementalPatientId() {
         // Find the last patient to get the maximum current patient ID
         Optional<Patient> lastPatient = patientRepository.findTopByOrderByPatientIdDesc();
@@ -39,6 +44,18 @@ public class RegisterService {
         return String.format("P%04d", currentNumber + 1);
     }
 
+    /**
+     * @brief Registers into the database a new patient
+     * @param DNI of the new patient
+     * @param Name of the new patient
+     * @param Surname of the new patient
+     * @param Phone number of the new patient
+     * @param email address of the new patient
+     * @param birthdate of the new patient
+     * @param Gender of the new patient
+     * @param Password of the account of the new patient
+     * @return Status of the Registration: if it was successful or not (already existing user, something failed)
+    */
     public String registerPatient(String dni, String name, String surname, String phone, String mail,
             LocalDate birthDate, String gender, String password) {
                 logger.info("Registering patient with DNI: {}", dni);

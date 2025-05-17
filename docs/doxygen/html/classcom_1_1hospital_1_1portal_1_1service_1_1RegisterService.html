@@ -105,8 +105,10 @@ $(document).ready(function(){initNavTree('classcom_1_1hospital_1_1portal_1_1serv
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a3313b2db2ec26f1c4406f61cf39c408e" id="r_a3313b2db2ec26f1c4406f61cf39c408e"><td class="memItemLeft" align="right" valign="top">String&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcom_1_1hospital_1_1portal_1_1service_1_1RegisterService.html#a3313b2db2ec26f1c4406f61cf39c408e">generateIncrementalPatientId</a> ()</td></tr>
+<tr class="memdesc:a3313b2db2ec26f1c4406f61cf39c408e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Increments the ID of a patient each time a new one is created.  <br /></td></tr>
 <tr class="separator:a3313b2db2ec26f1c4406f61cf39c408e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8fd5a40f77467ec05198ef85427e81a5" id="r_a8fd5a40f77467ec05198ef85427e81a5"><td class="memItemLeft" align="right" valign="top">String&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcom_1_1hospital_1_1portal_1_1service_1_1RegisterService.html#a8fd5a40f77467ec05198ef85427e81a5">registerPatient</a> (String dni, String name, String surname, String phone, String mail, LocalDate birthDate, String gender, String password)</td></tr>
+<tr class="memdesc:a8fd5a40f77467ec05198ef85427e81a5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Registers into the database a new patient.  <br /></td></tr>
 <tr class="separator:a8fd5a40f77467ec05198ef85427e81a5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Member Function Documentation</h2>
@@ -132,6 +134,9 @@ Public Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Increments the ID of a patient each time a new one is created. </p>
+<dl class="section return"><dt>Returns</dt><dd>String of the ID </dd></dl>
 
 </div>
 </div>
@@ -204,6 +209,22 @@ Public Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Registers into the database a new patient. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">DNI</td><td>of the new patient </td></tr>
+    <tr><td class="paramname">Name</td><td>of the new patient </td></tr>
+    <tr><td class="paramname">Surname</td><td>of the new patient </td></tr>
+    <tr><td class="paramname">Phone</td><td>number of the new patient </td></tr>
+    <tr><td class="paramname">email</td><td>address of the new patient </td></tr>
+    <tr><td class="paramname">birthdate</td><td>of the new patient </td></tr>
+    <tr><td class="paramname">Gender</td><td>of the new patient </td></tr>
+    <tr><td class="paramname">Password</td><td>of the account of the new patient </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Status of the Registration: if it was successful or not (already existing user, something failed) </dd></dl>
 
 </div>
 </div>

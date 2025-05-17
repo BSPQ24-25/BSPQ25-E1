@@ -23,18 +23,22 @@ import com.hospital.portal.repository.PatientRepository;
 
 <span class="fc" id="L24">    private static final Logger logger = LogManager.getLogger(RoleService.class);</span>
 
-
+    /**
+     * @brief Determines the role a spevified user has depending in which db table is saved its DNI
+     * @param DNI of the user
+     * @return The role of the user
+    */
     public String determineUserRole(String dni) {
-<span class="fc" id="L28">        logger.info(&quot;Determining role for patient with DNI: {}&quot;, dni);</span>
+<span class="fc" id="L32">        logger.info(&quot;Determining role for patient with DNI: {}&quot;, dni);</span>
 
-<span class="fc bfc" id="L30" title="All 2 branches covered.">        if (adminRepository.existsById(dni)) {</span>
-<span class="fc" id="L31">            return &quot;ADMIN&quot;;</span>
-<span class="fc bfc" id="L32" title="All 2 branches covered.">        } else if (doctorRepository.existsById(dni)) {</span>
-<span class="fc" id="L33">            return &quot;DOCTOR&quot;;</span>
-<span class="fc bfc" id="L34" title="All 2 branches covered.">        } else if (patientRepository.existsById(dni)) {</span>
-<span class="fc" id="L35">            return &quot;PATIENT&quot;;</span>
+<span class="fc bfc" id="L34" title="All 2 branches covered.">        if (adminRepository.existsById(dni)) {</span>
+<span class="fc" id="L35">            return &quot;ADMIN&quot;;</span>
+<span class="fc bfc" id="L36" title="All 2 branches covered.">        } else if (doctorRepository.existsById(dni)) {</span>
+<span class="fc" id="L37">            return &quot;DOCTOR&quot;;</span>
+<span class="fc bfc" id="L38" title="All 2 branches covered.">        } else if (patientRepository.existsById(dni)) {</span>
+<span class="fc" id="L39">            return &quot;PATIENT&quot;;</span>
         }
-<span class="fc" id="L37">        return null;</span>
+<span class="fc" id="L41">        return null;</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

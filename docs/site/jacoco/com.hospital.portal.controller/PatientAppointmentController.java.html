@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.hospital.portal.model.Appointment;
 import com.hospital.portal.model.*;
 
 import com.hospital.portal.service.PatientAppointmentService;
@@ -26,60 +25,99 @@ public class PatientAppointmentController {
 
 
     private final PatientAppointmentService patientAppointmentService;
-<span class="fc" id="L29">    private static final Logger logger = LogManager.getLogger(PatientAppointmentController.class);</span>
+<span class="fc" id="L28">    private static final Logger logger = LogManager.getLogger(PatientAppointmentController.class);</span>
 
+    /** 
+     * @brief Constructor of the PatientsAppointments
+    */
+<span class="fc" id="L33">    public PatientAppointmentController(PatientAppointmentService patientAppointmentService){</span>
+<span class="fc" id="L34">        this.patientAppointmentService = patientAppointmentService;</span>
+<span class="fc" id="L35">    }</span>
 
-<span class="fc" id="L32">    public PatientAppointmentController(PatientAppointmentService patientAppointmentService){</span>
-<span class="fc" id="L33">        this.patientAppointmentService = patientAppointmentService;</span>
-<span class="fc" id="L34">    }</span>
-
+    /** 
+     * @brief Gets all the patients
+     * @return List of all the patients
+    */
     @GetMapping(&quot;/&quot;)
     public List&lt;Patient&gt; getAllPatients() {
-<span class="nc" id="L38">        logger.info(&quot;Entering into Controller getAllPatients&quot;);</span>
-<span class="nc" id="L39">        return patientAppointmentService.getAllPatients();</span>
+<span class="nc" id="L43">        logger.info(&quot;Entering into Controller getAllPatients&quot;);</span>
+<span class="nc" id="L44">        return patientAppointmentService.getAllPatients();</span>
     }
 
+    /** 
+     * @brief Gets all the appointments of a specific patient
+     * @param DNI of the patient
+     * @return List of all the appointments of the specified patient
+    */
     @GetMapping(&quot;/{patientDNI}/appointments&quot;)
     public List&lt;Appointment&gt; getAppointmentsByPatientDNI(@PathVariable String patientDNI) {
-<span class="fc" id="L44">        logger.info(&quot;Entering into Controller getAppointmentsByPatientDNI with DNI {}&quot;,patientDNI);</span>
-<span class="fc" id="L45">        return patientAppointmentService.getAppointmentsByPatientDNI(patientDNI);</span>
+<span class="fc" id="L54">        logger.info(&quot;Entering into Controller getAppointmentsByPatientDNI with DNI {}&quot;,patientDNI);</span>
+<span class="fc" id="L55">        return patientAppointmentService.getAppointmentsByPatientDNI(patientDNI);</span>
     }
 
+    /** 
+     * @brief Filters the information of a patients appointment by date
+     * @param DNI of the patient
+     * @param From what date is wanted to retrieve appointments
+     * @return List of appointments starting form the date specified
+    */
     @GetMapping(&quot;/{patientDNI}/appointmentsByDate&quot;)
     public List&lt;Appointment&gt; getAppointmentsByDate(@PathVariable String patientDNI, @RequestParam LocalDate date) {
-<span class="fc" id="L50">        logger.info(&quot;Entering into Controller getAppointmentsByDate with DNI {}&quot;,patientDNI);</span>
+<span class="fc" id="L66">        logger.info(&quot;Entering into Controller getAppointmentsByDate with DNI {}&quot;,patientDNI);</span>
 
-<span class="fc" id="L52">        return patientAppointmentService.getAppointmentsByDate(patientDNI, date);</span>
+<span class="fc" id="L68">        return patientAppointmentService.getAppointmentsByDate(patientDNI, date);</span>
     }
 
+    /** 
+     * @brief Filters the information of a patients appointment by speciality od the doctor
+     * @param DNI of the patient
+     * @param Speaciality of the doctor
+     * @return List of appointments that have doctors of said speciality
+    */
     @GetMapping(&quot;/{patientDNI}/appointmentsBySpecialty&quot;)
     public List&lt;Appointment&gt; getAppointmentByPatientDniAndDoctorSpecialtyName(@PathVariable String patientDNI, @RequestParam String specialty_name) {
-<span class="fc" id="L57">        logger.info(&quot;Entering into Controller getAppointmentByPatientDniAndDoctorSpecialtyName with DNI&quot;,patientDNI);</span>
+<span class="fc" id="L79">        logger.info(&quot;Entering into Controller getAppointmentByPatientDniAndDoctorSpecialtyName with DNI&quot;,patientDNI);</span>
 
-<span class="fc" id="L59">        return patientAppointmentService.getAppointmentByPatientDniAndDoctorSpecialtyName(patientDNI, specialty_name);</span>
+<span class="fc" id="L81">        return patientAppointmentService.getAppointmentByPatientDniAndDoctorSpecialtyName(patientDNI, specialty_name);</span>
     }
 
+    /** 
+     * @brief Creates an appointment for a specific patient
+     * @param DNI of the patient
+     * @param New appointment created
+     * @return The new appointment created
+    */
     @PostMapping(&quot;/{patientDNI}/appointments&quot;)
     public Appointment addAppointmentPatient(@PathVariable String patientDNI, @RequestBody Appointment appointment) {
-<span class="fc" id="L64">        logger.info(&quot;Entering into Controller addAppointmentPatient with DNI {}&quot;,patientDNI);</span>
+<span class="fc" id="L92">        logger.info(&quot;Entering into Controller addAppointmentPatient with DNI {}&quot;,patientDNI);</span>
 
-<span class="fc" id="L66">        return patientAppointmentService.addAppointmentPatient(patientDNI, appointment);</span>
+<span class="fc" id="L94">        return patientAppointmentService.addAppointmentPatient(patientDNI, appointment);</span>
     }
 
+
+    /** 
+     * @brief Updates a specific appointment
+     * @param Id of the appointment to be edited
+     * @param Appointment updated
+     * @return The appointment updated
+    */
     @PutMapping(&quot;/appointments/{appointmentId}&quot;)
     public Appointment modifyAppointment(@PathVariable String appointmentId, @RequestBody Appointment modifiedAppointment){
-<span class="fc" id="L71">        logger.info(&quot;Entering into Controller modifyAppointment with appointment ID {}&quot;,appointmentId);</span>
+<span class="fc" id="L106">        logger.info(&quot;Entering into Controller modifyAppointment with appointment ID {}&quot;,appointmentId);</span>
 
-<span class="fc" id="L73">        return patientAppointmentService.modifyAppointment(appointmentId, modifiedAppointment);</span>
+<span class="fc" id="L108">        return patientAppointmentService.modifyAppointment(appointmentId, modifiedAppointment);</span>
     }
 
-    
+    /** 
+     * @brief Deletes a specific appointment 
+     * @param Id of the appointment to be deleted
+    */
     @DeleteMapping(&quot;/appointments/{appointmentId}&quot;)
     public void deleteAppointmentPatient(@PathVariable String appointmentId) {
-<span class="fc" id="L79">        logger.info(&quot;Entering into Controller deleteAppointmentPatient  with appointment ID {}&quot;,appointmentId);</span>
+<span class="fc" id="L117">        logger.info(&quot;Entering into Controller deleteAppointmentPatient  with appointment ID {}&quot;,appointmentId);</span>
 
-<span class="fc" id="L81">        patientAppointmentService.deleteAppointmentPatient(appointmentId);</span>
-<span class="fc" id="L82">    }</span>
+<span class="fc" id="L119">        patientAppointmentService.deleteAppointmentPatient(appointmentId);</span>
+<span class="fc" id="L120">    }</span>
     
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

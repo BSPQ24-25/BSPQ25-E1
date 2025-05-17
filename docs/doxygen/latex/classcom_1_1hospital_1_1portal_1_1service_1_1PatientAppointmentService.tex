@@ -4,21 +4,21 @@
 \begin{DoxyCompactItemize}
 \item 
 \mbox{\hyperlink{classcom_1_1hospital_1_1portal_1_1service_1_1PatientAppointmentService_a538e7b1227fd1f5c3948eeef5294e094}{Patient\+Appointment\+Service}} (Appointment\+Repository appointment\+Repository, Patient\+Repository patient\+Repository)
-\item 
+\begin{DoxyCompactList}\small\item\em Constructor of the Patient\+Appointment\+Service. \end{DoxyCompactList}\item 
 List$<$ Patient $>$ \mbox{\hyperlink{classcom_1_1hospital_1_1portal_1_1service_1_1PatientAppointmentService_abc2a36c417d82ec6373d68db6d0e83ea}{get\+All\+Patients}} ()
-\item 
+\begin{DoxyCompactList}\small\item\em Looks for all the patients as a Patient. \end{DoxyCompactList}\item 
 List$<$ Appointment $>$ \mbox{\hyperlink{classcom_1_1hospital_1_1portal_1_1service_1_1PatientAppointmentService_a453d186f9819521c0e4da335f08546ee}{get\+Appointments\+By\+Patient\+DNI}} (String patient\+DNI)
-\item 
+\begin{DoxyCompactList}\small\item\em Looks for all the appointments the patient logged in has. \end{DoxyCompactList}\item 
 List$<$ Appointment $>$ \mbox{\hyperlink{classcom_1_1hospital_1_1portal_1_1service_1_1PatientAppointmentService_a998971b3b2dc311701e97b388b9d3e86}{get\+Appointment\+By\+Patient\+Dni\+And\+Doctor\+Specialty\+Name}} (String patient\+Dni, String specialty\+\_\+name)
-\item 
+\begin{DoxyCompactList}\small\item\em Looks for all the appointments the patient logged in has and filters them by a specified doctor speciality. \end{DoxyCompactList}\item 
 List$<$ Appointment $>$ \mbox{\hyperlink{classcom_1_1hospital_1_1portal_1_1service_1_1PatientAppointmentService_ac61f96eadc4bc5319dcedefd4a1ebf89}{get\+Appointments\+By\+Date}} (String patient\+DNI, Local\+Date date\+Time)
-\item 
+\begin{DoxyCompactList}\small\item\em Filters the information of a patients appointment by date. \end{DoxyCompactList}\item 
 Appointment \mbox{\hyperlink{classcom_1_1hospital_1_1portal_1_1service_1_1PatientAppointmentService_a1ff151929745af3e13caafea4903a449}{add\+Appointment\+Patient}} (String pateint\+DNI, Appointment appointment)
-\item 
+\begin{DoxyCompactList}\small\item\em Creates an appointment for a specific patient. \end{DoxyCompactList}\item 
 Appointment \mbox{\hyperlink{classcom_1_1hospital_1_1portal_1_1service_1_1PatientAppointmentService_a8e558137e4cdf716e490eb5066e495b4}{modify\+Appointment}} (String id, Appointment modified\+Appointment)
-\item 
+\begin{DoxyCompactList}\small\item\em Updates the appointment with new data as patient. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{classcom_1_1hospital_1_1portal_1_1service_1_1PatientAppointmentService_abf35d2778f6aa00a604ca54db33b5a9d}{delete\+Appointment\+Patient}} (String id)
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Delete an appointment as doctor. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Constructor \& Destructor Documentation}
@@ -30,6 +30,17 @@ void \mbox{\hyperlink{classcom_1_1hospital_1_1portal_1_1service_1_1PatientAppoin
 
 
 
+Constructor of the Patient\+Appointment\+Service. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em Appointment\+Repository} & \\
+\hline
+{\em Patient\+Repository} & \\
+\hline
+\end{DoxyParams}
+
+
 \doxysubsection{Member Function Documentation}
 \Hypertarget{classcom_1_1hospital_1_1portal_1_1service_1_1PatientAppointmentService_a1ff151929745af3e13caafea4903a449}\label{classcom_1_1hospital_1_1portal_1_1service_1_1PatientAppointmentService_a1ff151929745af3e13caafea4903a449} 
 \index{com.hospital.portal.service.PatientAppointmentService@{com.hospital.portal.service.PatientAppointmentService}!addAppointmentPatient@{addAppointmentPatient}}
@@ -37,42 +48,127 @@ void \mbox{\hyperlink{classcom_1_1hospital_1_1portal_1_1service_1_1PatientAppoin
 \doxysubsubsection{\texorpdfstring{addAppointmentPatient()}{addAppointmentPatient()}}
 {\footnotesize\ttfamily Appointment com.\+hospital.\+portal.\+service.\+Patient\+Appointment\+Service.\+add\+Appointment\+Patient (\begin{DoxyParamCaption}\item[{String}]{pateint\+DNI,  }\item[{Appointment}]{appointment }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
+
+
+Creates an appointment for a specific patient. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em DNI} & of the patient \\
+\hline
+{\em New} & appointment created \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The new appointment created 
+\end{DoxyReturn}
 \Hypertarget{classcom_1_1hospital_1_1portal_1_1service_1_1PatientAppointmentService_abf35d2778f6aa00a604ca54db33b5a9d}\label{classcom_1_1hospital_1_1portal_1_1service_1_1PatientAppointmentService_abf35d2778f6aa00a604ca54db33b5a9d} 
 \index{com.hospital.portal.service.PatientAppointmentService@{com.hospital.portal.service.PatientAppointmentService}!deleteAppointmentPatient@{deleteAppointmentPatient}}
 \index{deleteAppointmentPatient@{deleteAppointmentPatient}!com.hospital.portal.service.PatientAppointmentService@{com.hospital.portal.service.PatientAppointmentService}}
 \doxysubsubsection{\texorpdfstring{deleteAppointmentPatient()}{deleteAppointmentPatient()}}
 {\footnotesize\ttfamily void com.\+hospital.\+portal.\+service.\+Patient\+Appointment\+Service.\+delete\+Appointment\+Patient (\begin{DoxyParamCaption}\item[{String}]{id }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
+
+
+Delete an appointment as doctor. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em Id} & of the appointment to be deleted \\
+\hline
+\end{DoxyParams}
 \Hypertarget{classcom_1_1hospital_1_1portal_1_1service_1_1PatientAppointmentService_abc2a36c417d82ec6373d68db6d0e83ea}\label{classcom_1_1hospital_1_1portal_1_1service_1_1PatientAppointmentService_abc2a36c417d82ec6373d68db6d0e83ea} 
 \index{com.hospital.portal.service.PatientAppointmentService@{com.hospital.portal.service.PatientAppointmentService}!getAllPatients@{getAllPatients}}
 \index{getAllPatients@{getAllPatients}!com.hospital.portal.service.PatientAppointmentService@{com.hospital.portal.service.PatientAppointmentService}}
 \doxysubsubsection{\texorpdfstring{getAllPatients()}{getAllPatients()}}
 {\footnotesize\ttfamily List$<$ Patient $>$ com.\+hospital.\+portal.\+service.\+Patient\+Appointment\+Service.\+get\+All\+Patients (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
+
+
+Looks for all the patients as a Patient. 
+
+\begin{DoxyReturn}{Returns}
+List of all the patients 
+\end{DoxyReturn}
 \Hypertarget{classcom_1_1hospital_1_1portal_1_1service_1_1PatientAppointmentService_a998971b3b2dc311701e97b388b9d3e86}\label{classcom_1_1hospital_1_1portal_1_1service_1_1PatientAppointmentService_a998971b3b2dc311701e97b388b9d3e86} 
 \index{com.hospital.portal.service.PatientAppointmentService@{com.hospital.portal.service.PatientAppointmentService}!getAppointmentByPatientDniAndDoctorSpecialtyName@{getAppointmentByPatientDniAndDoctorSpecialtyName}}
 \index{getAppointmentByPatientDniAndDoctorSpecialtyName@{getAppointmentByPatientDniAndDoctorSpecialtyName}!com.hospital.portal.service.PatientAppointmentService@{com.hospital.portal.service.PatientAppointmentService}}
 \doxysubsubsection{\texorpdfstring{getAppointmentByPatientDniAndDoctorSpecialtyName()}{getAppointmentByPatientDniAndDoctorSpecialtyName()}}
 {\footnotesize\ttfamily List$<$ Appointment $>$ com.\+hospital.\+portal.\+service.\+Patient\+Appointment\+Service.\+get\+Appointment\+By\+Patient\+Dni\+And\+Doctor\+Specialty\+Name (\begin{DoxyParamCaption}\item[{String}]{patient\+Dni,  }\item[{String}]{specialty\+\_\+name }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
+
+
+Looks for all the appointments the patient logged in has and filters them by a specified doctor speciality. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em DNI} & of the patient \\
+\hline
+{\em Name} & of the speciality ~\newline
+ \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+List of all the appointments that match the requirements 
+\end{DoxyReturn}
 \Hypertarget{classcom_1_1hospital_1_1portal_1_1service_1_1PatientAppointmentService_ac61f96eadc4bc5319dcedefd4a1ebf89}\label{classcom_1_1hospital_1_1portal_1_1service_1_1PatientAppointmentService_ac61f96eadc4bc5319dcedefd4a1ebf89} 
 \index{com.hospital.portal.service.PatientAppointmentService@{com.hospital.portal.service.PatientAppointmentService}!getAppointmentsByDate@{getAppointmentsByDate}}
 \index{getAppointmentsByDate@{getAppointmentsByDate}!com.hospital.portal.service.PatientAppointmentService@{com.hospital.portal.service.PatientAppointmentService}}
 \doxysubsubsection{\texorpdfstring{getAppointmentsByDate()}{getAppointmentsByDate()}}
 {\footnotesize\ttfamily List$<$ Appointment $>$ com.\+hospital.\+portal.\+service.\+Patient\+Appointment\+Service.\+get\+Appointments\+By\+Date (\begin{DoxyParamCaption}\item[{String}]{patient\+DNI,  }\item[{Local\+Date}]{date\+Time }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
+
+
+Filters the information of a patients appointment by date. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em DNI} & of the patient \\
+\hline
+{\em From} & what date is wanted to retrieve appointments \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+List of appointments starting form the date specified 
+\end{DoxyReturn}
 \Hypertarget{classcom_1_1hospital_1_1portal_1_1service_1_1PatientAppointmentService_a453d186f9819521c0e4da335f08546ee}\label{classcom_1_1hospital_1_1portal_1_1service_1_1PatientAppointmentService_a453d186f9819521c0e4da335f08546ee} 
 \index{com.hospital.portal.service.PatientAppointmentService@{com.hospital.portal.service.PatientAppointmentService}!getAppointmentsByPatientDNI@{getAppointmentsByPatientDNI}}
 \index{getAppointmentsByPatientDNI@{getAppointmentsByPatientDNI}!com.hospital.portal.service.PatientAppointmentService@{com.hospital.portal.service.PatientAppointmentService}}
 \doxysubsubsection{\texorpdfstring{getAppointmentsByPatientDNI()}{getAppointmentsByPatientDNI()}}
 {\footnotesize\ttfamily List$<$ Appointment $>$ com.\+hospital.\+portal.\+service.\+Patient\+Appointment\+Service.\+get\+Appointments\+By\+Patient\+DNI (\begin{DoxyParamCaption}\item[{String}]{patient\+DNI }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
+
+
+Looks for all the appointments the patient logged in has. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em DNI} & of the patient \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+List of all the appointments 
+\end{DoxyReturn}
 \Hypertarget{classcom_1_1hospital_1_1portal_1_1service_1_1PatientAppointmentService_a8e558137e4cdf716e490eb5066e495b4}\label{classcom_1_1hospital_1_1portal_1_1service_1_1PatientAppointmentService_a8e558137e4cdf716e490eb5066e495b4} 
 \index{com.hospital.portal.service.PatientAppointmentService@{com.hospital.portal.service.PatientAppointmentService}!modifyAppointment@{modifyAppointment}}
 \index{modifyAppointment@{modifyAppointment}!com.hospital.portal.service.PatientAppointmentService@{com.hospital.portal.service.PatientAppointmentService}}
 \doxysubsubsection{\texorpdfstring{modifyAppointment()}{modifyAppointment()}}
 {\footnotesize\ttfamily Appointment com.\+hospital.\+portal.\+service.\+Patient\+Appointment\+Service.\+modify\+Appointment (\begin{DoxyParamCaption}\item[{String}]{id,  }\item[{Appointment}]{modified\+Appointment }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
+
+
+Updates the appointment with new data as patient. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em Id} & of the appointment to be updated \\
+\hline
+{\em An} & appointment with the updated data \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The updated appointment. Saves the changed appointment 
+\end{DoxyReturn}
 
 
 The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}

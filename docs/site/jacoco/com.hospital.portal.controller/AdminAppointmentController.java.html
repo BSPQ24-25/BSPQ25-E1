@@ -18,44 +18,79 @@ public class AdminAppointmentController {
 
     private final AdminAppointmentService adminAppointmentService;
 
-<span class="fc" id="L21">    public AdminAppointmentController(AdminAppointmentService adminAppointmentService) {</span>
-<span class="fc" id="L22">        this.adminAppointmentService = adminAppointmentService;</span>
-<span class="fc" id="L23">    }</span>
+    /**
+     * @brief Constructor of the appointment
+     * 
+     * 
+    */
+<span class="fc" id="L26">    public AdminAppointmentController(AdminAppointmentService adminAppointmentService) {</span>
+<span class="fc" id="L27">        this.adminAppointmentService = adminAppointmentService;</span>
+<span class="fc" id="L28">    } </span>
 
+    /**
+     * @brief Creates a new appointment by the admin 
+     * 
+     * @param appointment of the medical citation is going to be created
+     * @return the created appointment
+    */
     @PostMapping(&quot;/appointments&quot;)
     public Appointment createAppointment(@RequestBody Appointment appointment) {
-<span class="fc" id="L27">        logger.info(&quot;Admin is creating a new appointment&quot;);</span>
-<span class="fc" id="L28">        return adminAppointmentService.createAppointment(appointment);</span>
+<span class="fc" id="L38">        logger.info(&quot;Admin is creating a new appointment&quot;);</span>
+<span class="fc" id="L39">        return adminAppointmentService.createAppointment(appointment);</span>
     }
 
+    /**
+     * @brief Updates an already existing appointment by the admin 
+     * 
+     * @param id of the appointment to be edited 
+     * @param new appointment with the information to be updated
+     * @return the updated appointment
+    */
     @PutMapping(&quot;/appointments/{appointmentId}&quot;)
     public Appointment updateAppointment(@PathVariable String appointmentId, @RequestBody Appointment updatedAppointment) {
-<span class="fc" id="L33">        logger.info(&quot;Admin is updating appointment with ID {}&quot;, appointmentId);</span>
-<span class="fc" id="L34">        return adminAppointmentService.updateAppointment(appointmentId, updatedAppointment);</span>
+<span class="fc" id="L51">        logger.info(&quot;Admin is updating appointment with ID {}&quot;, appointmentId);</span>
+<span class="fc" id="L52">        return adminAppointmentService.updateAppointment(appointmentId, updatedAppointment);</span>
     }
 
+    /** 
+     * @brief Deletes an appointment by the admin 
+     * 
+     * @param id of the appointment to delete
+    */
     @DeleteMapping(&quot;/appointments/{appointmentId}&quot;)
     public void deleteAppointment(@PathVariable String appointmentId) {
-<span class="fc" id="L39">        logger.info(&quot;Admin is deleting appointment with ID {}&quot;, appointmentId);</span>
-<span class="fc" id="L40">        adminAppointmentService.deleteAppointment(appointmentId);</span>
-<span class="fc" id="L41">    }</span>
+<span class="fc" id="L62">        logger.info(&quot;Admin is deleting appointment with ID {}&quot;, appointmentId);</span>
+<span class="fc" id="L63">        adminAppointmentService.deleteAppointment(appointmentId);</span>
+<span class="fc" id="L64">    }</span>
 
+    /** 
+     * @brief Retrieves all the doctors for dropdown 
+     * 
+    */
     @GetMapping(&quot;/doctors&quot;)
     public List&lt;Doctor&gt; getAllDoctors() {
-<span class="fc" id="L45">        logger.info(&quot;Admin requested all doctors for dropdown&quot;);</span>
-<span class="fc" id="L46">        return adminAppointmentService.getAllDoctors();</span>
+<span class="fc" id="L72">        logger.info(&quot;Admin requested all doctors for dropdown&quot;);</span>
+<span class="fc" id="L73">        return adminAppointmentService.getAllDoctors();</span>
     }
 
+    /** 
+     * @brief Retrieves all the patients for dropdown 
+     * 
+    */
     @GetMapping(&quot;/patients&quot;)
     public List&lt;Patient&gt; getAllPatients() {
-<span class="fc" id="L51">        logger.info(&quot;Admin requested all patients for dropdown&quot;);</span>
-<span class="fc" id="L52">        return adminAppointmentService.getAllPatients();</span>
+<span class="fc" id="L82">        logger.info(&quot;Admin requested all patients for dropdown&quot;);</span>
+<span class="fc" id="L83">        return adminAppointmentService.getAllPatients();</span>
     }
     
+    /** 
+     * @brief Retrieves all the appointments for dropdown 
+     * 
+    */
     @GetMapping(&quot;/appointments&quot;)
     public List&lt;Appointment&gt; getAllAppointments() {
-<span class="fc" id="L57">        logger.info(&quot;Admin requested all appointments in the system&quot;);</span>
-<span class="fc" id="L58">        return adminAppointmentService.getAllAppointments();</span>
+<span class="fc" id="L92">        logger.info(&quot;Admin requested all appointments in the system&quot;);</span>
+<span class="fc" id="L93">        return adminAppointmentService.getAllAppointments();</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

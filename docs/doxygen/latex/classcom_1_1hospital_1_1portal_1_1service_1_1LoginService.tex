@@ -4,7 +4,7 @@
 \begin{DoxyCompactItemize}
 \item 
 Map$<$ String, Object $>$ \mbox{\hyperlink{classcom_1_1hospital_1_1portal_1_1service_1_1LoginService_a9d673c177710f7ceb7486d06ef126ea1}{login}} (String dni, String password)
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Function to log into the Healthcare application. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Member Function Documentation}
@@ -14,6 +14,20 @@ Map$<$ String, Object $>$ \mbox{\hyperlink{classcom_1_1hospital_1_1portal_1_1ser
 \doxysubsubsection{\texorpdfstring{login()}{login()}}
 {\footnotesize\ttfamily Map$<$ String, Object $>$ com.\+hospital.\+portal.\+service.\+Login\+Service.\+login (\begin{DoxyParamCaption}\item[{String}]{dni,  }\item[{String}]{password }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
+
+
+Function to log into the Healthcare application. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em DNI} & of the patient/doctor/admin that wants to log in (has to be registered) \\
+\hline
+{\em Password} & associated to the DNI \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Map with the DNI, name and role (admin, doctor, patient) of the user logged. Can return an error if there are invalid credentials 
+\end{DoxyReturn}
 
 
 The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}

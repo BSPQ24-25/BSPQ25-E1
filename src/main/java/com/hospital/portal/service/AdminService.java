@@ -18,11 +18,19 @@ public class AdminService {
     private static final Logger logger = LogManager.getLogger(AdminService.class);
 
 
+    /**
+     * @brief Constructor of the AdminService using the appointmentRepository
+    */
     @Autowired
     public AdminService(AppointmentRepository appointmentRepository) {
         this.appointmentRepository = appointmentRepository;
     }
 
+    /**
+     * @brief Looks for all the appointments
+     *
+     * @return List of all the existing appointments
+    */
     public List<Appointment> getAllAppointments() {
         logger.info("Returning all Appointments");
         return appointmentRepository.findAll();

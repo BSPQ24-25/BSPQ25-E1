@@ -23,7 +23,11 @@ public class RoleService {
 
     private static final Logger logger = LogManager.getLogger(RoleService.class);
 
-
+    /**
+     * @brief Determines the role a spevified user has depending in which db table is saved its DNI
+     * @param DNI of the user
+     * @return The role of the user
+    */
     public String determineUserRole(String dni) {
         logger.info("Determining role for patient with DNI: {}", dni);
 

@@ -21,31 +21,39 @@ public class LoginController {
 <span class="fc" id="L21">    private static final Logger logger = LogManager.getLogger(LoginController.class);</span>
 
 
-    
-<span class="fc" id="L25">    public LoginController(LoginService loginService) {</span>
-<span class="fc" id="L26">        this.loginService = loginService;</span>
-<span class="fc" id="L27">    }</span>
+    /** 
+     * @brief Constructor of the LoginController class
+    */
+<span class="fc" id="L27">    public LoginController(LoginService loginService) {</span>
+<span class="fc" id="L28">        this.loginService = loginService;</span>
+<span class="fc" id="L29">    }</span>
 
+    /** 
+     * @brief Function to log into the Healthcare application
+     * @param DNI of the patient/doctor/admin that wants to log in (has to be registered)
+     * @param Password associated to the DNI
+     * @return Status of the Login: if it was successful or not (invalid credentials, something failed)
+    */
     @PostMapping
     public ResponseEntity&lt;?&gt; login(
         @RequestParam(&quot;dni&quot;) String dni, 
         @RequestParam(&quot;password&quot;) String password) {
             
-<span class="fc bfc" id="L34" title="All 4 branches covered.">        if (dni == null || password == null) {</span>
-<span class="fc" id="L35">            return ResponseEntity.badRequest().body(&quot;DNI and password are required.&quot;);</span>
+<span class="fc bfc" id="L42" title="All 4 branches covered.">        if (dni == null || password == null) {</span>
+<span class="fc" id="L43">            return ResponseEntity.badRequest().body(&quot;DNI and password are required.&quot;);</span>
         }
 
         try {
-<span class="fc" id="L39">            Map&lt;String, Object&gt; userInfo = loginService.login(dni, password);</span>
-<span class="fc bfc" id="L40" title="All 2 branches covered.">            if (&quot;INVALID_CREDENTIALS&quot;.equals(userInfo.get(&quot;role&quot;))) {</span>
-<span class="fc" id="L41">                logger.error(&quot;Invalid credential during registration&quot;);</span>
+<span class="fc" id="L47">            Map&lt;String, Object&gt; userInfo = loginService.login(dni, password);</span>
+<span class="fc bfc" id="L48" title="All 2 branches covered.">            if (&quot;INVALID_CREDENTIALS&quot;.equals(userInfo.get(&quot;role&quot;))) {</span>
+<span class="fc" id="L49">                logger.error(&quot;Invalid credential during registration&quot;);</span>
 
-<span class="fc" id="L43">                return ResponseEntity.status(401).body(&quot;Invalid credentials&quot;);</span>
+<span class="fc" id="L51">                return ResponseEntity.status(401).body(&quot;Invalid credentials&quot;);</span>
             }
-<span class="fc" id="L45">            logger.info(&quot;Log in user with DNI: {}&quot;, dni);</span>
-<span class="fc" id="L46">            return ResponseEntity.ok(Map.of(&quot;role&quot;, userInfo.get(&quot;role&quot;), &quot;dni&quot;, userInfo.get(&quot;dni&quot;), &quot;name&quot;, userInfo.get(&quot;name&quot;), &quot;token&quot;, userInfo.get(&quot;token&quot;)));</span>
-<span class="fc" id="L47">        } catch (Exception e) {</span>
-<span class="fc" id="L48">            return ResponseEntity.status(500).body(&quot;Login failed: &quot; + e.getMessage());</span>
+<span class="fc" id="L53">            logger.info(&quot;Log in user with DNI: {}&quot;, dni);</span>
+<span class="fc" id="L54">            return ResponseEntity.ok(Map.of(&quot;role&quot;, userInfo.get(&quot;role&quot;), &quot;dni&quot;, userInfo.get(&quot;dni&quot;), &quot;name&quot;, userInfo.get(&quot;name&quot;), &quot;token&quot;, userInfo.get(&quot;token&quot;)));</span>
+<span class="fc" id="L55">        } catch (Exception e) {</span>
+<span class="fc" id="L56">            return ResponseEntity.status(500).body(&quot;Login failed: &quot; + e.getMessage());</span>
         }
     }
 }

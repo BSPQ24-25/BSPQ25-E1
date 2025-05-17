@@ -21,11 +21,18 @@ import org.apache.logging.log4j.Logger;
     @Autowired
     private PatientRepository patientRepository;
 
+    /**
+     * @brief Finds the patient by the DNI
+     * 
+     * @param SNI of the patient we want to find
+     * 
+     * @return A patient with the specified DNI
+    */
     public Patient findPatientByDni(String dni) {
-<span class="nc" id="L25">        logger.info(&quot;Finding patient with DNI: {}&quot;, dni);</span>
+<span class="nc" id="L32">        logger.info(&quot;Finding patient with DNI: {}&quot;, dni);</span>
 
-<span class="nc" id="L27">        Optional&lt;Patient&gt; patientOpt = patientRepository.findByDni(dni);</span>
-<span class="nc" id="L28">        return patientOpt.orElse(null);</span>
+<span class="nc" id="L34">        Optional&lt;Patient&gt; patientOpt = patientRepository.findByDni(dni);</span>
+<span class="nc" id="L35">        return patientOpt.orElse(null);</span>
     }
     
 }

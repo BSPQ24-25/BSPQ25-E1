@@ -22,45 +22,62 @@ import com.hospital.portal.repository.PatientRepository;
 <span class="fc" id="L22">    private static final Logger logger = LogManager.getLogger(RegisterService.class);</span>
 
 
+    /**
+     * @brief Increments the ID of a patient each time a new one is created
+     * 
+     * @return String of the ID
+    */
     public String generateIncrementalPatientId() {
         // Find the last patient to get the maximum current patient ID
-<span class="fc" id="L27">        Optional&lt;Patient&gt; lastPatient = patientRepository.findTopByOrderByPatientIdDesc();</span>
+<span class="fc" id="L32">        Optional&lt;Patient&gt; lastPatient = patientRepository.findTopByOrderByPatientIdDesc();</span>
 
-<span class="fc bfc" id="L29" title="All 2 branches covered.">        if (lastPatient.isEmpty()) {</span>
+<span class="fc bfc" id="L34" title="All 2 branches covered.">        if (lastPatient.isEmpty()) {</span>
             // If no patients exist, start with P0001
-<span class="fc" id="L31">            return &quot;P0001&quot;;</span>
+<span class="fc" id="L36">            return &quot;P0001&quot;;</span>
         }
 
-<span class="fc" id="L34">        String lastPatientId = lastPatient.get().getPatientId();</span>
+<span class="fc" id="L39">        String lastPatientId = lastPatient.get().getPatientId();</span>
         // Remove the 'P' and parse the number
-<span class="fc" id="L36">        int currentNumber = Integer.parseInt(lastPatientId.substring(1));</span>
+<span class="fc" id="L41">        int currentNumber = Integer.parseInt(lastPatientId.substring(1));</span>
 
         // Increment and format the new patient ID
-<span class="fc" id="L39">        return String.format(&quot;P%04d&quot;, currentNumber + 1);</span>
+<span class="fc" id="L44">        return String.format(&quot;P%04d&quot;, currentNumber + 1);</span>
     }
 
+    /**
+     * @brief Registers into the database a new patient
+     * @param DNI of the new patient
+     * @param Name of the new patient
+     * @param Surname of the new patient
+     * @param Phone number of the new patient
+     * @param email address of the new patient
+     * @param birthdate of the new patient
+     * @param Gender of the new patient
+     * @param Password of the account of the new patient
+     * @return Status of the Registration: if it was successful or not (already existing user, something failed)
+    */
     public String registerPatient(String dni, String name, String surname, String phone, String mail,
             LocalDate birthDate, String gender, String password) {
-<span class="fc" id="L44">                logger.info(&quot;Registering patient with DNI: {}&quot;, dni);</span>
+<span class="fc" id="L61">                logger.info(&quot;Registering patient with DNI: {}&quot;, dni);</span>
 
 
-<span class="pc bpc" id="L47" title="1 of 4 branches missed.">        if (patientRepository.existsByDni(dni) || patientRepository.existsByMail(mail)) {</span>
-<span class="fc" id="L48">            return &quot;DNI or email are already registered!&quot;;</span>
+<span class="pc bpc" id="L64" title="1 of 4 branches missed.">        if (patientRepository.existsByDni(dni) || patientRepository.existsByMail(mail)) {</span>
+<span class="fc" id="L65">            return &quot;DNI or email are already registered!&quot;;</span>
         }
 
-<span class="fc" id="L51">        Patient newPatient = new Patient();</span>
-<span class="fc" id="L52">        newPatient.setDni(dni);</span>
-<span class="fc" id="L53">        newPatient.setName(name);</span>
-<span class="fc" id="L54">        newPatient.setSurname(surname);</span>
-<span class="fc" id="L55">        newPatient.setPhone(phone);</span>
-<span class="fc" id="L56">        newPatient.setEmail(mail);</span>
-<span class="fc" id="L57">        newPatient.setBirthDate(birthDate);</span>
-<span class="fc" id="L58">        newPatient.setGender(gender);</span>
-<span class="fc" id="L59">        newPatient.setPassword(passwordService.hashPassword(password));</span>
-<span class="fc" id="L60">        newPatient.setPatientId(generateIncrementalPatientId());</span>
+<span class="fc" id="L68">        Patient newPatient = new Patient();</span>
+<span class="fc" id="L69">        newPatient.setDni(dni);</span>
+<span class="fc" id="L70">        newPatient.setName(name);</span>
+<span class="fc" id="L71">        newPatient.setSurname(surname);</span>
+<span class="fc" id="L72">        newPatient.setPhone(phone);</span>
+<span class="fc" id="L73">        newPatient.setEmail(mail);</span>
+<span class="fc" id="L74">        newPatient.setBirthDate(birthDate);</span>
+<span class="fc" id="L75">        newPatient.setGender(gender);</span>
+<span class="fc" id="L76">        newPatient.setPassword(passwordService.hashPassword(password));</span>
+<span class="fc" id="L77">        newPatient.setPatientId(generateIncrementalPatientId());</span>
 
-<span class="fc" id="L62">        patientRepository.saveAndFlush(newPatient);</span>
-<span class="fc" id="L63">        return &quot;Registration successful&quot;;</span>
+<span class="fc" id="L79">        patientRepository.saveAndFlush(newPatient);</span>
+<span class="fc" id="L80">        return &quot;Registration successful&quot;;</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>
