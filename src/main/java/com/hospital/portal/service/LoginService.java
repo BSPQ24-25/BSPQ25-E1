@@ -38,6 +38,12 @@ public class LoginService {
     @Autowired
     private PasswordService passwordService;
 
+    /** 
+     * @brief Function to log into the Healthcare application
+     * @param DNI of the patient/doctor/admin that wants to log in (has to be registered)
+     * @param Password associated to the DNI
+     * @return Map with the DNI, name and role (admin, doctor, patient) of the user logged. Can return an error if there are invalid credentials
+    */
     public Map<String, Object> login(String dni, String password) {
         logger.info("Find by ID with DNI: {}", dni);
 
@@ -60,6 +66,13 @@ public class LoginService {
         return Map.of("role", "INVALID_CREDENTIALS");
     }
 
+    /** 
+     * @brief Function to get the user information
+     * @param DNI of the patient/doctor/admin 
+     * @param Name of the user
+     * @param Roel of the user
+     * @return Map with all the information given + the session token
+    */
     private Map<String, Object> getUserInfo(String dni, String name, String role) {
         logger.info("Get user info DNI: {}", dni);
 
@@ -75,7 +88,12 @@ public class LoginService {
     }
 
 
-    
+    /** 
+     * @brief Generates the session token using JWTS (Jason Web Token). It sets the subjedt with the DNI to know to who it belongs, then it adds an personalized role, we add the time when it was created and when it expires (1 hour), we sign it so it cannot be modified and then we generate the string. 
+     * @param DNI of the patient/doctor/admin that wants to log in (has to be registered)
+     * @param Role of the user
+     * @return A token in a string format
+    */
     private String generateToken(String dni, String role) {
 
         return Jwts.builder()
