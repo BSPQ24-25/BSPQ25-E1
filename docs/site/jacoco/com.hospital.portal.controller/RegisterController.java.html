@@ -19,11 +19,25 @@ public class RegisterController {
     private final RegisterService registerService;
 <span class="fc" id="L20">    private static final Logger logger = LogManager.getLogger(RegisterController.class);</span>
 
+    /** 
+     * @brief Constructor of the RegisterController class
+    */
+<span class="fc" id="L25">    public RegisterController(RegisterService registerService) {</span>
+<span class="fc" id="L26">        this.registerService = registerService;</span>
+<span class="fc" id="L27">    }</span>
 
-<span class="fc" id="L23">    public RegisterController(RegisterService registerService) {</span>
-<span class="fc" id="L24">        this.registerService = registerService;</span>
-<span class="fc" id="L25">    }</span>
-
+    /**
+     * @brief Registers into the database a new patient
+     * @param DNI of the new patient
+     * @param Name of the new patient
+     * @param Surname of the new patient
+     * @param Phone number of the new patient
+     * @param email address of the new patient
+     * @param birthdate of the new patient
+     * @param Gender of the new patient
+     * @param Password of the account of the new patient
+     * @return Status of the Registration: if it was successful or not (already existing user, something failed)
+    */
     @PostMapping
     public ResponseEntity&lt;?&gt; registerPatient(
             @RequestParam(&quot;dni&quot;) String dni,
@@ -35,19 +49,19 @@ public class RegisterController {
             @RequestParam(&quot;gender&quot;) String gender,
             @RequestParam(&quot;password&quot;) String password) {
         try {
-<span class="fc" id="L38">            LocalDate birthDate = LocalDate.parse(birthDateString);</span>
-<span class="fc" id="L39">            logger.info(&quot;Registering patient with DNI: {}&quot;, dni);</span>
-<span class="fc" id="L40">            String result = registerService.registerPatient(</span>
+<span class="fc" id="L52">            LocalDate birthDate = LocalDate.parse(birthDateString);</span>
+<span class="fc" id="L53">            logger.info(&quot;Registering patient with DNI: {}&quot;, dni);</span>
+<span class="fc" id="L54">            String result = registerService.registerPatient(</span>
                     dni, name, surname, phone, email, birthDate, gender, password);
 
             // Check if the result contains an error message
-<span class="fc bfc" id="L44" title="All 2 branches covered.">            if (result.contains(&quot;already registered&quot;)) {</span>
-<span class="fc" id="L45">                return ResponseEntity.status(HttpStatus.CONFLICT).body(result);</span>
+<span class="fc bfc" id="L58" title="All 2 branches covered.">            if (result.contains(&quot;already registered&quot;)) {</span>
+<span class="fc" id="L59">                return ResponseEntity.status(HttpStatus.CONFLICT).body(result);</span>
             }
 
-<span class="fc" id="L48">            return ResponseEntity.ok(result);</span>
-<span class="fc" id="L49">        } catch (Exception e) {</span>
-<span class="fc" id="L50">            return ResponseEntity.badRequest().body(&quot;Registration failed: &quot; + e.getMessage());</span>
+<span class="fc" id="L62">            return ResponseEntity.ok(result);</span>
+<span class="fc" id="L63">        } catch (Exception e) {</span>
+<span class="fc" id="L64">            return ResponseEntity.badRequest().body(&quot;Registration failed: &quot; + e.getMessage());</span>
             
         }
     }
