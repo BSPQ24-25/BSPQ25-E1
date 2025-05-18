@@ -21,6 +21,14 @@ public class AdminAppointmentService {
     private final DoctorRepository doctorRepository;
     private final PatientRepository patientRepository;
 
+    /**
+     * @brief Constructor of the AdminAppointmentService
+     *
+     * @param AppointmentRepository
+     * @param DoctorRepository
+     * @param PatientRepository
+     * 
+    */
     public AdminAppointmentService(AppointmentRepository appointmentRepository,
                                    DoctorRepository doctorRepository,
                                    PatientRepository patientRepository) {
@@ -29,6 +37,12 @@ public class AdminAppointmentService {
         this.patientRepository = patientRepository;
     }
 
+    /**
+     * @brief Creates the appointment as admin
+     * 
+     * @param An appointment request received from the controller
+     * @return A new appointment or an error (doctor or patient not found)
+    */
     public Appointment createAppointment(Appointment appointmentRequest) {
         logger.info("Creating appointment as admin");
 
@@ -58,7 +72,12 @@ public class AdminAppointmentService {
         return appointmentRepository.save(newAppointment);
     }
 
-
+    /**
+     * @brief Updates the appointment with new data as admin
+     * @param Id of the appointment to be updated
+     * @param An appointment with the updated data
+     * @return The updated appointment or error (apppointment, doctor or patient not found). Saves the changed appointment
+    */
     public Appointment updateAppointment(String id, Appointment updatedData) {
         logger.info("Updating appointment with ID {}", id);
 
@@ -96,26 +115,51 @@ public class AdminAppointmentService {
         return appointmentRepository.save(existing);
     }
 
+    /**
+     * @brief Delete an appointment as admin
+     * 
+     * @param Id of the appointment to be deleted
+    */
     public void deleteAppointment(String id) {
         logger.info("Deleting appointment with ID {}", id);
         appointmentRepository.deleteById(id);
     }
 
+    /**
+     * @brief Looks for all the doctors as admin
+     *
+     * @return List of all the doctors
+    */
     public List<Doctor> getAllDoctors() {
         logger.info("Fetching all doctors from repository (admin)");
         return doctorRepository.findAll();
     }
 
+    /**
+     * @brief Looks for all the patients as admin
+     *
+     * @return List of all the patients
+    */
     public List<Patient> getAllPatients() {
         logger.info("Fetching all patients from repository (admin)");
         return patientRepository.findAll();
     }
     
+    /**
+     * @brief Looks for all the existing appointments as admin
+     *
+     * @return List of all the appointments
+    */
     public List<Appointment> getAllAppointments() {
         logger.info("Fetching all appointments from repository (admin)");
         return appointmentRepository.findAll();
     }
 
+    /**
+     * @brief Generated an id for the appointment usign the current time the appointment is created
+     *
+     * @return String of the generated appointment ID
+    */
     private String generateAppointmentId() {
         String id = "APP" + System.currentTimeMillis();
         logger.debug("Generated new appointment ID: {}", id);

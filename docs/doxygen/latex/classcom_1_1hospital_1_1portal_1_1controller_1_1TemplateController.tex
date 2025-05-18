@@ -4,25 +4,25 @@
 \begin{DoxyCompactItemize}
 \item 
 \mbox{\hyperlink{classcom_1_1hospital_1_1portal_1_1controller_1_1TemplateController_ac00784b38005e7164923de826d719261}{Template\+Controller}} ()
-\item 
+\begin{DoxyCompactList}\small\item\em Constructor of the Template\+Controller class, where we register the module for the dates. \end{DoxyCompactList}\item 
 String \mbox{\hyperlink{classcom_1_1hospital_1_1portal_1_1controller_1_1TemplateController_a5345e271c79486ebb85b15a2a435d9f7}{show\+Index}} ()
-\item 
+\begin{DoxyCompactList}\small\item\em Gets the index.\+html template. \end{DoxyCompactList}\item 
 String \mbox{\hyperlink{classcom_1_1hospital_1_1portal_1_1controller_1_1TemplateController_af3924323cb261c96777376ec52e5a8ec}{show\+Registration\+Form}} ()
-\item 
+\begin{DoxyCompactList}\small\item\em Gets the registration\+From.\+html template to register. \end{DoxyCompactList}\item 
 String \mbox{\hyperlink{classcom_1_1hospital_1_1portal_1_1controller_1_1TemplateController_a99a58c6ce8edc09756e45319dc705ee4}{show\+Login\+Form}} ()
-\item 
+\begin{DoxyCompactList}\small\item\em Gets the login\+Form.\+html template to log in the page. \end{DoxyCompactList}\item 
 String \mbox{\hyperlink{classcom_1_1hospital_1_1portal_1_1controller_1_1TemplateController_ad30c683e3b7f62b6849b23aeed7c23db}{show\+Inicio}} ()
-\item 
+\begin{DoxyCompactList}\small\item\em Gets the homepage.\+html template. \end{DoxyCompactList}\item 
 String \mbox{\hyperlink{classcom_1_1hospital_1_1portal_1_1controller_1_1TemplateController_ac739fef1bc4207ecf82c61f62edf60aa}{show\+Inicio\+Paciente}} (@Path\+Variable("{}dni"{}) String dni, Model model)
-\item 
+\begin{DoxyCompactList}\small\item\em Gets the patient\+Data\+View.\+html template for a specific patient with their information after they log in. \end{DoxyCompactList}\item 
 String \mbox{\hyperlink{classcom_1_1hospital_1_1portal_1_1controller_1_1TemplateController_ab92f9b13677b25498b469bcdf7220184}{show\+Inicio\+Doctor}} ()
-\item 
+\begin{DoxyCompactList}\small\item\em Gets the doctor\+Home.\+html template for the doctors after they log in. \end{DoxyCompactList}\item 
 String \mbox{\hyperlink{classcom_1_1hospital_1_1portal_1_1controller_1_1TemplateController_a923ab6db3f83b81cd9b997472d593924}{show\+Inicio\+Admin}} ()
-\item 
+\begin{DoxyCompactList}\small\item\em Gets the admin\+Home.\+html template for the admin after they log in. \end{DoxyCompactList}\item 
 String \mbox{\hyperlink{classcom_1_1hospital_1_1portal_1_1controller_1_1TemplateController_adf02df16c6c5f07bbf27eac0535f24ff}{show\+Appointment\+Calendar}} (@Path\+Variable String patient\+Id, Model model)  throws Json\+Processing\+Exception 
-\item 
+\begin{DoxyCompactList}\small\item\em Gets the calendar with the appointments for a specific user in the patient\+Appointment\+View.\+html template. \end{DoxyCompactList}\item 
 String \mbox{\hyperlink{classcom_1_1hospital_1_1portal_1_1controller_1_1TemplateController_a9b3d434eedf9324e50d0dc14e65c2009}{show\+Doctor\+Appointment\+Calendar}} (@Path\+Variable String doctor\+Id, Model model)  throws Json\+Processing\+Exception 
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Gets the calendar with the appointments for a specific doctor in the doc\+Appintment\+View.\+html template. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Constructor \& Destructor Documentation}
@@ -34,6 +34,10 @@ String \mbox{\hyperlink{classcom_1_1hospital_1_1portal_1_1controller_1_1Template
 
 
 
+Constructor of the Template\+Controller class, where we register the module for the dates. 
+
+
+
 \doxysubsection{Member Function Documentation}
 \Hypertarget{classcom_1_1hospital_1_1portal_1_1controller_1_1TemplateController_adf02df16c6c5f07bbf27eac0535f24ff}\label{classcom_1_1hospital_1_1portal_1_1controller_1_1TemplateController_adf02df16c6c5f07bbf27eac0535f24ff} 
 \index{com.hospital.portal.controller.TemplateController@{com.hospital.portal.controller.TemplateController}!showAppointmentCalendar@{showAppointmentCalendar}}
@@ -41,54 +45,138 @@ String \mbox{\hyperlink{classcom_1_1hospital_1_1portal_1_1controller_1_1Template
 \doxysubsubsection{\texorpdfstring{showAppointmentCalendar()}{showAppointmentCalendar()}}
 {\footnotesize\ttfamily String com.\+hospital.\+portal.\+controller.\+Template\+Controller.\+show\+Appointment\+Calendar (\begin{DoxyParamCaption}\item[{@Path\+Variable String}]{patient\+Id,  }\item[{Model}]{model }\end{DoxyParamCaption}) throws Json\+Processing\+Exception\hspace{0.3cm}{\ttfamily [inline]}}
 
+
+
+Gets the calendar with the appointments for a specific user in the patient\+Appointment\+View.\+html template. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em DNI} & of the patient \\
+\hline
+{\em Model} & model to send data to the template \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the name of the HTML template to render (patient\+Appointment\+View.\+html) 
+\end{DoxyReturn}
 \Hypertarget{classcom_1_1hospital_1_1portal_1_1controller_1_1TemplateController_a9b3d434eedf9324e50d0dc14e65c2009}\label{classcom_1_1hospital_1_1portal_1_1controller_1_1TemplateController_a9b3d434eedf9324e50d0dc14e65c2009} 
 \index{com.hospital.portal.controller.TemplateController@{com.hospital.portal.controller.TemplateController}!showDoctorAppointmentCalendar@{showDoctorAppointmentCalendar}}
 \index{showDoctorAppointmentCalendar@{showDoctorAppointmentCalendar}!com.hospital.portal.controller.TemplateController@{com.hospital.portal.controller.TemplateController}}
 \doxysubsubsection{\texorpdfstring{showDoctorAppointmentCalendar()}{showDoctorAppointmentCalendar()}}
 {\footnotesize\ttfamily String com.\+hospital.\+portal.\+controller.\+Template\+Controller.\+show\+Doctor\+Appointment\+Calendar (\begin{DoxyParamCaption}\item[{@Path\+Variable String}]{doctor\+Id,  }\item[{Model}]{model }\end{DoxyParamCaption}) throws Json\+Processing\+Exception\hspace{0.3cm}{\ttfamily [inline]}}
 
+
+
+Gets the calendar with the appointments for a specific doctor in the doc\+Appintment\+View.\+html template. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em DNI} & of the doctor \\
+\hline
+{\em Model} & to send data to the template \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the name of the HTML template to render (doc\+Appointment\+View.\+html) 
+\end{DoxyReturn}
 \Hypertarget{classcom_1_1hospital_1_1portal_1_1controller_1_1TemplateController_a5345e271c79486ebb85b15a2a435d9f7}\label{classcom_1_1hospital_1_1portal_1_1controller_1_1TemplateController_a5345e271c79486ebb85b15a2a435d9f7} 
 \index{com.hospital.portal.controller.TemplateController@{com.hospital.portal.controller.TemplateController}!showIndex@{showIndex}}
 \index{showIndex@{showIndex}!com.hospital.portal.controller.TemplateController@{com.hospital.portal.controller.TemplateController}}
 \doxysubsubsection{\texorpdfstring{showIndex()}{showIndex()}}
 {\footnotesize\ttfamily String com.\+hospital.\+portal.\+controller.\+Template\+Controller.\+show\+Index (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
+
+
+Gets the index.\+html template. 
+
+\begin{DoxyReturn}{Returns}
+the name of the HTML template to render (index.\+html) 
+\end{DoxyReturn}
 \Hypertarget{classcom_1_1hospital_1_1portal_1_1controller_1_1TemplateController_ad30c683e3b7f62b6849b23aeed7c23db}\label{classcom_1_1hospital_1_1portal_1_1controller_1_1TemplateController_ad30c683e3b7f62b6849b23aeed7c23db} 
 \index{com.hospital.portal.controller.TemplateController@{com.hospital.portal.controller.TemplateController}!showInicio@{showInicio}}
 \index{showInicio@{showInicio}!com.hospital.portal.controller.TemplateController@{com.hospital.portal.controller.TemplateController}}
 \doxysubsubsection{\texorpdfstring{showInicio()}{showInicio()}}
 {\footnotesize\ttfamily String com.\+hospital.\+portal.\+controller.\+Template\+Controller.\+show\+Inicio (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
+
+
+Gets the homepage.\+html template. 
+
+\begin{DoxyReturn}{Returns}
+the name of the HTML template to render (homepage.\+html) 
+\end{DoxyReturn}
 \Hypertarget{classcom_1_1hospital_1_1portal_1_1controller_1_1TemplateController_a923ab6db3f83b81cd9b997472d593924}\label{classcom_1_1hospital_1_1portal_1_1controller_1_1TemplateController_a923ab6db3f83b81cd9b997472d593924} 
 \index{com.hospital.portal.controller.TemplateController@{com.hospital.portal.controller.TemplateController}!showInicioAdmin@{showInicioAdmin}}
 \index{showInicioAdmin@{showInicioAdmin}!com.hospital.portal.controller.TemplateController@{com.hospital.portal.controller.TemplateController}}
 \doxysubsubsection{\texorpdfstring{showInicioAdmin()}{showInicioAdmin()}}
 {\footnotesize\ttfamily String com.\+hospital.\+portal.\+controller.\+Template\+Controller.\+show\+Inicio\+Admin (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
+
+
+Gets the admin\+Home.\+html template for the admin after they log in. 
+
+\begin{DoxyReturn}{Returns}
+the name of the HTML template to render (admin\+Home.\+html) 
+\end{DoxyReturn}
 \Hypertarget{classcom_1_1hospital_1_1portal_1_1controller_1_1TemplateController_ab92f9b13677b25498b469bcdf7220184}\label{classcom_1_1hospital_1_1portal_1_1controller_1_1TemplateController_ab92f9b13677b25498b469bcdf7220184} 
 \index{com.hospital.portal.controller.TemplateController@{com.hospital.portal.controller.TemplateController}!showInicioDoctor@{showInicioDoctor}}
 \index{showInicioDoctor@{showInicioDoctor}!com.hospital.portal.controller.TemplateController@{com.hospital.portal.controller.TemplateController}}
 \doxysubsubsection{\texorpdfstring{showInicioDoctor()}{showInicioDoctor()}}
 {\footnotesize\ttfamily String com.\+hospital.\+portal.\+controller.\+Template\+Controller.\+show\+Inicio\+Doctor (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
+
+
+Gets the doctor\+Home.\+html template for the doctors after they log in. 
+
+\begin{DoxyReturn}{Returns}
+the name of the HTML template to render (doctor\+Home.\+html) 
+\end{DoxyReturn}
 \Hypertarget{classcom_1_1hospital_1_1portal_1_1controller_1_1TemplateController_ac739fef1bc4207ecf82c61f62edf60aa}\label{classcom_1_1hospital_1_1portal_1_1controller_1_1TemplateController_ac739fef1bc4207ecf82c61f62edf60aa} 
 \index{com.hospital.portal.controller.TemplateController@{com.hospital.portal.controller.TemplateController}!showInicioPaciente@{showInicioPaciente}}
 \index{showInicioPaciente@{showInicioPaciente}!com.hospital.portal.controller.TemplateController@{com.hospital.portal.controller.TemplateController}}
 \doxysubsubsection{\texorpdfstring{showInicioPaciente()}{showInicioPaciente()}}
 {\footnotesize\ttfamily String com.\+hospital.\+portal.\+controller.\+Template\+Controller.\+show\+Inicio\+Paciente (\begin{DoxyParamCaption}\item[{@Path\+Variable("{}dni"{}) String}]{dni,  }\item[{Model}]{model }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
+
+
+Gets the patient\+Data\+View.\+html template for a specific patient with their information after they log in. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em DNI} & of the patient \\
+\hline
+{\em Model} & model to send data to the template \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the name of the HTML template to render (patient\+Data\+View.\+html) 
+\end{DoxyReturn}
 \Hypertarget{classcom_1_1hospital_1_1portal_1_1controller_1_1TemplateController_a99a58c6ce8edc09756e45319dc705ee4}\label{classcom_1_1hospital_1_1portal_1_1controller_1_1TemplateController_a99a58c6ce8edc09756e45319dc705ee4} 
 \index{com.hospital.portal.controller.TemplateController@{com.hospital.portal.controller.TemplateController}!showLoginForm@{showLoginForm}}
 \index{showLoginForm@{showLoginForm}!com.hospital.portal.controller.TemplateController@{com.hospital.portal.controller.TemplateController}}
 \doxysubsubsection{\texorpdfstring{showLoginForm()}{showLoginForm()}}
 {\footnotesize\ttfamily String com.\+hospital.\+portal.\+controller.\+Template\+Controller.\+show\+Login\+Form (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
+
+
+Gets the login\+Form.\+html template to log in the page. 
+
+\begin{DoxyReturn}{Returns}
+the name of the HTML template to render (login\+Form.\+html) 
+\end{DoxyReturn}
 \Hypertarget{classcom_1_1hospital_1_1portal_1_1controller_1_1TemplateController_af3924323cb261c96777376ec52e5a8ec}\label{classcom_1_1hospital_1_1portal_1_1controller_1_1TemplateController_af3924323cb261c96777376ec52e5a8ec} 
 \index{com.hospital.portal.controller.TemplateController@{com.hospital.portal.controller.TemplateController}!showRegistrationForm@{showRegistrationForm}}
 \index{showRegistrationForm@{showRegistrationForm}!com.hospital.portal.controller.TemplateController@{com.hospital.portal.controller.TemplateController}}
 \doxysubsubsection{\texorpdfstring{showRegistrationForm()}{showRegistrationForm()}}
 {\footnotesize\ttfamily String com.\+hospital.\+portal.\+controller.\+Template\+Controller.\+show\+Registration\+Form (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
+
+
+Gets the registration\+From.\+html template to register. 
+
+\begin{DoxyReturn}{Returns}
+the name of the HTML template to render (registrarion\+Form.\+html) 
+\end{DoxyReturn}
 
 
 The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}

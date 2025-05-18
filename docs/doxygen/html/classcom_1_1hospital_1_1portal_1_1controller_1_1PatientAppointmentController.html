@@ -105,20 +105,28 @@ $(document).ready(function(){initNavTree('classcom_1_1hospital_1_1portal_1_1cont
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a5044169082b1c2e93382d2f41387183d" id="r_a5044169082b1c2e93382d2f41387183d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcom_1_1hospital_1_1portal_1_1controller_1_1PatientAppointmentController.html#a5044169082b1c2e93382d2f41387183d">PatientAppointmentController</a> (PatientAppointmentService patientAppointmentService)</td></tr>
+<tr class="memdesc:a5044169082b1c2e93382d2f41387183d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor of the PatientsAppointments.  <br /></td></tr>
 <tr class="separator:a5044169082b1c2e93382d2f41387183d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a713241cddb777478cd4a465f72e884a4" id="r_a713241cddb777478cd4a465f72e884a4"><td class="memItemLeft" align="right" valign="top">List&lt; Patient &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcom_1_1hospital_1_1portal_1_1controller_1_1PatientAppointmentController.html#a713241cddb777478cd4a465f72e884a4">getAllPatients</a> ()</td></tr>
+<tr class="memdesc:a713241cddb777478cd4a465f72e884a4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets all the patients.  <br /></td></tr>
 <tr class="separator:a713241cddb777478cd4a465f72e884a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad102447a301c4918549e175c4e205f40" id="r_ad102447a301c4918549e175c4e205f40"><td class="memItemLeft" align="right" valign="top">List&lt; Appointment &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcom_1_1hospital_1_1portal_1_1controller_1_1PatientAppointmentController.html#ad102447a301c4918549e175c4e205f40">getAppointmentsByPatientDNI</a> (@PathVariable String patientDNI)</td></tr>
+<tr class="memdesc:ad102447a301c4918549e175c4e205f40"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets all the appointments of a specific patient.  <br /></td></tr>
 <tr class="separator:ad102447a301c4918549e175c4e205f40"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8810c2294bb688a3bbe66c7532af72cf" id="r_a8810c2294bb688a3bbe66c7532af72cf"><td class="memItemLeft" align="right" valign="top">List&lt; Appointment &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcom_1_1hospital_1_1portal_1_1controller_1_1PatientAppointmentController.html#a8810c2294bb688a3bbe66c7532af72cf">getAppointmentsByDate</a> (@PathVariable String patientDNI, @RequestParam LocalDate date)</td></tr>
+<tr class="memdesc:a8810c2294bb688a3bbe66c7532af72cf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Filters the information of a patients appointment by date.  <br /></td></tr>
 <tr class="separator:a8810c2294bb688a3bbe66c7532af72cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a14245dfb7aacaa1ba0c7f83bbc251e72" id="r_a14245dfb7aacaa1ba0c7f83bbc251e72"><td class="memItemLeft" align="right" valign="top">List&lt; Appointment &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcom_1_1hospital_1_1portal_1_1controller_1_1PatientAppointmentController.html#a14245dfb7aacaa1ba0c7f83bbc251e72">getAppointmentByPatientDniAndDoctorSpecialtyName</a> (@PathVariable String patientDNI, @RequestParam String specialty_name)</td></tr>
+<tr class="memdesc:a14245dfb7aacaa1ba0c7f83bbc251e72"><td class="mdescLeft">&#160;</td><td class="mdescRight">Filters the information of a patients appointment by speciality od the doctor.  <br /></td></tr>
 <tr class="separator:a14245dfb7aacaa1ba0c7f83bbc251e72"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad883065ff9159dee3cbe116e81e8930b" id="r_ad883065ff9159dee3cbe116e81e8930b"><td class="memItemLeft" align="right" valign="top">Appointment&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcom_1_1hospital_1_1portal_1_1controller_1_1PatientAppointmentController.html#ad883065ff9159dee3cbe116e81e8930b">addAppointmentPatient</a> (@PathVariable String patientDNI, @RequestBody Appointment appointment)</td></tr>
+<tr class="memdesc:ad883065ff9159dee3cbe116e81e8930b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates an appointment for a specific patient.  <br /></td></tr>
 <tr class="separator:ad883065ff9159dee3cbe116e81e8930b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8a699b8791560002759637aa3d7d67ba" id="r_a8a699b8791560002759637aa3d7d67ba"><td class="memItemLeft" align="right" valign="top">Appointment&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcom_1_1hospital_1_1portal_1_1controller_1_1PatientAppointmentController.html#a8a699b8791560002759637aa3d7d67ba">modifyAppointment</a> (@PathVariable String appointmentId, @RequestBody Appointment modifiedAppointment)</td></tr>
+<tr class="memdesc:a8a699b8791560002759637aa3d7d67ba"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates a specific appointment.  <br /></td></tr>
 <tr class="separator:a8a699b8791560002759637aa3d7d67ba"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a69fcf8a2edd44a71fc66991d3e2a8ecf" id="r_a69fcf8a2edd44a71fc66991d3e2a8ecf"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcom_1_1hospital_1_1portal_1_1controller_1_1PatientAppointmentController.html#a69fcf8a2edd44a71fc66991d3e2a8ecf">deleteAppointmentPatient</a> (@PathVariable String appointmentId)</td></tr>
+<tr class="memdesc:a69fcf8a2edd44a71fc66991d3e2a8ecf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deletes a specific appointment.  <br /></td></tr>
 <tr class="separator:a69fcf8a2edd44a71fc66991d3e2a8ecf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
@@ -145,6 +153,8 @@ Public Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Constructor of the PatientsAppointments. </p>
 
 </div>
 </div>
@@ -183,6 +193,16 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
+<p>Creates an appointment for a specific patient. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">DNI</td><td>of the patient </td></tr>
+    <tr><td class="paramname">New</td><td>appointment created </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The new appointment created </dd></dl>
+
 </div>
 </div>
 <a id="a69fcf8a2edd44a71fc66991d3e2a8ecf" name="a69fcf8a2edd44a71fc66991d3e2a8ecf"></a>
@@ -209,6 +229,14 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
+<p>Deletes a specific appointment. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">Id</td><td>of the appointment to be deleted </td></tr>
+  </table>
+  </dd>
+</dl>
+
 </div>
 </div>
 <a id="a713241cddb777478cd4a465f72e884a4" name="a713241cddb777478cd4a465f72e884a4"></a>
@@ -233,6 +261,9 @@ Public Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Gets all the patients. </p>
+<dl class="section return"><dt>Returns</dt><dd>List of all the patients </dd></dl>
 
 </div>
 </div>
@@ -270,6 +301,16 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
+<p>Filters the information of a patients appointment by speciality od the doctor. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">DNI</td><td>of the patient </td></tr>
+    <tr><td class="paramname">Speaciality</td><td>of the doctor </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>List of appointments that have doctors of said speciality </dd></dl>
+
 </div>
 </div>
 <a id="a8810c2294bb688a3bbe66c7532af72cf" name="a8810c2294bb688a3bbe66c7532af72cf"></a>
@@ -306,6 +347,16 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
+<p>Filters the information of a patients appointment by date. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">DNI</td><td>of the patient </td></tr>
+    <tr><td class="paramname">From</td><td>what date is wanted to retrieve appointments </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>List of appointments starting form the date specified </dd></dl>
+
 </div>
 </div>
 <a id="ad102447a301c4918549e175c4e205f40" name="ad102447a301c4918549e175c4e205f40"></a>
@@ -331,6 +382,15 @@ Public Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Gets all the appointments of a specific patient. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">DNI</td><td>of the patient </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>List of all the appointments of the specified patient </dd></dl>
 
 </div>
 </div>
@@ -367,6 +427,16 @@ Public Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Updates a specific appointment. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">Id</td><td>of the appointment to be edited </td></tr>
+    <tr><td class="paramname">Appointment</td><td>updated </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The appointment updated </dd></dl>
 
 </div>
 </div>

@@ -21,6 +21,13 @@ public class PatientService {
     @Autowired
     private PatientRepository patientRepository;
 
+    /**
+     * @brief Finds the patient by the DNI
+     * 
+     * @param SNI of the patient we want to find
+     * 
+     * @return A patient with the specified DNI
+    */
     public Patient findPatientByDni(String dni) {
         logger.info("Finding patient with DNI: {}", dni);
 

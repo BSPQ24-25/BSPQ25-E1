@@ -4,9 +4,9 @@
 \begin{DoxyCompactItemize}
 \item 
 \mbox{\hyperlink{classcom_1_1hospital_1_1portal_1_1controller_1_1RegisterController_a7f577875188e217804712e54b967ff8b}{Register\+Controller}} (Register\+Service register\+Service)
-\item 
+\begin{DoxyCompactList}\small\item\em Constructor of the Register\+Controller class. \end{DoxyCompactList}\item 
 Response\+Entity$<$?$>$ \mbox{\hyperlink{classcom_1_1hospital_1_1portal_1_1controller_1_1RegisterController_ad1bece5fab1e1b31a3c5f635722697de}{register\+Patient}} ( @Request\+Param("{}dni"{}) String dni, @Request\+Param("{}name"{}) String name, @Request\+Param("{}surname"{}) String surname, @Request\+Param("{}phone"{}) String phone, @Request\+Param("{}email"{}) String email, @Request\+Param("{}birth\+Date"{}) String birth\+Date\+String, @Request\+Param("{}gender"{}) String gender, @Request\+Param("{}password"{}) String password)
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Registers into the database a new patient. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Constructor \& Destructor Documentation}
@@ -18,6 +18,10 @@ Response\+Entity$<$?$>$ \mbox{\hyperlink{classcom_1_1hospital_1_1portal_1_1contr
 
 
 
+Constructor of the Register\+Controller class. 
+
+
+
 \doxysubsection{Member Function Documentation}
 \Hypertarget{classcom_1_1hospital_1_1portal_1_1controller_1_1RegisterController_ad1bece5fab1e1b31a3c5f635722697de}\label{classcom_1_1hospital_1_1portal_1_1controller_1_1RegisterController_ad1bece5fab1e1b31a3c5f635722697de} 
 \index{com.hospital.portal.controller.RegisterController@{com.hospital.portal.controller.RegisterController}!registerPatient@{registerPatient}}
@@ -25,6 +29,32 @@ Response\+Entity$<$?$>$ \mbox{\hyperlink{classcom_1_1hospital_1_1portal_1_1contr
 \doxysubsubsection{\texorpdfstring{registerPatient()}{registerPatient()}}
 {\footnotesize\ttfamily Response\+Entity$<$?$>$ com.\+hospital.\+portal.\+controller.\+Register\+Controller.\+register\+Patient (\begin{DoxyParamCaption}\item[{@Request\+Param("{}dni"{}) String}]{dni,  }\item[{@Request\+Param("{}name"{}) String}]{name,  }\item[{@Request\+Param("{}surname"{}) String}]{surname,  }\item[{@Request\+Param("{}phone"{}) String}]{phone,  }\item[{@Request\+Param("{}email"{}) String}]{email,  }\item[{@Request\+Param("{}birth\+Date"{}) String}]{birth\+Date\+String,  }\item[{@Request\+Param("{}gender"{}) String}]{gender,  }\item[{@Request\+Param("{}password"{}) String}]{password }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
+
+
+Registers into the database a new patient. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em DNI} & of the new patient \\
+\hline
+{\em Name} & of the new patient \\
+\hline
+{\em Surname} & of the new patient \\
+\hline
+{\em Phone} & number of the new patient \\
+\hline
+{\em email} & address of the new patient \\
+\hline
+{\em birthdate} & of the new patient \\
+\hline
+{\em Gender} & of the new patient \\
+\hline
+{\em Password} & of the account of the new patient \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Status of the Registration\+: if it was successful or not (already existing user, something failed) 
+\end{DoxyReturn}
 
 
 The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}

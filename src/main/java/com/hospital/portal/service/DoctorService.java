@@ -21,6 +21,13 @@ public class DoctorService {
   @Autowired
   private DoctorRepository doctorRepository;
 
+  /**
+     * @brief Finds the doctor by the DNI
+     * 
+     * @param DNI of the doctor we want to find
+     * 
+     * @return A doctor with the specified DNI
+    */
   public Doctor findPatientByDni(String dni) {
     logger.info("Finding Patient by DNI {}", dni);
 
