@@ -13,50 +13,94 @@ import jakarta.validation.constraints.FutureOrPresent;
 import jakarta.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+
+/**
+ * Represents an appointment in the hospital portal system.
+ * Stores information about the date, time, patient, doctor, purpose, and observations of the appointment.
+ * <p>
+ * This class is mapped to the "appointments" table in the database.
+ * </p>
+ */
 @Entity
 @Table(name = "appointments")
 public class Appointment {
 
+    /**
+     * Unique identifier for the appointment.
+     */
     @Id
     public String appointmentId;
-
+    
+    /**
+     * Date of the appointment.
+     */
     @Column(nullable = false)
     @NotNull(message = "Date is required")
     @FutureOrPresent(message = "Date must be in the present or future")
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate date;
 
+    /**
+     * Start time of the appointment.
+     */
     @Column(nullable = false)
     @NotNull(message = "Start time is required")
     @JsonFormat(pattern = "HH:mm:ss")
     private LocalTime startTime;
-
+    
+    /**
+     * End time of the appointment.
+     */
     @Column(nullable = false)
     @NotNull(message = "End time is required")
     @JsonFormat(pattern = "HH:mm:ss")
     private LocalTime endTime;
 
+    /**
+     * Patient associated with the appointment.
+     */
     @ManyToOne
     @JoinColumn(name = "patient_id", nullable = false)
     @NotNull(message = "Patient id is required")
     private Patient patient;
 
+    /**
+     * Doctor associated with the appointment.
+     */
     @ManyToOne
     @JoinColumn(name = "doctor_id", nullable = false)
     @NotNull(message = "Doctor is required")
     private Doctor doctor;
 
+    /**
+     * Purpose of the appointment.
+     */
     @Column(length = 1000)
-    private String appointmentPurpose ; //Motive of the appointment
+    private String appointmentPurpose ; 
 
+    /**
+     * Observations made by the doctor after the appointment.
+     */
     @Column(length = 1000)
-    private String observations; //Doctor's conclusion after the visit
+    private String observations; 
 
-    // Constructor
+    /**
+     * Default constructor for JPA.
+     */
     public Appointment() {
 
     }
 
+    /**
+     * Constructs an Appointment with the specified details.
+     *
+     * @param date the date of the appointment
+     * @param startTime the start time of the appointment
+     * @param endTime the end time of the appointment
+     * @param patient the patient associated with the appointment
+     * @param doctor the doctor associated with the appointment
+     * @param appointmentPurpose the purpose of the appointment
+     */
     public Appointment(LocalDate date, LocalTime startTime, LocalTime endTime,
             Patient patient, Doctor doctor, String appointmentPurpose) {
         this.date = date;
@@ -132,6 +176,10 @@ public class Appointment {
         this.observations = observations;
     }
 
+    /**
+     * Returns a string representation of the Appointment
+     * @return a string representation of the Appointment
+     */
     @Override
     public String toString() {
         return "Appointment{" +

@@ -4,23 +4,40 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
+/**
+ * Represents a specialty in the hospital portal system.
+ * <p>
+ * This class is mapped to the "specialties" table in the database.
+ * </p>
+ */
 @Entity
 @Table(name = "specialties")
 public class Specialty {
+
+    /**
+     * Unique identifier for the specialty.
+     */
     @Id
     private String name;
     private String description;
 
-    // Default constructor
+    /**
+     * Default constructor for JPA.
+     */
     public Specialty() {}
 
-    // Constructor with parameters
+    /**
+     * Constructs a Specialty with the specified name and description.
+     *
+     * @param name the name of the specialty
+     * @param description the description of the specialty
+     */
     public Specialty(String name, String description) {
         this.name = name;
         this.description = description;
     }
 
-    // Getter and Setter for name
+    
     public String getName() {
         return name;
     }
@@ -29,7 +46,7 @@ public class Specialty {
         this.name = name;
     }
 
-    // Getter and Setter for description
+    
     public String getDescription() {
         return description;
     }
@@ -38,7 +55,11 @@ public class Specialty {
         this.description = description;
     }
 
-    // toString method
+    /**
+     * Returns a string representation of the Specialty.
+     *
+     * @return a string representation of the Specialty
+     */
     @Override
     public String toString() {
         return "Specialty{" +
