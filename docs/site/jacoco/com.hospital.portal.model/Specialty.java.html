@@ -4,44 +4,65 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
+/**
+ * Represents a specialty in the hospital portal system.
+ * &lt;p&gt;
+ * This class is mapped to the &quot;specialties&quot; table in the database.
+ * &lt;/p&gt;
+ */
 @Entity
 @Table(name = &quot;specialties&quot;)
 public class Specialty {
+
+    /**
+     * Unique identifier for the specialty.
+     */
     @Id
     private String name;
     private String description;
 
-    // Default constructor
-<span class="fc" id="L15">    public Specialty() {}</span>
+    /**
+     * Default constructor for JPA.
+     */
+<span class="fc" id="L27">    public Specialty() {}</span>
 
-    // Constructor with parameters
-<span class="fc" id="L18">    public Specialty(String name, String description) {</span>
-<span class="fc" id="L19">        this.name = name;</span>
-<span class="fc" id="L20">        this.description = description;</span>
-<span class="fc" id="L21">    }</span>
+    /**
+     * Constructs a Specialty with the specified name and description.
+     *
+     * @param name the name of the specialty
+     * @param description the description of the specialty
+     */
+<span class="fc" id="L35">    public Specialty(String name, String description) {</span>
+<span class="fc" id="L36">        this.name = name;</span>
+<span class="fc" id="L37">        this.description = description;</span>
+<span class="fc" id="L38">    }</span>
 
-    // Getter and Setter for name
+    
     public String getName() {
-<span class="fc" id="L25">        return name;</span>
+<span class="fc" id="L42">        return name;</span>
     }
 
     public void setName(String name) {
-<span class="fc" id="L29">        this.name = name;</span>
-<span class="fc" id="L30">    }</span>
+<span class="fc" id="L46">        this.name = name;</span>
+<span class="fc" id="L47">    }</span>
 
-    // Getter and Setter for description
+    
     public String getDescription() {
-<span class="fc" id="L34">        return description;</span>
+<span class="fc" id="L51">        return description;</span>
     }
 
     public void setDescription(String description) {
-<span class="fc" id="L38">        this.description = description;</span>
-<span class="fc" id="L39">    }</span>
+<span class="fc" id="L55">        this.description = description;</span>
+<span class="fc" id="L56">    }</span>
 
-    // toString method
+    /**
+     * Returns a string representation of the Specialty.
+     *
+     * @return a string representation of the Specialty
+     */
     @Override
     public String toString() {
-<span class="nc" id="L44">        return &quot;Specialty{&quot; +</span>
+<span class="nc" id="L65">        return &quot;Specialty{&quot; +</span>
                 &quot;name='&quot; + name + '\'' +
                 &quot;, description='&quot; + description + '\'' +
                 '}';

@@ -149,7 +149,10 @@ Public Attributes</h2></td></tr>
 <tr class="memitem:a3e09b1bb3238a6ccc26b96749f5f5c31" id="r_a3e09b1bb3238a6ccc26b96749f5f5c31"><td class="memItemLeft" align="right" valign="top">String&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcom_1_1hospital_1_1portal_1_1model_1_1Appointment.html#a3e09b1bb3238a6ccc26b96749f5f5c31">appointmentId</a></td></tr>
 <tr class="separator:a3e09b1bb3238a6ccc26b96749f5f5c31"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Represents an appointment in the hospital portal system. Stores information about the date, time, patient, doctor, purpose, and observations of the appointment. </p>
+<p>This class is mapped to the "appointments" table in the database. </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a541eca133899b36089f8473c1ee87433" name="a541eca133899b36089f8473c1ee87433"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a541eca133899b36089f8473c1ee87433">&#9670;&#160;</a></span>Appointment() <span class="overload">[1/2]</span></h2>
 
@@ -172,6 +175,7 @@ Public Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Default constructor for JPA. </p>
 
 </div>
 </div>
@@ -232,6 +236,18 @@ Public Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Constructs an Appointment with the specified details.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">date</td><td>the date of the appointment </td></tr>
+    <tr><td class="paramname">startTime</td><td>the start time of the appointment </td></tr>
+    <tr><td class="paramname">endTime</td><td>the end time of the appointment </td></tr>
+    <tr><td class="paramname">patient</td><td>the patient associated with the appointment </td></tr>
+    <tr><td class="paramname">doctor</td><td>the doctor associated with the appointment </td></tr>
+    <tr><td class="paramname">appointmentPurpose</td><td>the purpose of the appointment </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -666,6 +682,7 @@ Public Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Returns a string representation of the Appointment </p><dl class="section return"><dt>Returns</dt><dd>a string representation of the Appointment </dd></dl>
 
 </div>
 </div>
@@ -681,6 +698,7 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Unique identifier for the appointment. </p>
 
 </div>
 </div>

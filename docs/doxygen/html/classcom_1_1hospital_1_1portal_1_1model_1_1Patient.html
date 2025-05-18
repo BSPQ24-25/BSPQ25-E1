@@ -167,7 +167,10 @@ Additional Inherited Members</h2></td></tr>
 <tr class="memitem:a6cc79cfc69e465da3ec39d2a946617f2 inherit pub_attribs_classcom_1_1hospital_1_1portal_1_1model_1_1User" id="r_a6cc79cfc69e465da3ec39d2a946617f2"><td class="memItemLeft" align="right" valign="top">String&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcom_1_1hospital_1_1portal_1_1model_1_1User.html#a6cc79cfc69e465da3ec39d2a946617f2">dni</a></td></tr>
 <tr class="separator:a6cc79cfc69e465da3ec39d2a946617f2 inherit pub_attribs_classcom_1_1hospital_1_1portal_1_1model_1_1User"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Represents a patient in the hospital portal system. Extends the <code><a class="el" href="">User</a></code> class and adds a unique patient ID. </p>
+<p>This class is mapped to the "patients" table in the database. </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="aea85db6faa03c5bb03d95531271524b0" name="aea85db6faa03c5bb03d95531271524b0"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aea85db6faa03c5bb03d95531271524b0">&#9670;&#160;</a></span>Patient() <span class="overload">[1/2]</span></h2>
 
@@ -190,6 +193,7 @@ Additional Inherited Members</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Default constructor for JPA. </p>
 
 </div>
 </div>
@@ -268,6 +272,21 @@ Additional Inherited Members</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Constructs a Patient with the specified details.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">dni</td><td>the DNI of the patient </td></tr>
+    <tr><td class="paramname">name</td><td>the name of the patient </td></tr>
+    <tr><td class="paramname">surname</td><td>the surname of the patient </td></tr>
+    <tr><td class="paramname">birthDate</td><td>the birth date of the patient </td></tr>
+    <tr><td class="paramname">gender</td><td>the gender of the patient </td></tr>
+    <tr><td class="paramname">phone</td><td>the phone number of the patient </td></tr>
+    <tr><td class="paramname">mail</td><td>the email address of the patient </td></tr>
+    <tr><td class="paramname">password</td><td>the password of the patient </td></tr>
+    <tr><td class="paramname">patientId</td><td>the unique patient ID </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>

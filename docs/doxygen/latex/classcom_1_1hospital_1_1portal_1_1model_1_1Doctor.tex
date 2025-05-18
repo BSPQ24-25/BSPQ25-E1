@@ -70,6 +70,11 @@ String \mbox{\hyperlink{classcom_1_1hospital_1_1portal_1_1model_1_1User_a6cc79cf
 \end{DoxyCompactItemize}
 
 
+\doxysubsection{Detailed Description}
+Represents a doctor user in the hospital portal system. Extends the {\ttfamily \doxylink{}{User}} class and adds a unique doctor ID and specialty. 
+
+This class is mapped to the "{}doctors"{} table in the database. 
+
 \doxysubsection{Constructor \& Destructor Documentation}
 \Hypertarget{classcom_1_1hospital_1_1portal_1_1model_1_1Doctor_a35a6e8d46bdf151964dd9eed366ae00e}\label{classcom_1_1hospital_1_1portal_1_1model_1_1Doctor_a35a6e8d46bdf151964dd9eed366ae00e} 
 \index{com.hospital.portal.model.Doctor@{com.hospital.portal.model.Doctor}!Doctor@{Doctor}}
@@ -77,12 +82,37 @@ String \mbox{\hyperlink{classcom_1_1hospital_1_1portal_1_1model_1_1User_a6cc79cf
 \doxysubsubsection{\texorpdfstring{Doctor()}{Doctor()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
 {\footnotesize\ttfamily com.\+hospital.\+portal.\+model.\+Doctor.\+Doctor (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
-\Hypertarget{classcom_1_1hospital_1_1portal_1_1model_1_1Doctor_a8a04fc43e8896c91eaacb332ee4ec045}\label{classcom_1_1hospital_1_1portal_1_1model_1_1Doctor_a8a04fc43e8896c91eaacb332ee4ec045} 
+Default constructor for JPA. \Hypertarget{classcom_1_1hospital_1_1portal_1_1model_1_1Doctor_a8a04fc43e8896c91eaacb332ee4ec045}\label{classcom_1_1hospital_1_1portal_1_1model_1_1Doctor_a8a04fc43e8896c91eaacb332ee4ec045} 
 \index{com.hospital.portal.model.Doctor@{com.hospital.portal.model.Doctor}!Doctor@{Doctor}}
 \index{Doctor@{Doctor}!com.hospital.portal.model.Doctor@{com.hospital.portal.model.Doctor}}
 \doxysubsubsection{\texorpdfstring{Doctor()}{Doctor()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
 {\footnotesize\ttfamily com.\+hospital.\+portal.\+model.\+Doctor.\+Doctor (\begin{DoxyParamCaption}\item[{String}]{dni,  }\item[{String}]{name,  }\item[{String}]{surname,  }\item[{Local\+Date}]{birth\+Date,  }\item[{String}]{gender,  }\item[{String}]{phone,  }\item[{String}]{mail,  }\item[{String}]{password,  }\item[{String}]{doctor\+Id,  }\item[{\mbox{\hyperlink{classcom_1_1hospital_1_1portal_1_1model_1_1Specialty}{Specialty}}}]{specialty }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
+Constructs a Doctor with the specified details.
+
+
+\begin{DoxyParams}{Parameters}
+{\em dni} & the DNI of the doctor \\
+\hline
+{\em name} & the name of the doctor \\
+\hline
+{\em surname} & the surname of the doctor \\
+\hline
+{\em birth\+Date} & the birth date of the doctor \\
+\hline
+{\em gender} & the gender of the doctor \\
+\hline
+{\em phone} & the phone number of the doctor \\
+\hline
+{\em mail} & the email address of the doctor \\
+\hline
+{\em password} & the password of the doctor \\
+\hline
+{\em doctor\+Id} & the unique doctor ID \\
+\hline
+{\em specialty} & the specialty of the doctor \\
+\hline
+\end{DoxyParams}
 
 
 \doxysubsection{Member Function Documentation}
@@ -116,6 +146,11 @@ String \mbox{\hyperlink{classcom_1_1hospital_1_1portal_1_1model_1_1User_a6cc79cf
 \doxysubsubsection{\texorpdfstring{toString()}{toString()}}
 {\footnotesize\ttfamily String com.\+hospital.\+portal.\+model.\+Doctor.\+to\+String (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
+Returns a string representation of the Doctor, including doctor\+Id and specialty.
+
+\begin{DoxyReturn}{Returns}
+a string representation of the Doctor 
+\end{DoxyReturn}
 
 
 Reimplemented from \mbox{\hyperlink{classcom_1_1hospital_1_1portal_1_1model_1_1User_a4f21fe086c5ae43d37f491ac7d98c760}{com.\+hospital.\+portal.\+model.\+User}}.
