@@ -72,7 +72,7 @@ public class AppointmentIntegrationTest {
 
         // Create appointment
         Appointment appointment = new Appointment();
-        appointment.setDate(LocalDate.of(2025, 5, 10));
+        appointment.setDate(LocalDate.of(2025, 7, 10));
         appointment.setStartTime(LocalTime.of(10, 0));
         appointment.setEndTime(LocalTime.of(10, 30));
         appointment.setPatient(patient);
@@ -95,7 +95,7 @@ public class AppointmentIntegrationTest {
         assertEquals(HttpStatus.OK, response.getStatusCode());
         Appointment created = response.getBody();
         assertNotNull(created);
-        assertEquals(LocalDate.of(2025, 5, 10), created.getDate());
+        assertEquals(LocalDate.of(2025, 7, 10), created.getDate());
 
         appointmentId = created.getAppointmentId();
         assertNotNull(appointmentId);
