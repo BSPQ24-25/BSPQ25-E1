@@ -34,19 +34,24 @@ jobs:
         run: mvn test jacoco:report
 
       - name: Run Integration Tests
-        run: mvn -Pintegration integration-test
+        run: mvn -Pintegration verify
 
       - name: Run Performance Tests
-        run: mvn -Pperformance integration-test
-
+        run: mvn -Pperformance verify
+        
       - name: Generate Maven Site
         run: mvn site
 
       - name: Ensure that the performance reports are also moved into the target\site\reports folder
         run: mvn -Pperformance resources:copy-resources@copy-perf-report
 
-      - name: Move all contents into docs folder
-        run: mvn post-site
+      - name: Copy site output to docs/site and docs/doxygen folder to docs/doxygen
+        run: |
+          mkdir -p docs
+          mkdir -p docs/site
+          mkdir -p docs/doxygen
+          cp -r target/site/* docs/site/
+          cp -r target/doxygen/* docs/doxygen/
 
       - name: Commit and push docs
         run: |
