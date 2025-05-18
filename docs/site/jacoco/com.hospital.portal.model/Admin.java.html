@@ -6,35 +6,64 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import jakarta.persistence.Column;
 
+/**
+ * Represents an administrator user in the hospital portal system.
+ * Extends the {@link User} class and adds a unique worker ID.
+ * &lt;p&gt;
+ * This class is mapped to the &quot;admins&quot; table in the database.
+ * &lt;/p&gt;
+ */
 @Entity
 @Table(name = &quot;admins&quot;)
 public class Admin extends User {
+
+     /**
+     * Unique identifier for the admin worker.
+     */
     @Column(nullable = false)
     private String workerId;
 
-    // Default constructor
-<span class="fc" id="L16">    public Admin() {}</span>
+    /**
+     * Default constructor for JPA.
+     */    
+<span class="fc" id="L29">    public Admin() {}</span>
 
-    // Constructor with parameters
+    /**
+     * Constructs an Admin with the specified details.
+     *
+     * @param dni the DNI of the admin
+     * @param name the name of the admin
+     * @param surname the surname of the admin
+     * @param birthDate the birth date of the admin
+     * @param gender the gender of the admin
+     * @param phone the phone number of the admin
+     * @param mail the email address of the admin
+     * @param password the password of the admin
+     * @param workerId the unique worker ID of the admin
+     */
     public Admin(String dni, String name, String surname, LocalDate birthDate, String gender, String phone, String mail, String password, String workerId) {
-<span class="fc" id="L20">        super(dni, name, surname, birthDate, gender, phone, mail, password);  // Call to the parent constructor</span>
-<span class="fc" id="L21">        this.workerId = workerId;</span>
-<span class="fc" id="L22">    }</span>
+<span class="fc" id="L45">        super(dni, name, surname, birthDate, gender, phone, mail, password);  // Call to the parent constructor</span>
+<span class="fc" id="L46">        this.workerId = workerId;</span>
+<span class="fc" id="L47">    }</span>
 
-    // Getter and Setter for workerId
+    
     public String getWorkerId() {
-<span class="fc" id="L26">        return workerId;</span>
+<span class="fc" id="L51">        return workerId;</span>
     }
 
     public void setWorkerId(String workerId) {
-<span class="fc" id="L30">        this.workerId = workerId;</span>
-<span class="fc" id="L31">    }</span>
+<span class="fc" id="L55">        this.workerId = workerId;</span>
+<span class="fc" id="L56">    }</span>
 
-    // Overridden toString method to include the new attribute &quot;workerId&quot;
+    /**
+     * Returns a string representation of the Admin, including the worker ID.
+     *
+     * @return a string representation of the Admin
+     */
     @Override
     public String toString() {
-<span class="nc" id="L36">        return super.toString() +  // Call the toString method from the parent class (User)</span>
-               &quot;, workerId='&quot; + workerId + '\'' +  // Add the new attribute to the string representation
+<span class="nc" id="L65">        return super.toString() +  </span>
+               &quot;, workerId='&quot; + workerId + '\'' +  
                '}';
     }
 }

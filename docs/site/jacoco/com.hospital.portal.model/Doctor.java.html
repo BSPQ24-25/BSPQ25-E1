@@ -8,50 +8,82 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.Column;
 
+/**
+ * Represents a doctor user in the hospital portal system.
+ * Extends the {@link User} class and adds a unique doctor ID and specialty.
+ * &lt;p&gt;
+ * This class is mapped to the &quot;doctors&quot; table in the database.
+ * &lt;/p&gt;
+ */
 @Entity
 @Table(name = &quot;doctors&quot;)
 public class Doctor extends User {
+    /**
+     * Unique identifier for the doctor.
+     */
     @Column(nullable = false)
     private String doctorId;
 
+    /**
+     * Specialty of the doctor.
+     */
     @ManyToOne
     @JoinColumn(name = &quot;specialty_name&quot;, referencedColumnName = &quot;name&quot;)
     private Specialty specialty;
 
-    // Default constructor
-<span class="fc" id="L22">    public Doctor() {}</span>
+    /**
+     * Default constructor for JPA.
+     */
+<span class="fc" id="L37">    public Doctor() {}</span>
 
-    // Constructor with parameters
+    /**
+     * Constructs a Doctor with the specified details.
+     *
+     * @param dni the DNI of the doctor
+     * @param name the name of the doctor
+     * @param surname the surname of the doctor
+     * @param birthDate the birth date of the doctor
+     * @param gender the gender of the doctor
+     * @param phone the phone number of the doctor
+     * @param mail the email address of the doctor
+     * @param password the password of the doctor
+     * @param doctorId the unique doctor ID
+     * @param specialty the specialty of the doctor
+     */
     public Doctor(String dni, String name, String surname, LocalDate birthDate, String gender, String phone, String mail, String password, String doctorId, Specialty specialty) {
-<span class="fc" id="L26">        super(dni, name, surname, birthDate, gender, phone, mail, password);  // Call to the parent constructor</span>
-<span class="fc" id="L27">        this.doctorId = doctorId;</span>
-<span class="fc" id="L28">        this.specialty = specialty;</span>
-<span class="fc" id="L29">    }</span>
+<span class="fc" id="L54">        super(dni, name, surname, birthDate, gender, phone, mail, password);  // Call to the parent constructor</span>
+<span class="fc" id="L55">        this.doctorId = doctorId;</span>
+<span class="fc" id="L56">        this.specialty = specialty;</span>
+<span class="fc" id="L57">    }</span>
 
     // Getter and Setter for doctorId
     public String getDoctorId() {
-<span class="fc" id="L33">        return doctorId;</span>
+<span class="fc" id="L61">        return doctorId;</span>
     }
 
     public void setDoctorId(String doctorId) {
-<span class="fc" id="L37">        this.doctorId = doctorId;</span>
-<span class="fc" id="L38">    }</span>
+<span class="fc" id="L65">        this.doctorId = doctorId;</span>
+<span class="fc" id="L66">    }</span>
 
     // Getter and Setter for specialty
     public Specialty getSpecialty() {
-<span class="fc" id="L42">        return specialty;</span>
+<span class="fc" id="L70">        return specialty;</span>
     }
 
     public void setSpecialty(Specialty specialty) {
-<span class="fc" id="L46">        this.specialty = specialty;</span>
-<span class="fc" id="L47">    }</span>
+<span class="fc" id="L74">        this.specialty = specialty;</span>
+<span class="fc" id="L75">    }</span>
 
-    // Overridden toString method to include the new attributes &quot;doctorId&quot; and &quot;specialty&quot;
+    /**
+     * Returns a string representation of the Doctor, including doctorId and specialty.
+     *
+     * @return a string representation of the Doctor
+     */
     @Override
     public String toString() {
-<span class="nc" id="L52">        return super.toString() +  // Call the toString method from the parent class (User)</span>
-               &quot;, doctorId='&quot; + doctorId + '\'' +  // Add the new attribute doctorId
-               &quot;, specialty=&quot; + specialty +  // Add the new attribute specialty
+<span class="nc" id="L84">        return super.toString() + </span>
+               &quot;, doctorId='&quot; + doctorId + '\'' +  
+               &quot;, specialty=&quot; + specialty + 
                '}';
     }
 }

@@ -48,6 +48,11 @@ String \mbox{\hyperlink{classcom_1_1hospital_1_1portal_1_1model_1_1Appointment_a
 \end{DoxyCompactItemize}
 
 
+\doxysubsection{Detailed Description}
+Represents an appointment in the hospital portal system. Stores information about the date, time, patient, doctor, purpose, and observations of the appointment. 
+
+This class is mapped to the "{}appointments"{} table in the database. 
+
 \doxysubsection{Constructor \& Destructor Documentation}
 \Hypertarget{classcom_1_1hospital_1_1portal_1_1model_1_1Appointment_a541eca133899b36089f8473c1ee87433}\label{classcom_1_1hospital_1_1portal_1_1model_1_1Appointment_a541eca133899b36089f8473c1ee87433} 
 \index{com.hospital.portal.model.Appointment@{com.hospital.portal.model.Appointment}!Appointment@{Appointment}}
@@ -55,12 +60,29 @@ String \mbox{\hyperlink{classcom_1_1hospital_1_1portal_1_1model_1_1Appointment_a
 \doxysubsubsection{\texorpdfstring{Appointment()}{Appointment()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
 {\footnotesize\ttfamily com.\+hospital.\+portal.\+model.\+Appointment.\+Appointment (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
-\Hypertarget{classcom_1_1hospital_1_1portal_1_1model_1_1Appointment_a810a15ef74247a612730642b2cec30aa}\label{classcom_1_1hospital_1_1portal_1_1model_1_1Appointment_a810a15ef74247a612730642b2cec30aa} 
+Default constructor for JPA. \Hypertarget{classcom_1_1hospital_1_1portal_1_1model_1_1Appointment_a810a15ef74247a612730642b2cec30aa}\label{classcom_1_1hospital_1_1portal_1_1model_1_1Appointment_a810a15ef74247a612730642b2cec30aa} 
 \index{com.hospital.portal.model.Appointment@{com.hospital.portal.model.Appointment}!Appointment@{Appointment}}
 \index{Appointment@{Appointment}!com.hospital.portal.model.Appointment@{com.hospital.portal.model.Appointment}}
 \doxysubsubsection{\texorpdfstring{Appointment()}{Appointment()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
 {\footnotesize\ttfamily com.\+hospital.\+portal.\+model.\+Appointment.\+Appointment (\begin{DoxyParamCaption}\item[{Local\+Date}]{date,  }\item[{Local\+Time}]{start\+Time,  }\item[{Local\+Time}]{end\+Time,  }\item[{\mbox{\hyperlink{classcom_1_1hospital_1_1portal_1_1model_1_1Patient}{Patient}}}]{patient,  }\item[{\mbox{\hyperlink{classcom_1_1hospital_1_1portal_1_1model_1_1Doctor}{Doctor}}}]{doctor,  }\item[{String}]{appointment\+Purpose }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
+Constructs an Appointment with the specified details.
+
+
+\begin{DoxyParams}{Parameters}
+{\em date} & the date of the appointment \\
+\hline
+{\em start\+Time} & the start time of the appointment \\
+\hline
+{\em end\+Time} & the end time of the appointment \\
+\hline
+{\em patient} & the patient associated with the appointment \\
+\hline
+{\em doctor} & the doctor associated with the appointment \\
+\hline
+{\em appointment\+Purpose} & the purpose of the appointment \\
+\hline
+\end{DoxyParams}
 
 
 \doxysubsection{Member Function Documentation}
@@ -166,6 +188,9 @@ String \mbox{\hyperlink{classcom_1_1hospital_1_1portal_1_1model_1_1Appointment_a
 \doxysubsubsection{\texorpdfstring{toString()}{toString()}}
 {\footnotesize\ttfamily String com.\+hospital.\+portal.\+model.\+Appointment.\+to\+String (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
+Returns a string representation of the Appointment \begin{DoxyReturn}{Returns}
+a string representation of the Appointment 
+\end{DoxyReturn}
 
 
 \doxysubsection{Member Data Documentation}
@@ -175,7 +200,7 @@ String \mbox{\hyperlink{classcom_1_1hospital_1_1portal_1_1model_1_1Appointment_a
 \doxysubsubsection{\texorpdfstring{appointmentId}{appointmentId}}
 {\footnotesize\ttfamily String com.\+hospital.\+portal.\+model.\+Appointment.\+appointment\+Id}
 
-
+Unique identifier for the appointment. 
 
 The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
 \item 

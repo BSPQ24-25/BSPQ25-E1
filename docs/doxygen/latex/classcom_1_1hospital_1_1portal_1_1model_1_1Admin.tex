@@ -66,6 +66,11 @@ String \mbox{\hyperlink{classcom_1_1hospital_1_1portal_1_1model_1_1User_a6cc79cf
 \end{DoxyCompactItemize}
 
 
+\doxysubsection{Detailed Description}
+Represents an administrator user in the hospital portal system. Extends the {\ttfamily \doxylink{}{User}} class and adds a unique worker ID. 
+
+This class is mapped to the "{}admins"{} table in the database. 
+
 \doxysubsection{Constructor \& Destructor Documentation}
 \Hypertarget{classcom_1_1hospital_1_1portal_1_1model_1_1Admin_a26458d4086bfacae1647c0b290e2884e}\label{classcom_1_1hospital_1_1portal_1_1model_1_1Admin_a26458d4086bfacae1647c0b290e2884e} 
 \index{com.hospital.portal.model.Admin@{com.hospital.portal.model.Admin}!Admin@{Admin}}
@@ -73,12 +78,35 @@ String \mbox{\hyperlink{classcom_1_1hospital_1_1portal_1_1model_1_1User_a6cc79cf
 \doxysubsubsection{\texorpdfstring{Admin()}{Admin()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
 {\footnotesize\ttfamily com.\+hospital.\+portal.\+model.\+Admin.\+Admin (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
-\Hypertarget{classcom_1_1hospital_1_1portal_1_1model_1_1Admin_a0fc6666fd94ff2aee6adda0b7655ec91}\label{classcom_1_1hospital_1_1portal_1_1model_1_1Admin_a0fc6666fd94ff2aee6adda0b7655ec91} 
+Default constructor for JPA. \Hypertarget{classcom_1_1hospital_1_1portal_1_1model_1_1Admin_a0fc6666fd94ff2aee6adda0b7655ec91}\label{classcom_1_1hospital_1_1portal_1_1model_1_1Admin_a0fc6666fd94ff2aee6adda0b7655ec91} 
 \index{com.hospital.portal.model.Admin@{com.hospital.portal.model.Admin}!Admin@{Admin}}
 \index{Admin@{Admin}!com.hospital.portal.model.Admin@{com.hospital.portal.model.Admin}}
 \doxysubsubsection{\texorpdfstring{Admin()}{Admin()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
 {\footnotesize\ttfamily com.\+hospital.\+portal.\+model.\+Admin.\+Admin (\begin{DoxyParamCaption}\item[{String}]{dni,  }\item[{String}]{name,  }\item[{String}]{surname,  }\item[{Local\+Date}]{birth\+Date,  }\item[{String}]{gender,  }\item[{String}]{phone,  }\item[{String}]{mail,  }\item[{String}]{password,  }\item[{String}]{worker\+Id }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
+Constructs an Admin with the specified details.
+
+
+\begin{DoxyParams}{Parameters}
+{\em dni} & the DNI of the admin \\
+\hline
+{\em name} & the name of the admin \\
+\hline
+{\em surname} & the surname of the admin \\
+\hline
+{\em birth\+Date} & the birth date of the admin \\
+\hline
+{\em gender} & the gender of the admin \\
+\hline
+{\em phone} & the phone number of the admin \\
+\hline
+{\em mail} & the email address of the admin \\
+\hline
+{\em password} & the password of the admin \\
+\hline
+{\em worker\+Id} & the unique worker ID of the admin \\
+\hline
+\end{DoxyParams}
 
 
 \doxysubsection{Member Function Documentation}
@@ -100,6 +128,11 @@ String \mbox{\hyperlink{classcom_1_1hospital_1_1portal_1_1model_1_1User_a6cc79cf
 \doxysubsubsection{\texorpdfstring{toString()}{toString()}}
 {\footnotesize\ttfamily String com.\+hospital.\+portal.\+model.\+Admin.\+to\+String (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
+Returns a string representation of the Admin, including the worker ID.
+
+\begin{DoxyReturn}{Returns}
+a string representation of the Admin 
+\end{DoxyReturn}
 
 
 Reimplemented from \mbox{\hyperlink{classcom_1_1hospital_1_1portal_1_1model_1_1User_a4f21fe086c5ae43d37f491ac7d98c760}{com.\+hospital.\+portal.\+model.\+User}}.

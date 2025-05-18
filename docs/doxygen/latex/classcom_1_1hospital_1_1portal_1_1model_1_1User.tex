@@ -54,6 +54,11 @@ String \mbox{\hyperlink{classcom_1_1hospital_1_1portal_1_1model_1_1User_a6cc79cf
 \end{DoxyCompactItemize}
 
 
+\doxysubsection{Detailed Description}
+Represents a user in the hospital portal system. 
+
+This class is mapped to the "{}users"{} table in the database. 
+
 \doxysubsection{Constructor \& Destructor Documentation}
 \Hypertarget{classcom_1_1hospital_1_1portal_1_1model_1_1User_a99f10461f7612304f42f5dfbd11dacf2}\label{classcom_1_1hospital_1_1portal_1_1model_1_1User_a99f10461f7612304f42f5dfbd11dacf2} 
 \index{com.hospital.portal.model.User@{com.hospital.portal.model.User}!User@{User}}
@@ -61,12 +66,33 @@ String \mbox{\hyperlink{classcom_1_1hospital_1_1portal_1_1model_1_1User_a6cc79cf
 \doxysubsubsection{\texorpdfstring{User()}{User()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
 {\footnotesize\ttfamily com.\+hospital.\+portal.\+model.\+User.\+User (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
-\Hypertarget{classcom_1_1hospital_1_1portal_1_1model_1_1User_a9d174abc8dd4ebded7101e3c4a8887e6}\label{classcom_1_1hospital_1_1portal_1_1model_1_1User_a9d174abc8dd4ebded7101e3c4a8887e6} 
+Default constructor for JPA. \Hypertarget{classcom_1_1hospital_1_1portal_1_1model_1_1User_a9d174abc8dd4ebded7101e3c4a8887e6}\label{classcom_1_1hospital_1_1portal_1_1model_1_1User_a9d174abc8dd4ebded7101e3c4a8887e6} 
 \index{com.hospital.portal.model.User@{com.hospital.portal.model.User}!User@{User}}
 \index{User@{User}!com.hospital.portal.model.User@{com.hospital.portal.model.User}}
 \doxysubsubsection{\texorpdfstring{User()}{User()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
 {\footnotesize\ttfamily com.\+hospital.\+portal.\+model.\+User.\+User (\begin{DoxyParamCaption}\item[{String}]{dni,  }\item[{String}]{name,  }\item[{String}]{surname,  }\item[{Local\+Date}]{birth\+Date,  }\item[{String}]{gender,  }\item[{String}]{phone,  }\item[{String}]{mail,  }\item[{String}]{password }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
+Constructs a User with the specified details.
+
+
+\begin{DoxyParams}{Parameters}
+{\em dni} & the DNI of the user \\
+\hline
+{\em name} & the name of the user \\
+\hline
+{\em surname} & the surname of the user \\
+\hline
+{\em birth\+Date} & the birth date of the user \\
+\hline
+{\em gender} & the gender of the user \\
+\hline
+{\em phone} & the phone number of the user \\
+\hline
+{\em mail} & the email address of the user \\
+\hline
+{\em password} & the password of the user \\
+\hline
+\end{DoxyParams}
 
 
 \doxysubsection{Member Function Documentation}
@@ -180,6 +206,11 @@ Reimplemented in \mbox{\hyperlink{classcom_1_1hospital_1_1portal_1_1model_1_1Pat
 \doxysubsubsection{\texorpdfstring{toString()}{toString()}}
 {\footnotesize\ttfamily String com.\+hospital.\+portal.\+model.\+User.\+to\+String (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
+Returns a string representation of the User.
+
+\begin{DoxyReturn}{Returns}
+a string representation of the User 
+\end{DoxyReturn}
 
 
 Reimplemented in \mbox{\hyperlink{classcom_1_1hospital_1_1portal_1_1model_1_1Admin_ad475a252993df5e02879c7c515735e1a}{com.\+hospital.\+portal.\+model.\+Admin}}, and \mbox{\hyperlink{classcom_1_1hospital_1_1portal_1_1model_1_1Doctor_a9af854c748fd96dbf24aecce9a46ff19}{com.\+hospital.\+portal.\+model.\+Doctor}}.
@@ -193,7 +224,7 @@ Reimplemented in \mbox{\hyperlink{classcom_1_1hospital_1_1portal_1_1model_1_1Adm
 \doxysubsubsection{\texorpdfstring{dni}{dni}}
 {\footnotesize\ttfamily String com.\+hospital.\+portal.\+model.\+User.\+dni}
 
-
+Unique identifier for the user (DNI). 
 
 The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
 \item 

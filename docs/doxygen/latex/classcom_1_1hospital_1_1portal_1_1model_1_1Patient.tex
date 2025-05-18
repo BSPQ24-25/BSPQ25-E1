@@ -66,6 +66,11 @@ String \mbox{\hyperlink{classcom_1_1hospital_1_1portal_1_1model_1_1User_a6cc79cf
 \end{DoxyCompactItemize}
 
 
+\doxysubsection{Detailed Description}
+Represents a patient in the hospital portal system. Extends the {\ttfamily \doxylink{}{User}} class and adds a unique patient ID. 
+
+This class is mapped to the "{}patients"{} table in the database. 
+
 \doxysubsection{Constructor \& Destructor Documentation}
 \Hypertarget{classcom_1_1hospital_1_1portal_1_1model_1_1Patient_aea85db6faa03c5bb03d95531271524b0}\label{classcom_1_1hospital_1_1portal_1_1model_1_1Patient_aea85db6faa03c5bb03d95531271524b0} 
 \index{com.hospital.portal.model.Patient@{com.hospital.portal.model.Patient}!Patient@{Patient}}
@@ -73,12 +78,35 @@ String \mbox{\hyperlink{classcom_1_1hospital_1_1portal_1_1model_1_1User_a6cc79cf
 \doxysubsubsection{\texorpdfstring{Patient()}{Patient()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
 {\footnotesize\ttfamily com.\+hospital.\+portal.\+model.\+Patient.\+Patient (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
-\Hypertarget{classcom_1_1hospital_1_1portal_1_1model_1_1Patient_a1a9d1907e64029685577d5b5fbe24375}\label{classcom_1_1hospital_1_1portal_1_1model_1_1Patient_a1a9d1907e64029685577d5b5fbe24375} 
+Default constructor for JPA. \Hypertarget{classcom_1_1hospital_1_1portal_1_1model_1_1Patient_a1a9d1907e64029685577d5b5fbe24375}\label{classcom_1_1hospital_1_1portal_1_1model_1_1Patient_a1a9d1907e64029685577d5b5fbe24375} 
 \index{com.hospital.portal.model.Patient@{com.hospital.portal.model.Patient}!Patient@{Patient}}
 \index{Patient@{Patient}!com.hospital.portal.model.Patient@{com.hospital.portal.model.Patient}}
 \doxysubsubsection{\texorpdfstring{Patient()}{Patient()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
 {\footnotesize\ttfamily com.\+hospital.\+portal.\+model.\+Patient.\+Patient (\begin{DoxyParamCaption}\item[{String}]{dni,  }\item[{String}]{name,  }\item[{String}]{surname,  }\item[{Local\+Date}]{birth\+Date,  }\item[{String}]{gender,  }\item[{String}]{phone,  }\item[{String}]{mail,  }\item[{String}]{password,  }\item[{String}]{patient\+Id }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
+Constructs a Patient with the specified details.
+
+
+\begin{DoxyParams}{Parameters}
+{\em dni} & the DNI of the patient \\
+\hline
+{\em name} & the name of the patient \\
+\hline
+{\em surname} & the surname of the patient \\
+\hline
+{\em birth\+Date} & the birth date of the patient \\
+\hline
+{\em gender} & the gender of the patient \\
+\hline
+{\em phone} & the phone number of the patient \\
+\hline
+{\em mail} & the email address of the patient \\
+\hline
+{\em password} & the password of the patient \\
+\hline
+{\em patient\+Id} & the unique patient ID \\
+\hline
+\end{DoxyParams}
 
 
 \doxysubsection{Member Function Documentation}
