@@ -30,10 +30,12 @@ jobs:
       - name: Install Doxygen
         run: sudo apt-get update && sudo apt-get install -y doxygen graphviz
 
-      - name: Run Semgrep SAST Scan
+      - name: Run Semgrep SAST Scan (Java only)
         uses: returntocorp/semgrep-action@v1
         with:
-          config: "auto"
+          config: java
+          include: "**/*.java"
+          sarif: semgrep.sarif
         continue-on-error: true
 
       - name: Run Unit tests and generate converage report
