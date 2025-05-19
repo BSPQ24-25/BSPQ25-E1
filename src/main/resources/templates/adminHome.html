@@ -3,17 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <title>Admin Dashboard</title>
-
   <!-- Bootstrap 5 CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
-
   <!-- Standard app CSS -->
   <link rel="stylesheet" th:href="@{/css/font-awesome.min.css}">
   <link rel="stylesheet" th:href="@{/css/animate.css}">
   <link rel="stylesheet" th:href="@{/css/owl.carousel.css}">
   <link rel="stylesheet" th:href="@{/css/owl.theme.default.min.css}">
   <link rel="stylesheet" th:href="@{/css/tooplate-style.css}">
-
   <style>
     body { font-family: Arial, sans-serif; margin: 0; padding: 0; }
     .container { padding-top: 20px; }
@@ -25,12 +22,10 @@
   </style>
 </head>
 <body>
-
   <!-- PRE LOADER -->
   <section class="preloader">
     <div class="spinner"><span class="spinner-rotate"></span></div>
   </section>
-
   <!-- HEADER -->
   <header>
     <div class="container">
@@ -46,7 +41,6 @@
       </div>
     </div>
   </header>
-
   <!-- NAVBAR -->
   <section class="navbar navbar-default navbar-static-top">
     <div class="container">
@@ -62,11 +56,9 @@
       </div>
     </div>
   </section>
-
   <!-- Page Title & Tabs -->
   <div class="container">
     <h1 class="mb-4">Admin Dashboard</h1>
-
     <!-- TABS -->
     <ul class="nav nav-tabs" id="adminTabs" role="tablist">
       <li class="nav-item">
@@ -79,7 +71,6 @@
         <button class="nav-link" id="tab-doctors" data-bs-toggle="tab" data-bs-target="#content-doctors" type="button" role="tab">Doctors</button>
       </li>
     </ul>
-
     <div class="tab-content">
       <!-- APPOINTMENTS TAB -->
       <div class="tab-pane fade show active" id="content-appointments" role="tabpanel">
@@ -95,7 +86,6 @@
           <tbody></tbody>
         </table>
       </div>
-
       <!-- PATIENTS TAB -->
       <div class="tab-pane fade" id="content-patients" role="tabpanel">
         <div class="d-flex justify-content-end mb-2">
@@ -110,7 +100,6 @@
           <tbody></tbody>
         </table>
       </div>
-
       <!-- DOCTORS TAB -->
       <div class="tab-pane fade" id="content-doctors" role="tabpanel">
         <div class="d-flex justify-content-end mb-2">
@@ -125,7 +114,6 @@
       </div>
     </div>
   </div>
-
   <!-- APPOINTMENT MODAL -->
   <div class="modal fade" id="appointmentModal" tabindex="-1">
     <div class="modal-dialog">
@@ -167,7 +155,6 @@
       </div>
     </div>
   </div>
-
   <!-- PATIENT MODAL -->
   <div class="modal fade" id="patientModal" tabindex="-1">
     <div class="modal-dialog">
@@ -201,7 +188,6 @@
       </div>
     </div>
   </div>
-
   <!-- DOCTOR MODAL -->
   <div class="modal fade" id="doctorModal" tabindex="-1">
     <div class="modal-dialog">
@@ -226,19 +212,27 @@
       </div>
     </div>
   </div>
-
   <!-- JS Libraries -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   <script src="/js/jquery.js"></script>
   <script src="/js/custom.js"></script>
-
   <script th:inline="javascript">
   /*<![CDATA[*/
     const apptApi     = /*[[ @{/api/admin/appointments} ]]*/ '/api/admin/appointments';
     const patientsApi = /*[[ @{/api/admin/patients} ]]*/ '/api/admin/patients';
     const doctorsApi  = /*[[ @{/api/admin/doctors} ]]*/ '/api/admin/doctors';
-
     let appointmentsList = [], patientsList = [], doctorsList = [], currentId;
+
+    // Helper function to sanitize user data to prevent XSS
+    function escapeHTML(str) {
+      if (!str) return '';
+      return str.toString()
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+    }
 
     document.addEventListener('DOMContentLoaded', () => {
       loadPatients();
@@ -253,25 +247,48 @@
         .then(list => {
           patientsList = list;
           const tbody = document.querySelector('#patientsTable tbody');
-          tbody.innerHTML = '';
+          tbody.innerHTML = ''; // Clearing is safe here since we're not using user input
           list.forEach(p => {
+            // Create elements safely instead of using innerHTML
             const tr = document.createElement('tr');
-            tr.innerHTML = `
-              <td>${p.dni}</td>
-              <td>${p.name}</td>
-              <td>${p.surname}</td>
-              <td>${p.birthDate}</td>
-              <td>${p.gender}</td>
-              <td>${p.phone}</td>
-              <td>${p.email}</td>
-              <td>
-                <button class="btn btn-sm btn-primary edit-pat" data-dni="${p.dni}">Edit</button>
-                <button class="btn btn-sm btn-danger del-pat" data-dni="${p.dni}">Delete</button>
-              </td>`;
-            tbody.append(tr);
+            
+            // Add data cells
+            const createCell = (text) => {
+              const td = document.createElement('td');
+              td.textContent = text; // Using textContent is safe from XSS
+              return td;
+            };
+            
+            tr.appendChild(createCell(p.dni));
+            tr.appendChild(createCell(p.name));
+            tr.appendChild(createCell(p.surname));
+            tr.appendChild(createCell(p.birthDate));
+            tr.appendChild(createCell(p.gender));
+            tr.appendChild(createCell(p.phone));
+            tr.appendChild(createCell(p.email));
+            
+            // Create action buttons safely
+            const actionsCell = document.createElement('td');
+            
+            const editBtn = document.createElement('button');
+            editBtn.className = 'btn btn-sm btn-primary edit-pat';
+            editBtn.textContent = 'Edit';
+            editBtn.dataset.dni = p.dni;
+            editBtn.onclick = editPatient;
+            
+            const delBtn = document.createElement('button');
+            delBtn.className = 'btn btn-sm btn-danger del-pat';
+            delBtn.textContent = 'Delete';
+            delBtn.dataset.dni = p.dni;
+            delBtn.onclick = deletePatient;
+            
+            actionsCell.appendChild(editBtn);
+            actionsCell.appendChild(document.createTextNode(' ')); // Space between buttons
+            actionsCell.appendChild(delBtn);
+            
+            tr.appendChild(actionsCell);
+            tbody.appendChild(tr);
           });
-          document.querySelectorAll('.edit-pat').forEach(btn => btn.onclick = editPatient);
-          document.querySelectorAll('.del-pat').forEach(btn => deletePatient);
         })
         .catch(e => console.error('Error loading patients:', e));
     }
@@ -282,21 +299,44 @@
         .then(list => {
           doctorsList = list;
           const tbody = document.querySelector('#doctorsTable tbody');
-          tbody.innerHTML = '';
+          tbody.innerHTML = ''; // Clearing is safe here
           list.forEach(d => {
+            // Create elements safely
             const tr = document.createElement('tr');
-            tr.innerHTML = `
-              <td>${d.dni}</td>
-              <td>${d.name}</td>
-              <td>${d.surname}</td>
-              <td>
-                <button class="btn btn-sm btn-primary edit-doc" data-dni="${d.dni}">Edit</button>
-                <button class="btn btn-sm btn-danger del-doc" data-dni="${d.dni}">Delete</button>
-              </td>`;
-            tbody.append(tr);
+            
+            // Add data cells
+            const createCell = (text) => {
+              const td = document.createElement('td');
+              td.textContent = text; // Using textContent is safe from XSS
+              return td;
+            };
+            
+            tr.appendChild(createCell(d.dni));
+            tr.appendChild(createCell(d.name));
+            tr.appendChild(createCell(d.surname));
+            
+            // Create action buttons safely
+            const actionsCell = document.createElement('td');
+            
+            const editBtn = document.createElement('button');
+            editBtn.className = 'btn btn-sm btn-primary edit-doc';
+            editBtn.textContent = 'Edit';
+            editBtn.dataset.dni = d.dni;
+            editBtn.onclick = editDoctor;
+            
+            const delBtn = document.createElement('button');
+            delBtn.className = 'btn btn-sm btn-danger del-doc';
+            delBtn.textContent = 'Delete';
+            delBtn.dataset.dni = d.dni;
+            delBtn.onclick = deleteDoctor;
+            
+            actionsCell.appendChild(editBtn);
+            actionsCell.appendChild(document.createTextNode(' ')); // Space between buttons
+            actionsCell.appendChild(delBtn);
+            
+            tr.appendChild(actionsCell);
+            tbody.appendChild(tr);
           });
-          document.querySelectorAll('.edit-doc').forEach(btn => btn.onclick = editDoctor);
-          document.querySelectorAll('.del-doc').forEach(btn => deleteDoctor);
         })
         .catch(e => console.error('Error loading doctors:', e));
     }
@@ -307,24 +347,47 @@
         .then(list => {
           appointmentsList = list;
           const tbody = document.querySelector('#appointmentsTable tbody');
-          tbody.innerHTML = '';
+          tbody.innerHTML = ''; // Clearing is safe here
           list.forEach(a => {
+            // Create elements safely
             const tr = document.createElement('tr');
-            tr.innerHTML = `
-              <td>${a.appointmentId}</td>
-              <td>${a.patient.name} ${a.patient.surname}</td>
-              <td>${a.doctor.name} ${a.doctor.surname}</td>
-              <td>${a.date}</td>
-              <td>${a.startTime}</td>
-              <td>${a.endTime}</td>
-              <td>
-                <button class="btn btn-sm btn-primary edit-appt" data-id="${a.appointmentId}">Edit</button>
-                <button class="btn btn-sm btn-danger del-appt" data-id="${a.appointmentId}">Delete</button>
-              </td>`;
-            tbody.append(tr);
+            
+            // Add data cells
+            const createCell = (text) => {
+              const td = document.createElement('td');
+              td.textContent = text; // Using textContent is safe from XSS
+              return td;
+            };
+            
+            tr.appendChild(createCell(a.appointmentId));
+            tr.appendChild(createCell(`${a.patient.name} ${a.patient.surname}`));
+            tr.appendChild(createCell(`${a.doctor.name} ${a.doctor.surname}`));
+            tr.appendChild(createCell(a.date));
+            tr.appendChild(createCell(a.startTime));
+            tr.appendChild(createCell(a.endTime));
+            
+            // Create action buttons safely
+            const actionsCell = document.createElement('td');
+            
+            const editBtn = document.createElement('button');
+            editBtn.className = 'btn btn-sm btn-primary edit-appt';
+            editBtn.textContent = 'Edit';
+            editBtn.dataset.id = a.appointmentId;
+            editBtn.onclick = editAppointment;
+            
+            const delBtn = document.createElement('button');
+            delBtn.className = 'btn btn-sm btn-danger del-appt';
+            delBtn.textContent = 'Delete';
+            delBtn.dataset.id = a.appointmentId;
+            delBtn.onclick = deleteAppointment;
+            
+            actionsCell.appendChild(editBtn);
+            actionsCell.appendChild(document.createTextNode(' ')); // Space between buttons
+            actionsCell.appendChild(delBtn);
+            
+            tr.appendChild(actionsCell);
+            tbody.appendChild(tr);
           });
-          document.querySelectorAll('.edit-appt').forEach(btn => btn.onclick = editAppointment);
-          document.querySelectorAll('.del-appt').forEach(btn => deleteAppointment);
         })
         .catch(e => console.error('Error loading appointments:', e));
     }
@@ -334,7 +397,7 @@
       document.getElementById('newDoctorBtn').onclick  = () => openDoctorModal();
       document.getElementById('newApptBtn').onclick    = () => openAppointmentModal();
     }
-
+    
     // Patient Handlers
     function openPatientModal(dni = null) {
       currentId = dni;
@@ -343,8 +406,14 @@
       document.getElementById('pat-error').classList.add('d-none');
       if (dni) {
         const p = patientsList.find(x => x.dni === dni);
-        ['pat-dni','pat-name','pat-surname','pat-birth','pat-gender','pat-phone','pat-email']
-          .forEach(id => document.getElementById(id).value = p[id.replace('pat-','')]);
+        // Safely set form values using element properties, not innerHTML
+        document.getElementById('pat-dni').value = p.dni || '';
+        document.getElementById('pat-name').value = p.name || '';
+        document.getElementById('pat-surname').value = p.surname || '';
+        document.getElementById('pat-birth').value = p.birthDate || '';
+        document.getElementById('pat-gender').value = p.gender || '';
+        document.getElementById('pat-phone').value = p.phone || '';
+        document.getElementById('pat-email').value = p.email || '';
         document.getElementById('deletePatientBtn').style.display = 'inline-block';
       } else {
         ['pat-dni','pat-name','pat-surname','pat-birth','pat-gender','pat-phone','pat-email']
@@ -355,7 +424,9 @@
       document.getElementById('savePatientBtn').onclick   = savePatient;
       document.getElementById('deletePatientBtn').onclick = deletePatient;
     }
+
     function editPatient() { openPatientModal(this.dataset.dni); }
+
     function savePatient() {
       const payload = {
         dni: document.getElementById('pat-dni').value,
@@ -377,9 +448,11 @@
       .catch(e => {
         console.error('Error saving patient:', e);
         const d = document.getElementById('pat-error');
-        d.textContent = e.message; d.classList.remove('d-none');
+        d.textContent = e.message || 'Unknown error'; // Safely setting error message
+        d.classList.remove('d-none');
       });
     }
+
     function deletePatient() {
       if (!confirm('Delete this patient?')) return;
       fetch(patientsApi + '/' + currentId, { method:'DELETE' })
@@ -395,8 +468,10 @@
       document.getElementById('doc-error').classList.add('d-none');
       if (dni) {
         const d = doctorsList.find(x => x.dni === dni);
-        ['doc-dni','doc-name','doc-surname']
-          .forEach(id => document.getElementById(id).value = d[id.replace('doc-','')]);
+        // Safely set form values
+        document.getElementById('doc-dni').value = d.dni || '';
+        document.getElementById('doc-name').value = d.name || '';
+        document.getElementById('doc-surname').value = d.surname || '';
         document.getElementById('deleteDoctorBtn').style.display = 'inline-block';
       } else {
         ['doc-dni','doc-name','doc-surname']
@@ -407,7 +482,9 @@
       document.getElementById('saveDoctorBtn').onclick   = saveDoctor;
       document.getElementById('deleteDoctorBtn').onclick = deleteDoctor;
     }
+
     function editDoctor() { openDoctorModal(this.dataset.dni); }
+
     function saveDoctor() {
       const payload = {
         dni: document.getElementById('doc-dni').value,
@@ -425,9 +502,11 @@
       .catch(e => {
         console.error('Error saving doctor:', e);
         const d = document.getElementById('doc-error');
-        d.textContent = e.message; d.classList.remove('d-none');
+        d.textContent = e.message || 'Unknown error'; // Safely setting error message
+        d.classList.remove('d-none');
       });
     }
+
     function deleteDoctor() {
       if (!confirm('Delete this doctor?')) return;
       fetch(doctorsApi + '/' + currentId, { method:'DELETE' })
@@ -444,6 +523,7 @@
       populateApptSelects();
       if (currentId) {
         const a = appointmentsList.find(x => x.appointmentId == currentId);
+        // Safely set form values
         document.getElementById('appt-patient').value = a.patient.dni;
         document.getElementById('appt-doctor').value  = a.doctor.dni;
         document.getElementById('appt-date').value    = a.date;
@@ -459,21 +539,49 @@
       document.getElementById('saveApptBtn').onclick   = saveAppointment;
       document.getElementById('deleteApptBtn').onclick = deleteAppointment;
     }
+
     function editAppointment() { openAppointmentModal(this); }
+
     function populateApptSelects() {
       const ps = document.getElementById('appt-patient'),
             ds = document.getElementById('appt-doctor');
-      ps.innerHTML = '<option value="" disabled selected>Choose patient</option>';
-      ds.innerHTML = '<option value="" disabled selected>Choose doctor</option>';
+      
+      // Clear the selects safely
+      ps.innerHTML = '';
+      ds.innerHTML = '';
+      
+      // Create default options
+      const defaultPatientOpt = document.createElement('option');
+      defaultPatientOpt.value = '';
+      defaultPatientOpt.disabled = true;
+      defaultPatientOpt.selected = true;
+      defaultPatientOpt.textContent = 'Choose patient';
+      ps.appendChild(defaultPatientOpt);
+      
+      const defaultDoctorOpt = document.createElement('option');
+      defaultDoctorOpt.value = '';
+      defaultDoctorOpt.disabled = true;
+      defaultDoctorOpt.selected = true;
+      defaultDoctorOpt.textContent = 'Choose doctor';
+      ds.appendChild(defaultDoctorOpt);
+      
+      // Add patient options safely
       patientsList.forEach(p => {
         const o = document.createElement('option');
-        o.value = p.dni; o.textContent = p.name + ' ' + p.surname; ps.append(o);
+        o.value = p.dni;
+        o.textContent = `${p.name} ${p.surname}`;
+        ps.appendChild(o);
       });
+      
+      // Add doctor options safely
       doctorsList.forEach(d => {
         const o = document.createElement('option');
-        o.value = d.dni; o.textContent = d.name + ' ' + d.surname; ds.append(o);
+        o.value = d.dni;
+        o.textContent = `${d.name} ${d.surname}`;
+        ds.appendChild(o);
       });
     }
+
     function saveAppointment() {
       const payload = {
         patient: { dni: document.getElementById('appt-patient').value },
@@ -493,9 +601,11 @@
       .catch(e => {
         console.error('Error saving appointment:', e);
         const d = document.getElementById('appt-error');
-        d.textContent = e.message; d.classList.remove('d-none');
+        d.textContent = e.message || 'Unknown error'; // Safely setting error message
+        d.classList.remove('d-none');
       });
     }
+
     function deleteAppointment() {
       if (!confirm('Delete this appointment?')) return;
       fetch(`${apptApi}/${currentId}`, { method:'DELETE' })
@@ -505,6 +615,5 @@
     }
   /*]]>*/
   </script>
-
 </body>
 </html>
