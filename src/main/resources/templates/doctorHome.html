@@ -90,21 +90,20 @@ function sanitizeString(str) {
 function safelySetText(elementId, value) {
     const element = document.getElementById(elementId);
     if (element) {
-        element.textContent = sanitizeString(value);
+        element.textContent = value;
     }
 }
 
 /**
- * Safely set attribute of an element
- * @param {string} elementId - ID of the element to update
- * @param {string} attr - Attribute to set
- * @param {string} value - Value to set
+ * Validate if a string contains only alphanumeric characters and certain safe characters
+ * @param {string} str - The string to validate
+ * @return {boolean} True if the string is safe, false otherwise
  */
-function safelySetAttribute(elementId, attr, value) {
-    const element = document.getElementById(elementId);
-    if (element) {
-        element.setAttribute(attr, sanitizeString(value));
-    }
+function isValidId(str) {
+    if (typeof str !== 'string') return false;
+    
+    // Only allow alphanumeric characters, hyphens, and underscores
+    return /^[a-zA-Z0-9_-]+$/.test(str);
 }
 
 // Get and validate user information
@@ -116,13 +115,23 @@ try {
         // Validate the object has required properties before using them
         if (userInfo && typeof userInfo === 'object') {
             // Safely set text content
-            safelySetText("name", userInfo.name);
-            safelySetText("dni", userInfo.dni);
-            safelySetText("role", userInfo.role);
+            safelySetText("name", sanitizeString(userInfo.name));
+            safelySetText("dni", sanitizeString(userInfo.dni));
+            safelySetText("role", sanitizeString(userInfo.role));
             
-            // Safely set attributes
-            if (userInfo.dni) {
-                safelySetAttribute("appointmentsLink", "href", "/doctor/" + userInfo.dni + "/calendar");
+            // Safely set the appointment link href
+            const appointmentsLink = document.getElementById("appointmentsLink");
+            if (appointmentsLink && userInfo.dni) {
+                // Strictly validate the DNI before using it in a URL
+                const dniValue = userInfo.dni.toString().trim();
+                
+                if (isValidId(dniValue)) {
+                    appointmentsLink.setAttribute("href", "/doctor/" + encodeURIComponent(dniValue) + "/calendar");
+                } else {
+                    // If DNI is not valid, set a safe default link
+                    appointmentsLink.setAttribute("href", "/appointments");
+                    console.error("Invalid DNI format detected");
+                }
             }
         }
     }
