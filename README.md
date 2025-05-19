@@ -17,7 +17,9 @@ BSPQ25-E1 is a Spring Boot-based application developed as part of the BSPQ25 cou
 
 Open a terminal and navigate to the root folder of the project. Then run the following command to start the Spring Boot server:
 
+```bash
 mvn spring-boot:run
+```
 
 Once the application starts, open your web browser and go to: http://localhost:7777  
 The application should now be running and accessible.
