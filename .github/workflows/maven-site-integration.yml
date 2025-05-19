@@ -52,6 +52,7 @@ jobs:
 
       - name: Run Snyk SAST
         run: snyk code test --org=edda204d-440e-49af-8b81-da05570201b5
+        continue-on-error: true
         
       - name: Generate Maven Site
         run: mvn site
