@@ -28,14 +28,21 @@ The application should now be running and accessible.
 
 This project includes three types of tests: unit, integration, and performance. Use the following commands depending on the test type:
 
-Unit Tests:  
+Unit Tests: 80 % coverage according to JaCoCo
+```bash
 mvn test
+```
+
 
 Integration Tests:  
+```bash
 mvn clean verify -Pintegration
+```
 
 Performance Tests:  
+```bash
 mvn clean verify -Pperformance
+```
 
 Ensure that the appropriate Maven profiles (integration, performance) are defined in the pom.xml.
 
@@ -53,5 +60,6 @@ Ensure that the appropriate Maven profiles (integration, performance) are define
 ## 📄 Documentation
 
 To generate the documentation using Doxygen, make sure Doxygen is installed and run:
-
+```bash
 doxygen Doxyfile
+```
