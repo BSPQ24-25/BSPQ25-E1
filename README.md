@@ -1,5 +1,9 @@
 # BSPQ25-E1
 
+## Important Links
+- GitHub Pages: https://bspq24-25.github.io/BSPQ25-E1/
+- Web: https://bspq25-e1.onrender.com
+
 ## Team Members
 
 - Ane Altuna  
