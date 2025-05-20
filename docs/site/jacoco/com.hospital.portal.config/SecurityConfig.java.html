@@ -20,8 +20,8 @@ import org.springframework.security.web.SecurityFilterChain;
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 <span class="fc" id="L22">        return http</span>
-<span class="pc" id="L23">                .csrf(csrf -&gt; csrf.disable()) // Desactiva CSRF para pruebas</span>
-<span class="pc" id="L24">                .authorizeHttpRequests(auth -&gt; auth.anyRequest().permitAll())</span>
+<span class="fc" id="L23">                .csrf(csrf -&gt; csrf.disable()) // Desactiva CSRF para pruebas</span>
+<span class="fc" id="L24">                .authorizeHttpRequests(auth -&gt; auth.anyRequest().permitAll())</span>
 <span class="fc" id="L25">                .build();</span>
     }
 
