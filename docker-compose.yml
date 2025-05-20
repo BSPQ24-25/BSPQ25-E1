@@ -4,7 +4,7 @@ services:
     container_name: spring-boot-app
     restart: unless-stopped
     ports:
-      - "7777:7777"
+      - "8080:8080"
     environment:
       SPRING_PROFILES_ACTIVE: dev
       SUPABASE_URL: https://kngkbphqkyfrzzygpzig.supabase.co 
