@@ -106,4 +106,4 @@ jobs:
 
     steps:
       - name: Deploy to Render
-        run: curl {{ secrets.RENDER_HOOK }}
+        run: curl ${{ secrets.RENDER_HOOK }}
