@@ -48,7 +48,8 @@ Ensure that the appropriate Maven profiles (integration, performance) are define
 
 ## 🧰 Technologies Used
 
-- Spring Boot – Web application framework  
+- Spring Boot – Web application framework
+- Supabase - Cloud-based database (PostgreSQL)
 - Mockito – Mocking framework for unit testing  
 - JUnit – Unit testing framework  
 - JaCoCo – Code coverage analysis  
