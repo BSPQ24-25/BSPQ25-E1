@@ -4,6 +4,11 @@
 - GitHub Pages: https://bspq24-25.github.io/BSPQ25-E1/
 - Web: https://bspq25-e1.onrender.com
 
+## Documentation
+Pages corresponding to documentation:
+1. [Technical documentation](https://bspq24-25.github.io/BSPQ25-E1/doxygen/html/) created with Doxygen
+2. [Test reports](https://bspq24-25.github.io/BSPQ25-E1/site/) created after running Unit, Performance and Integration tests and JaCoCo for coverage
+
 ## Team Members
 
 - Ane Altuna  
@@ -25,7 +30,7 @@ Open a terminal and navigate to the root folder of the project. Then run the fol
 mvn spring-boot:run
 ```
 
-Once the application starts, open your web browser and go to: http://localhost:7777  
+Once the application starts, open your web browser and go to: http://localhost:8080
 The application should now be running and accessible.
 
 ## ✅ Running the Tests

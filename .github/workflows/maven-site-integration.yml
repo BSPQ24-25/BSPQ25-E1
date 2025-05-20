@@ -28,7 +28,7 @@ jobs:
             ${{ runner.os }}-maven-
 
       - name: Install Doxygen
-        run: sudo apt-get update && sudo apt-get install -y doxygen graphviz
+        run: sudo apt-get update && sudo apt-get install -y doxygen graphviz pandoc
 
       - name: Run Unit tests and generate converage report
         run: mvn test jacoco:report
@@ -59,6 +59,11 @@ jobs:
 
       - name: Ensure that the performance reports are also moved into the target\site\reports folder
         run: mvn -Pperformance resources:copy-resources@copy-perf-report
+
+      - name: Convert README.md to index.html
+        run: |
+          mkdir -p docs
+          pandoc README.md -o docs/index.html
 
       - name: Copy site output to docs/site and docs/doxygen folder to docs/doxygen
         run: |
