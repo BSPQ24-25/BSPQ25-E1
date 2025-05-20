@@ -88,13 +88,10 @@
       </div>
       <!-- PATIENTS TAB -->
       <div class="tab-pane fade" id="content-patients" role="tabpanel">
-        <div class="d-flex justify-content-end mb-2">
-          <button id="newPatientBtn" class="btn btn-primary">[[#{admin.home.tab.patients.button}]]</button>
-        </div>
         <table class="table table-striped" id="patientsTable">
           <thead>
             <tr>
-              <th>[[#{admin.home.tab.patients.dni}]]</th><th>[[#{admin.home.tab.patients.name}]]</th><th>[[#{admin.home.tab.patients.surname}]]</th><th>[[#{admin.home.tab.patients.birthDate}]]</th><th>[[#{admin.home.tab.patients.gender}]]</th><th>[[#{admin.home.tab.patients.phone}]]</th><th>[[#{admin.home.tab.patients.email}]]</th><th>[[#{admin.home.tab.patients.actions}]]</th>
+              <th>[[#{admin.home.tab.patients.dni}]]</th><th>[[#{admin.home.tab.patients.name}]]</th><th>[[#{admin.home.tab.patients.surname}]]</th><th>[[#{admin.home.tab.patients.birthDate}]]</th><th>[[#{admin.home.tab.patients.gender}]]</th><th>[[#{admin.home.tab.patients.phone}]]</th><th>[[#{admin.home.tab.patients.email}]]</th>
             </tr>
           </thead>
           <tbody></tbody>
@@ -102,12 +99,11 @@
       </div>
       <!-- DOCTORS TAB -->
       <div class="tab-pane fade" id="content-doctors" role="tabpanel">
-        <div class="d-flex justify-content-end mb-2">
-          <button id="newDoctorBtn" class="btn btn-primary">[[#{admin.home.tab.doctors.button}]]</button>
-        </div>
         <table class="table table-striped" id="doctorsTable">
           <thead>
-            <tr><th>[[#{admin.home.tab.doctors.dni}]]</th><th>[[#{admin.home.tab.doctors.name}]]</th><th>[[#{admin.home.tab.doctors.surname}]]</th><th>[[#{admin.home.tab.doctors.actions}]]</th></tr>
+            <tr>
+                <th>[[#{admin.home.tab.doctors.dni}]]</th><th>[[#{admin.home.tab.doctors.name}]]</th><th>[[#{admin.home.tab.doctors.surname}]]</th>
+            </tr>
           </thead>
           <tbody></tbody>
         </table>
@@ -269,26 +265,6 @@
             tr.appendChild(createCell(p.phone));
             tr.appendChild(createCell(p.email));
             
-            // Create action buttons safely
-            const actionsCell = document.createElement('td');
-            
-            const editBtn = document.createElement('button');
-            editBtn.className = 'btn btn-sm btn-primary edit-pat';
-            editBtn.textContent = editText;
-            editBtn.dataset.dni = p.dni;
-            editBtn.onclick = editPatient;
-            
-            const delBtn = document.createElement('button');
-            delBtn.className = 'btn btn-sm btn-danger del-pat';
-            delBtn.textContent = deleteText;
-            delBtn.dataset.dni = p.dni;
-            delBtn.onclick = deletePatient;
-            
-            actionsCell.appendChild(editBtn);
-            actionsCell.appendChild(document.createTextNode(' ')); // Space between buttons
-            actionsCell.appendChild(delBtn);
-            
-            tr.appendChild(actionsCell);
             tbody.appendChild(tr);
           });
         })
@@ -317,26 +293,6 @@
             tr.appendChild(createCell(d.name));
             tr.appendChild(createCell(d.surname));
             
-            // Create action buttons safely
-            const actionsCell = document.createElement('td');
-            
-            const editBtn = document.createElement('button');
-            editBtn.className = 'btn btn-sm btn-primary edit-doc';
-            editBtn.textContent =  editText;
-            editBtn.dataset.dni = d.dni;
-            editBtn.onclick = editDoctor;
-            
-            const delBtn = document.createElement('button');
-            delBtn.className = 'btn btn-sm btn-danger del-doc';
-            delBtn.textContent = deleteText;
-            delBtn.dataset.dni = d.dni;
-            delBtn.onclick = deleteDoctor;
-            
-            actionsCell.appendChild(editBtn);
-            actionsCell.appendChild(document.createTextNode(' ')); // Space between buttons
-            actionsCell.appendChild(delBtn);
-            
-            tr.appendChild(actionsCell);
             tbody.appendChild(tr);
           });
         })
@@ -395,8 +351,6 @@
     }
 
     function bindNewButtons() {
-      document.getElementById('newPatientBtn').onclick = () => openPatientModal();
-      document.getElementById('newDoctorBtn').onclick  = () => openDoctorModal();
       document.getElementById('newApptBtn').onclick    = () => openAppointmentModal();
     }
     
