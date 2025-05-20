@@ -61,8 +61,8 @@ import com.hospital.portal.repository.PatientRepository;
 <span class="fc" id="L61">                logger.info(&quot;Registering patient with DNI: {}&quot;, dni);</span>
 
 
-<span class="pc bpc" id="L64" title="1 of 4 branches missed.">        if (patientRepository.existsByDni(dni) || patientRepository.existsByMail(mail)) {</span>
-<span class="fc" id="L65">            return &quot;DNI or email are already registered!&quot;;</span>
+<span class="pc bpc" id="L64" title="2 of 4 branches missed.">        if (patientRepository.existsByDni(dni) || patientRepository.existsByMail(mail)) {</span>
+<span class="nc" id="L65">            return &quot;DNI or email are already registered!&quot;;</span>
         }
 
 <span class="fc" id="L68">        Patient newPatient = new Patient();</span>
