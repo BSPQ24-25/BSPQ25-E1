@@ -1,78 +1,72 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>BSPQ25-E1 Project</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 40px;
-      background-color: #f4f4f4;
-      color: #333;
-    }
-    header {
-      text-align: center;
-      padding-bottom: 20px;
-    }
-    main {
-      max-width: 800px;
-      margin: auto;
-      background: white;
-      padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    }
-    footer {
-      text-align: center;
-      margin-top: 40px;
-      font-size: 0.9em;
-      color: #666;
-    }
-  </style>
-</head>
-<body>
-
-
-  <header>
-    <h1>Welcome to BSPQ25-E1</h1>
-    <p>A simple project homepage</p>
-  </header>
-
-
-  <main>
-    <h2>About the Project</h2>
-    <p>
-      BSPQ25-E1 is a software project aimed at showcasing best practices in web development and project structure.
-    </p>
-
-
-    <h2>Getting Started</h2>
-    <p>
-      For setup instructions, source code, and more details, please refer to the README file in the project repository.
-    </p>
-          <h3>Project Documentation</h3>
-          <ul>
-            <li><a href="https://bspq24-25.github.io/BSPQ25-E1/doxygen/html/">Technical documentation</a> created with
-              Doxygen</li>
-          </ul>
-        </section>
-
-
-        <section id="reports" class="link-section">
-          <h3>Test Reports</h3>
-          <ul>
-            <li><a href="https://bspq24-25.github.io/BSPQ25-E1/site/">Test reports</a> created after running Coberture,
-              Unit test, Performance and Integration tests</li>
-          </ul>
-        </section>
-  </main>
-
-
-  <footer>
-    &copy; 2025 BSPQ25-E1 Team. All rights reserved.
-  </footer>
-
-
-</body>
-</html>
+<h1 id="bspq25-e1">BSPQ25-E1</h1>
+<h2 id="important-links">Important Links</h2>
+<ul>
+<li>GitHub Pages: https://bspq24-25.github.io/BSPQ25-E1/</li>
+<li>Web: https://bspq25-e1.onrender.com</li>
+</ul>
+<h2 id="documentation">Documentation</h2>
+<p>Pages corresponding to documentation: 1. <a
+href="https://bspq24-25.github.io/BSPQ25-E1/doxygen/html/">Technical
+documentation</a> created with Doxygen 2. <a
+href="https://bspq24-25.github.io/BSPQ25-E1/site/">Test reports</a>
+created after running Unit, Performance and Integration tests and JaCoCo
+for coverage</p>
+<h2 id="team-members">Team Members</h2>
+<ul>
+<li>Ane Altuna<br />
+</li>
+<li>Iker Ruesgas<br />
+</li>
+<li>Jon Lasa<br />
+</li>
+<li>Izaro Serrano<br />
+</li>
+<li>Isaac Herbozo<br />
+</li>
+<li>Ibon Castro</li>
+</ul>
+<h2 id="project-overview">📦 Project Overview</h2>
+<p>BSPQ25-E1 is a Spring Boot-based application developed as part of the
+BSPQ25 course project. It features clean architecture, unit and
+integration testing, logging, documentation, performance profiling, and
+continuous integration automation using GitHub Actions.</p>
+<h2 id="how-to-run-the-application">🚀 How to Run the Application</h2>
+<p>Open a terminal and navigate to the root folder of the project. Then
+run the following command to start the Spring Boot server:</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">mvn</span> spring-boot:run</span></code></pre></div>
+<p>Once the application starts, open your web browser and go to:
+http://localhost:8080 The application should now be running and
+accessible.</p>
+<h2 id="running-the-tests">✅ Running the Tests</h2>
+<p>This project includes three types of tests: unit, integration, and
+performance. Use the following commands depending on the test type:</p>
+<p>Unit Tests: 80 % coverage according to JaCoCo</p>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">mvn</span> test</span></code></pre></div>
+<p>Integration Tests:</p>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">mvn</span> clean verify <span class="at">-Pintegration</span></span></code></pre></div>
+<p>Performance Tests:</p>
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">mvn</span> clean verify <span class="at">-Pperformance</span></span></code></pre></div>
+<p>Ensure that the appropriate Maven profiles (integration, performance)
+are defined in the pom.xml.</p>
+<h2 id="technologies-used">🧰 Technologies Used</h2>
+<ul>
+<li>Spring Boot – Web application framework</li>
+<li>Supabase - Cloud-based database (PostgreSQL)</li>
+<li>Mockito – Mocking framework for unit testing<br />
+</li>
+<li>JUnit – Unit testing framework<br />
+</li>
+<li>JaCoCo – Code coverage analysis<br />
+</li>
+<li>Log4j – Logging framework<br />
+</li>
+<li>Doxygen – Source code documentation generator<br />
+</li>
+<li>Docker – Containerization platform<br />
+</li>
+<li>GitHub Actions – Continuous integration and automation</li>
+</ul>

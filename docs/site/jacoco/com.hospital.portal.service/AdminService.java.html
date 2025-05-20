@@ -15,16 +15,16 @@ import com.hospital.portal.repository.AppointmentRepository;
 public class AdminService {
 
     private final AppointmentRepository appointmentRepository;
-<span class="fc" id="L18">    private static final Logger logger = LogManager.getLogger(AdminService.class);</span>
+<span class="nc" id="L18">    private static final Logger logger = LogManager.getLogger(AdminService.class);</span>
 
 
     /**
      * @brief Constructor of the AdminService using the appointmentRepository
     */
     @Autowired
-<span class="fc" id="L25">    public AdminService(AppointmentRepository appointmentRepository) {</span>
-<span class="fc" id="L26">        this.appointmentRepository = appointmentRepository;</span>
-<span class="fc" id="L27">    }</span>
+<span class="nc" id="L25">    public AdminService(AppointmentRepository appointmentRepository) {</span>
+<span class="nc" id="L26">        this.appointmentRepository = appointmentRepository;</span>
+<span class="nc" id="L27">    }</span>
 
     /**
      * @brief Looks for all the appointments
@@ -32,8 +32,8 @@ public class AdminService {
      * @return List of all the existing appointments
     */
     public List&lt;Appointment&gt; getAllAppointments() {
-<span class="fc" id="L35">        logger.info(&quot;Returning all Appointments&quot;);</span>
-<span class="fc" id="L36">        return appointmentRepository.findAll();</span>
+<span class="nc" id="L35">        logger.info(&quot;Returning all Appointments&quot;);</span>
+<span class="nc" id="L36">        return appointmentRepository.findAll();</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>
