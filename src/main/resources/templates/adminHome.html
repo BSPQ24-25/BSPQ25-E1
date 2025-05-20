@@ -58,29 +58,29 @@
   </section>
   <!-- Page Title & Tabs -->
   <div class="container">
-    <h1 class="mb-4">Admin Dashboard</h1>
+    <h1 class="mb-4">[[#{admin.home.title}]]</h1>
     <!-- TABS -->
     <ul class="nav nav-tabs" id="adminTabs" role="tablist">
       <li class="nav-item">
-        <button class="nav-link active" id="tab-appointments" data-bs-toggle="tab" data-bs-target="#content-appointments" type="button" role="tab">Appointments</button>
+        <button class="nav-link active" id="tab-appointments" data-bs-toggle="tab" data-bs-target="#content-appointments" type="button" role="tab">[[#{admin.home.tab.appointments}]]</button>
       </li>
       <li class="nav-item">
-        <button class="nav-link" id="tab-patients" data-bs-toggle="tab" data-bs-target="#content-patients" type="button" role="tab">Patients</button>
+        <button class="nav-link" id="tab-patients" data-bs-toggle="tab" data-bs-target="#content-patients" type="button" role="tab">[[#{admin.home.tab.patients}]]</button>
       </li>
       <li class="nav-item">
-        <button class="nav-link" id="tab-doctors" data-bs-toggle="tab" data-bs-target="#content-doctors" type="button" role="tab">Doctors</button>
+        <button class="nav-link" id="tab-doctors" data-bs-toggle="tab" data-bs-target="#content-doctors" type="button" role="tab">[[#{admin.home.tab.doctors}]]</button>
       </li>
     </ul>
     <div class="tab-content">
       <!-- APPOINTMENTS TAB -->
       <div class="tab-pane fade show active" id="content-appointments" role="tabpanel">
         <div class="d-flex justify-content-end mb-2">
-          <button id="newApptBtn" class="btn btn-success">New Appointment</button>
+          <button id="newApptBtn" class="btn btn-success">[[#{admin.home.tab.appointments.button}]]</button>
         </div>
         <table class="table table-striped" id="appointmentsTable">
           <thead>
             <tr>
-              <th>ID</th><th>Patient</th><th>Doctor</th><th>Date</th><th>Start</th><th>End</th><th>Actions</th>
+              <th>[[#{admin.home.tab.appointments.id}]]</th><th>[[#{admin.home.tab.appointments.patient}]]</th><th>[[#{admin.home.tab.appointments.doctor}]]</th><th>[[#{admin.home.tab.appointments.date}]]</th><th>[[#{admin.home.tab.appointments.startTime}]]</th><th>[[#{admin.home.tab.appointments.endTime}]]</th><th>[[#{admin.home.tab.appointments.actions}]]</th>
             </tr>
           </thead>
           <tbody></tbody>
@@ -89,12 +89,12 @@
       <!-- PATIENTS TAB -->
       <div class="tab-pane fade" id="content-patients" role="tabpanel">
         <div class="d-flex justify-content-end mb-2">
-          <button id="newPatientBtn" class="btn btn-primary">New Patient</button>
+          <button id="newPatientBtn" class="btn btn-primary">[[#{admin.home.tab.patients.button}]]</button>
         </div>
         <table class="table table-striped" id="patientsTable">
           <thead>
             <tr>
-              <th>DNI</th><th>Name</th><th>Surname</th><th>Birth Date</th><th>Gender</th><th>Phone</th><th>Email</th><th>Actions</th>
+              <th>[[#{admin.home.tab.patients.dni}]]</th><th>[[#{admin.home.tab.patients.name}]]</th><th>[[#{admin.home.tab.patients.surname}]]</th><th>[[#{admin.home.tab.patients.birthDate}]]</th><th>[[#{admin.home.tab.patients.gender}]]</th><th>[[#{admin.home.tab.patients.phone}]]</th><th>[[#{admin.home.tab.patients.email}]]</th><th>[[#{admin.home.tab.patients.actions}]]</th>
             </tr>
           </thead>
           <tbody></tbody>
@@ -103,11 +103,11 @@
       <!-- DOCTORS TAB -->
       <div class="tab-pane fade" id="content-doctors" role="tabpanel">
         <div class="d-flex justify-content-end mb-2">
-          <button id="newDoctorBtn" class="btn btn-primary">New Doctor</button>
+          <button id="newDoctorBtn" class="btn btn-primary">[[#{admin.home.tab.doctors.button}]]</button>
         </div>
         <table class="table table-striped" id="doctorsTable">
           <thead>
-            <tr><th>DNI</th><th>Name</th><th>Surname</th><th>Actions</th></tr>
+            <tr><th>[[#{admin.home.tab.doctors.dni}]]</th><th>[[#{admin.home.tab.doctors.name}]]</th><th>[[#{admin.home.tab.doctors.surname}]]</th><th>[[#{admin.home.tab.doctors.actions}]]</th></tr>
           </thead>
           <tbody></tbody>
         </table>
@@ -119,38 +119,38 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title">Appointment</h5>
+          <h5 class="modal-title">[[#{admin.home.modal.admin.title}]]</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
         </div>
         <div class="modal-body">
           <form id="apptForm">
             <div class="mb-3">
-              <label for="appt-patient" class="form-label">Patient</label>
+              <label for="appt-patient" class="form-label">[[#{admin.home.modal.admin.patient}]]</label>
               <select id="appt-patient" class="form-select" required></select>
             </div>
             <div class="mb-3">
-              <label for="appt-doctor" class="form-label">Doctor</label>
+              <label for="appt-doctor" class="form-label">[[#{admin.home.modal.admin.patient}]]</label>
               <select id="appt-doctor" class="form-select" required></select>
             </div>
             <div class="mb-3">
-              <label for="appt-date" class="form-label">Date</label>
+              <label for="appt-date" class="form-label">[[#{admin.home.modal.admin.date}]]</label>
               <input type="date" id="appt-date" class="form-control" required>
             </div>
             <div class="mb-3">
-              <label for="appt-start" class="form-label">Start Time</label>
+              <label for="appt-start" class="form-label">[[#{admin.home.modal.admin.startTime}]]</label>
               <input type="time" id="appt-start" class="form-control" required>
             </div>
             <div class="mb-3">
-              <label for="appt-end" class="form-label">End Time</label>
+              <label for="appt-end" class="form-label">[[#{admin.home.modal.admin.endTime}]]</label>
               <input type="time" id="appt-end" class="form-control" required>
             </div>
             <div id="appt-error" class="alert alert-danger d-none"></div>
           </form>
         </div>
         <div class="modal-footer">
-          <button id="saveApptBtn" class="btn btn-primary">Save</button>
-          <button id="deleteApptBtn" class="btn btn-danger">Delete</button>
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button id="saveApptBtn" class="btn btn-primary">[[#{admin.home.modal.button.save}]]</button>
+          <button id="deleteApptBtn" class="btn btn-danger">[[#{admin.home.modal.button.delete}]]</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">[[#{admin.home.modal.button.close}]]</button>
         </div>
       </div>
     </div>
@@ -160,30 +160,30 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title">Patient</h5>
+          <h5 class="modal-title">[[#{admin.home.modal.patient.title}]]</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
         </div>
         <div class="modal-body">
           <form id="patientForm">
-            <div class="mb-3"><label for="pat-dni" class="form-label">DNI</label><input type="text" id="pat-dni" class="form-control" required></div>
-            <div class="mb-3"><label for="pat-name" class="form-label">Name</label><input type="text" id="pat-name" class="form-control" required></div>
-            <div class="mb-3"><label for="pat-surname" class="form-label">Surname</label><input type="text" id="pat-surname" class="form-control" required></div>
-            <div class="mb-3"><label for="pat-birth" class="form-label">Birth Date</label><input type="date" id="pat-birth" class="form-control" required></div>
+            <div class="mb-3"><label for="pat-dni" class="form-label">[[#{admin.home.modal.patient.dni}]]</label><input type="text" id="pat-dni" class="form-control" required></div>
+            <div class="mb-3"><label for="pat-name" class="form-label">[[#{admin.home.modal.patient.name}]]</label><input type="text" id="pat-name" class="form-control" required></div>
+            <div class="mb-3"><label for="pat-surname" class="form-label">[[#{admin.home.modal.patient.surname}]]</label><input type="text" id="pat-surname" class="form-control" required></div>
+            <div class="mb-3"><label for="pat-birth" class="form-label">[[#{admin.home.modal.patient.birthDate}]]</label><input type="date" id="pat-birth" class="form-control" required></div>
             <div class="mb-3">
-              <label for="pat-gender" class="form-label">Gender</label>
+              <label for="pat-gender" class="form-label">[[#{admin.home.modal.patient.gender}]]</label>
               <select id="pat-gender" class="form-select" required>
-                <option value="Male">Male</option><option value="Female">Female</option>
+                <option value="Male">[[#{admin.home.modal.patient.gender.male}]]</option><option value="Female">[[#{admin.home.modal.patient.gender.female}]]</option>
               </select>
             </div>
-            <div class="mb-3"><label for="pat-phone" class="form-label">Phone</label><input type="text" id="pat-phone" class="form-control" required></div>
-            <div class="mb-3"><label for="pat-email" class="form-label">Email</label><input type="email" id="pat-email" class="form-control" required></div>
+            <div class="mb-3"><label for="pat-phone" class="form-label">[[#{admin.home.modal.patient.phone}]]</label><input type="text" id="pat-phone" class="form-control" required></div>
+            <div class="mb-3"><label for="pat-email" class="form-label">[[#{admin.home.modal.patient.email}]]</label><input type="email" id="pat-email" class="form-control" required></div>
             <div id="pat-error" class="alert alert-danger d-none"></div>
           </form>
         </div>
         <div class="modal-footer">
-          <button id="savePatientBtn" class="btn btn-primary">Save</button>
-          <button id="deletePatientBtn" class="btn btn-danger">Delete</button>
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button id="savePatientBtn" class="btn btn-primary">[[#{admin.home.modal.button.save}]]</button>
+          <button id="deletePatientBtn" class="btn btn-danger">[[#{admin.home.modal.button.delete}]]</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">[[#{admin.home.modal.button.close}]]</button>
         </div>
       </div>
     </div>
@@ -193,21 +193,21 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title">Doctor</h5>
+          <h5 class="modal-title">[[#{admin.home.modal.doctor.title}]]</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
         </div>
         <div class="modal-body">
           <form id="doctorForm">
-            <div class="mb-3"><label for="doc-dni" class="form-label">DNI</label><input type="text" id="doc-dni" class="form-control" required></div>
-            <div class="mb-3"><label for="doc-name" class="form-label">Name</label><input type="text" id="doc-name" class="form-control" required></div>
-            <div class="mb-3"><label for="doc-surname" class="form-label">Surname</label><input type="text" id="doc-surname" class="form-control" required></div>
+            <div class="mb-3"><label for="doc-dni" class="form-label">[[#{admin.home.modal.doctor.dni}]]</label><input type="text" id="doc-dni" class="form-control" required></div>
+            <div class="mb-3"><label for="doc-name" class="form-label">[[#{admin.home.modal.doctor.name}]]</label><input type="text" id="doc-name" class="form-control" required></div>
+            <div class="mb-3"><label for="doc-surname" class="form-label">[[#{admin.home.modal.doctor.surname}]]</label><input type="text" id="doc-surname" class="form-control" required></div>
             <div id="doc-error" class="alert alert-danger d-none"></div>
           </form>
         </div>
         <div class="modal-footer">
-          <button id="saveDoctorBtn" class="btn btn-primary">Save</button>
-          <button id="deleteDoctorBtn" class="btn btn-danger">Delete</button>
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button id="saveDoctorBtn" class="btn btn-primary">[[#{admin.home.modal.button.save}]]</button>
+          <button id="deleteDoctorBtn" class="btn btn-danger">[[#{admin.home.modal.button.delete}]]</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">[[#{admin.home.modal.button.close}]]</button>
         </div>
       </div>
     </div>
@@ -218,6 +218,8 @@
   <script src="/js/custom.js"></script>
   <script th:inline="javascript">
   /*<![CDATA[*/
+    const editText   = /*[[#{admin.home.modal.button.edit}]]*/ 'Edit';
+    const deleteText = /*[[#{admin.home.modal.button.delete}]]*/ 'Delete';
     const apptApi     = /*[[ @{/api/admin/appointments} ]]*/ '/api/admin/appointments';
     const patientsApi = /*[[ @{/api/admin/patients} ]]*/ '/api/admin/patients';
     const doctorsApi  = /*[[ @{/api/admin/doctors} ]]*/ '/api/admin/doctors';
@@ -272,13 +274,13 @@
             
             const editBtn = document.createElement('button');
             editBtn.className = 'btn btn-sm btn-primary edit-pat';
-            editBtn.textContent = 'Edit';
+            editBtn.textContent = editText;
             editBtn.dataset.dni = p.dni;
             editBtn.onclick = editPatient;
             
             const delBtn = document.createElement('button');
             delBtn.className = 'btn btn-sm btn-danger del-pat';
-            delBtn.textContent = 'Delete';
+            delBtn.textContent = deleteText;
             delBtn.dataset.dni = p.dni;
             delBtn.onclick = deletePatient;
             
@@ -320,13 +322,13 @@
             
             const editBtn = document.createElement('button');
             editBtn.className = 'btn btn-sm btn-primary edit-doc';
-            editBtn.textContent = 'Edit';
+            editBtn.textContent =  editText;
             editBtn.dataset.dni = d.dni;
             editBtn.onclick = editDoctor;
             
             const delBtn = document.createElement('button');
             delBtn.className = 'btn btn-sm btn-danger del-doc';
-            delBtn.textContent = 'Delete';
+            delBtn.textContent = deleteText;
             delBtn.dataset.dni = d.dni;
             delBtn.onclick = deleteDoctor;
             
@@ -371,13 +373,13 @@
             
             const editBtn = document.createElement('button');
             editBtn.className = 'btn btn-sm btn-primary edit-appt';
-            editBtn.textContent = 'Edit';
+            editBtn.textContent = editText;
             editBtn.dataset.id = a.appointmentId;
             editBtn.onclick = editAppointment;
             
             const delBtn = document.createElement('button');
             delBtn.className = 'btn btn-sm btn-danger del-appt';
-            delBtn.textContent = 'Delete';
+            delBtn.textContent = deleteText;
             delBtn.dataset.id = a.appointmentId;
             delBtn.onclick = deleteAppointment;
             
