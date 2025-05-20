@@ -22,6 +22,21 @@ Pages corresponding to documentation:
 
 BSPQ25-E1 is a Spring Boot-based application developed as part of the BSPQ25 course project. It features clean architecture, unit and integration testing, logging, documentation, performance profiling, and continuous integration automation using GitHub Actions.
 
+## 📦 Burndown chart
+
+Sprint 1 - March 13th -- March 30th
+
+![image](https://github.com/user-attachments/assets/815fd5dc-53f4-41fd-ba59-b64d889ce22f)
+
+Sprint 2 - April 1st -- April 27th
+
+![image](https://github.com/user-attachments/assets/821403f8-5886-4937-94ac-9f74c7cbf224)
+
+Sprint 3 - April 29th -- May 18th
+
+![image](https://github.com/user-attachments/assets/843f52dc-3d0d-473f-b528-556f5f17fd9e)
+
+
 ## 🚀 How to Run the Application
 
 Open a terminal and navigate to the root folder of the project. Then run the following command to start the Spring Boot server:
